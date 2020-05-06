@@ -1,0 +1,30 @@
+ul,
+li {
+  list-style: none;
+  /* padding:0; */
+  /* margin:0; */
+}
+div,
+ul,
+li,
+dl,
+dd,
+dt,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+main,
+section,
+aside,body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a:-webkit-any-link {
+  color: inherit;
+  text-decoration: none;
+}
