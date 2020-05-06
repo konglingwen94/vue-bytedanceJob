@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" :class="{ is_home: $route.name === 'Home' }">
     <div class="logo">
       <a href="#"></a>
     </div>
@@ -29,13 +29,23 @@
 </template>
 <script>
 export default {
-  name: "header",
+  name: "Header",
 };
 </script>
 <style lang="less" scoped>
 .header {
+  color:#aaa;
+  &.is_home {
+    position: absolute;
+    width: 100%;
+    color: #fff;
+    z-index: 10;
+    .active {
+      color: #fff;
+    }
+  }
   display: flex;
-  height: 89px;
+  height: 60px;
   align-items: center;
   padding: 10px 100px;
 }
@@ -58,7 +68,8 @@ export default {
   &-item {
     padding: 4px 20px;
     &.active {
-      border-bottom: 2px solid @main-color;
+      border-bottom: 2px solid;
+      color: @main-color;
     }
   }
 }
