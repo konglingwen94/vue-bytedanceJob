@@ -7,5 +7,8 @@ module.exports={
             preProcessor:'less',
             patterns:path.resolve(__dirname,'src/assets/variable.less')
         }
+    },
+    devServer:{
+        proxy:'http://localhost:3000'
     }
 }
