@@ -55,6 +55,132 @@
         </li>
       </ul>
     </div>
+
+    <!-- 字节范 -->
+    <div class="byteStandard">
+      <h2 class="title">字节范</h2>
+      <div class="desc">
+        字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则
+      </div>
+      <div class="content">
+        <div class="image">
+          <img
+            v-if="byteStandards[byteStandardActiveIndex]"
+            width="100%"
+            height="100%"
+            :src="byteStandards[byteStandardActiveIndex].image"
+            alt=""
+          />
+        </div>
+        <div class="indicator">
+          <ul>
+            <li
+              class="indicator-item"
+              v-for="(item, index) in byteStandards"
+              :key="index"
+            >
+              <h3
+                :class="{ active: byteStandardActiveIndex === index }"
+                @click="byteStandardActiveIndex = index"
+              >
+                {{ item.title }}
+              </h3>
+              <p
+                v-html="item.content"
+                v-show="byteStandardActiveIndex === index"
+              ></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 字节生活 -->
+    <div class="byteLife">
+      <h1 class="byteLife-title">字节生活</h1>
+      <div class="block-item block-item-one">
+        <div class="block-item-column block-item-column-text">
+          <h2 class="block-item-column-title">在扁平开放的氛围 里工作</h2>
+          <div class="content">
+            <div class="content-item">
+              <h2 class="content-item-title">务实扁平的工作氛围</h2>
+              <p class="content-item-desc">
+                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
+              </p>
+            </div>
+            <div class="content-item">
+              <h2 class="content-item-title">务实扁平的工作氛围</h2>
+              <p class="content-item-desc">
+                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
+              </p>
+            </div>
+            <div class="content-item">
+              <h2 class="content-item-title">务实扁平的工作氛围</h2>
+              <p class="content-item-desc">
+                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="block-item-column block-item-column-image">
+          <img
+            src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="block-item block-item-one">
+        <div class="block-item-column block-item-column-text">
+          <h2 class="block-item-column-title">在扁平开放的氛围 里工作</h2>
+          <div class="content">
+            <div class="content-item">
+              <h2 class="content-item-title">务实扁平的工作氛围</h2>
+              <p class="content-item-desc">
+                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
+              </p>
+            </div>
+            <div class="content-item">
+              <h2 class="content-item-title">务实扁平的工作氛围</h2>
+              <p class="content-item-desc">
+                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
+              </p>
+            </div>
+            <div class="content-item">
+              <h2 class="content-item-title">务实扁平的工作氛围</h2>
+              <p class="content-item-desc">
+                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="block-item-column block-item-column-image">
+          <img
+            src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- 员工故事 -->
+    <div class="staffStory">
+      <ul class="staffStory-list clearfix">
+        <li v-for="item in staffStories" :key="item.id" class="staffStory-item">
+          <div class="avatar">
+            <img width="100%" :src="item.avatar" alt="" srcset="" />
+          </div>
+          <div class="text">
+            <h2>{{ item.title }}</h2>
+            <div class="desc">
+              {{ item.name }}&nbsp;|&nbsp;{{ item.department }}
+            </div>
+            <p class="remark">{{ item.remark }}</p>
+          </div>
+          <div class="circular-button">→</div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -68,6 +194,9 @@ export default {
       search: "",
       products: [],
       jobCategories: [],
+      byteStandards: [],
+      byteStandardActiveIndex: 0,
+      staffStories: [],
     };
   },
   created() {
@@ -82,7 +211,12 @@ export default {
       .then((response) => {
         this.jobCategories = response;
       });
-
+    this.request.get("/byte-standards").then((response) => {
+      this.byteStandards = response;
+    });
+    this.request.get("/staff-stories").then((response) => {
+      this.staffStories = response;
+    });
     // Promise.all([fetchProducts(), fetchJobCategories()]);
   },
 };
@@ -191,6 +325,7 @@ export default {
   margin-top: 90px;
 
   &-list {
+    overflow: hidden;
     margin-top: 70px;
   }
   &-item {
@@ -214,9 +349,9 @@ export default {
         display: inline-block;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0,0.5);
+        background-color: rgba(0, 0, 0, 0.5);
         color: #fff;
-        
+
         font-size: 40px;
       }
     }
@@ -224,6 +359,145 @@ export default {
     margin: 0 2.5%;
     margin-bottom: 30px;
     width: 20%;
+  }
+}
+
+// 字节范
+
+.byteStandard {
+  padding: 40px 40px;
+  overflow: hidden;
+  .title {
+    margin-bottom: 30px;
+  }
+  .desc {
+    margin-bottom: 40px;
+  }
+  .image {
+    float: left;
+    width: 700px;
+    height: 450px;
+    margin-right: 100px;
+    overflow: hidden;
+    img {
+      border-radius: 6px;
+      object-fit: cover;
+    }
+  }
+  .indicator {
+    color: #aaa;
+
+    &-item {
+      margin: 32px 0;
+      h3 {
+        &.active {
+          color: black;
+          font-size: 32px;
+          font-weight: 400;
+        }
+        cursor: pointer;
+      }
+    }
+  }
+}
+// 字节生活
+.byteLife {
+  // width:1200px;
+  // overflow: hidden;
+  &-title {
+    margin-bottom: 70px;
+  }
+  padding-left: 10%;
+  .block-item {
+    overflow: hidden;
+    margin-bottom: 100px;
+    &:nth-child(odd) {
+      .block-item-column {
+        &-text {
+          margin-right: 9%;
+        }
+        float: left;
+      }
+    }
+    &:nth-child(even) {
+      .block-item-column {
+        &-image {
+          margin-right: 9%;
+        }
+        float: right;
+      }
+    }
+
+    &-column {
+      &-title {
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid #ccc;
+      }
+      &-text {
+        width: 30%;
+      }
+      &-image {
+        height: 400px;
+        width: 59%;
+        border-radius: 8px;
+        overflow: hidden;
+        img {
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}
+
+.staffStory {
+  padding: 140px;
+  // color:#ccc;
+  &-list {
+    text-align: center;
+  }
+  &-item {
+    height: 400px;
+    overflow: hidden;
+    padding: 30px;
+    float: left;
+    width: 25%;
+    & + & {
+      margin-left: 12.5%;
+    }
+    .avatar {
+      width: 70%;
+      margin: auto;
+    }
+    .text {
+      .remark {
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .circular-button {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      border: 1px solid;
+      line-height: 30px;
+      // padding: 4px;
+      margin: auto;
+      margin-top: 20px;
+      color: #ccc;
+      // font-size: 30px;
+    }
+
+    &:hover {
+      box-shadow: 0 0 5px 0 #ccc;
+      .circular-button {
+        color: @main-color;
+      }
+    }
   }
 }
 </style>
