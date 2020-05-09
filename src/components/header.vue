@@ -14,7 +14,7 @@
           <a :href="href" @click="navigate">职位</a>
         </li>
       </router-link>
-      <router-link to="productAndService" v-slot="{ href, navigate, isActive }">
+      <router-link to="products" v-slot="{ href, navigate, isActive }">
         <li class="navbar-item" :class="{ active: isActive }">
           <a :href="href" @click="navigate">产品与服务</a>
         </li>
