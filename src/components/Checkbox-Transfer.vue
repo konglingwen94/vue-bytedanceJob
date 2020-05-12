@@ -10,13 +10,12 @@
           @change="check(item, $event)"
           type="checkbox"
           name
-          v-model="checked[index]"
+          :checked="checked[index]"
         />
         <span>{{ item[props.label] }}</span>
       </li>
     </ul>
     <div class="search" v-if="sourceData.length">
-     
       <input
         @blur="onInputBlur"
         @focus="focusing = true"
@@ -43,12 +42,17 @@ export default {
   name: "checkbox-transfer",
   data() {
     return {
-      checked: [],
+      // checked: [],
       focusing: false,
       filterKeyword: "",
+      targets: [],
     };
   },
   props: {
+    targetCount: {
+      type: Number,
+      default: 5,
+    },
     data: {
       type: Array,
       default: () => [],
@@ -69,25 +73,39 @@ export default {
   },
 
   computed: {
+    // targets(){
+    //   return this.data.slice(this.targetCount).map(item=>item[this.props.key])
+    // },
+    checked() {
+      return this.targets.map((key) => this.value.includes(key));
+
+      this.targets.forEach((key) => {
+        // checked;
+      });
+    },
     targetData() {
       // return this.data.filter(
       //   (item) => this.value.indexOf(item[this.props.key]) > -1
       // );
 
-      return this.value.map((key) => {
-        return this.data.find((item) => item[this.props.key] === key);
-      });
+      return this.targets
+        .map((key) => {
+          return this.data.find((item) => item[this.props.key] === key);
+        })
+        .filter((item) => item && item[this.props.key]);
+
+      // return this.data.slice(this.targetCount);
     },
     sourceData() {
       return this.data.filter(
-        (item) => this.value.indexOf(item[this.props.key]) === -1
+        (item) => this.targets.indexOf(item[this.props.key]) === -1
       );
     },
-    checkedValue() {
-      return this.targetData
-        .filter((item, index) => this.checked[index])
-        .map((item) => item[this.props.key]);
-    },
+    // checkedValue() {
+    //   return this.targetData
+    //     .filter((item, index) => this.checked[index])
+    //     .map((item) => item[this.props.key]);
+    // },
     filterableData() {
       return this.sourceData.filter((item) => {
         return item[this.props.label].startsWith(this.filterKeyword);
@@ -97,16 +115,49 @@ export default {
       return !this.focusing ? "更多" : "搜索";
     },
   },
+  created() {
+    // const unwatch = this.$watch(
+    //   "data",
+    //   () => {
+    //     if (unwatch) {
+    //       // unwatch();
+    //     }
+    //   },
+    //   { immediate: true }
+    // );
+    // this.targets = this.data.slice(0, 6).map((item) => item[this.props.key]);
+    // this.checked.length = this.targets.length;
+    // this.value.forEach((key) => {
+    //   if (!this.targets.includes(key)) {
+    //     this.targets.push(key);
+    //     this.checked.push(true);
+    //   }else{
+    //     // this.$set(this.)
+    //   }
+    // });
+  },
   watch: {
     checked() {
       this.$emit("change", this.checkedValue);
     },
-    ["targetData.length"]: {
-      handler(newLen) {
-        this.checked.length = newLen;
-      },
-      immediate: true,
+    data() {
+      this.targets = this.data.slice(0, 6).map((item) => item[this.props.key]);
+      this.checked.length = this.targets.length;
+      this.value.forEach((key) => {
+        if (!this.targets.includes(key)) {
+          this.targets.push(key);
+          this.checked.push(true);
+        } else {
+          // this.$set(this.)
+        }
+      });
     },
+    // ["targetData.length"]: {
+    //   handler(newLen) {
+    //     this.checked.length = newLen;
+    //   },
+    //   immediate: true,
+    // },
   },
   methods: {
     clearChecked() {
@@ -120,16 +171,31 @@ export default {
       }, 200);
     },
     addToTarget(item) {
-      this.value.push(item[this.props.key]);
+      if (item[this.props.key]) {
+        this.targets.push(item[this.props.key]);
+        this.value.push(item[this.props.key]);
+      }
 
-      this.$nextTick(() => {
-        this.$set(this.checked, this.checked.length - 1, true);
-      });
+      // this.$nextTick(() => {
+      //   this.$set(this.checked, this.checked.length - 1, true);
+      // });
       this.filterKeyword = "";
     },
     check(item, e) {
+      if (!e.target.checked) {
+        const delIndex = this.value.indexOf(item[this.props.key]);
+        if (delIndex > -1) {
+          this.value.splice(delIndex, 1);
+        }
+      } else {
+        if (!this.value.includes(item[this.props.key])) {
+          this.value.push(item[this.props.key]);
+        }
+      }
+
+      // if (this.value.includes(item[this.props.key]))
       this.$emit("check", e.target.checked, item[this.props.key]);
-      // this.$emit("input", this.value);
+      this.$emit("input", this.value);
     },
   },
 };
