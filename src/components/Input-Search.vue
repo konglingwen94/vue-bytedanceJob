@@ -38,7 +38,7 @@ export default {
     color: #fff;
     text-align: center;
     position: absolute;
-    right: -21px;
+    right: 0;
     border-radius: 0 20px 20px 0;
     top: 0;
     width: 50px;
