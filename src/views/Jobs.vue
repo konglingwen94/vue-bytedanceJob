@@ -32,10 +32,10 @@
       </div>
 
       <div class="content">
-        <h2>开启新的职位 ({{ results.count }})</h2>
+        <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
           <li class="content-item" v-for="item in results.job_post_list" :key="item.id">
-            <h2 class="title">{{ item.title }}</h2>
+            <h3 class="title">{{ item.title }}</h3>
 
             <div class="subTitle">
               <span class="city">{{ item.city_info.name }}</span>
@@ -91,8 +91,9 @@ export default {
   },
   methods: {
     clearFilter() {
-      this.$refs.location.clearChecked();
-      this.$refs.jobCategory.clearChecked();
+      this.job_category_id_list=[]
+      this.location_code_list=[]
+       
     },
     fetchList(query) {
       this.request
@@ -110,21 +111,30 @@ export default {
   height: 400px;
   margin-bottom: 70px;
   background-image: url("//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/joblistbanner2x.jpg");
-  // visibility: visible;
+   
+}
+.search-wrapper {
+  width: 500px;
+  margin:-100px auto 100px;
 }
 .main {
   padding: 0 100px;
   .aside-filter {
     float: left;
-    width: 200px;
-    margin-right: 40px;
+    width: 300px;
+    padding-right: 70px;
     .header {
+      font-size:14px;
       display: flex;
       justify-content: space-between;
+      margin-bottom: 20px;
+      border-bottom:1px solid #ccc;
+      padding-bottom:20px;
       width: 100%;
       .clear {
+        cursor: pointer;
         color: @main-color;
-        // float: abs();
+         
       }
     }
     .job-filter-block {
@@ -133,14 +143,16 @@ export default {
   }
 
   .content {
-    padding-left: 40px;
+    padding-left: 70px;
     border-left: 1px solid #aaa;
-    margin-left: 200px;
+    margin-left: 300px;
     &-title {
       margin-bottom: 40px;
     }
     &-item {
       margin-bottom: 30px;
+      padding:30px;
+      cursor:pointer;
       .title {
         margin-bottom: 30px;
       }
@@ -150,7 +162,7 @@ export default {
       &:hover {
         border-radius: 3px;
         background: #fff;
-        box-shadow: 0 0 3px 0 #eee;
+        box-shadow: 0 0 3px 0 #ccc;
       }
     }
   }
