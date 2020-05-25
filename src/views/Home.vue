@@ -5,9 +5,9 @@
         <video
           class="video"
           preload="auto"
-          loop=""
-          playsinline=""
-          autoplay=""
+          loop
+          playsinline
+          autoplay
           poster="//sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/video-poster_1576231362701.png"
           src="//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/gongquhunjian_1080.min.mp4"
           tabindex="-1"
@@ -21,37 +21,30 @@
     </div>
 
     <!-- 产品 -->
-    <div class="product">
-      <h2 class="title">Inspire creativity, enrich life</h2>
-      <div class="desc">
-        截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种
+    <transition appear>
+      <div class="product">
+        <h2 class="title">Inspire creativity, enrich life</h2>
+        <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
+        <ul class="product-list">
+          <li class="product-item" v-for="(item, key) in products" :key="key">
+            <img :src="item.logo" alt />
+            <div>{{ item.title }}</div>
+          </li>
+        </ul>
+        <div class="more">
+          <span class="more-button">了解更多</span>
+        </div>
       </div>
-      <ul class="product-list">
-        <li class="product-item" v-for="(item, key) in products" :key="key">
-          <img :src="item.logo" alt="" />
-          <div>{{ item.title }}</div>
-        </li>
-      </ul>
-      <div class="more">
-        <span class="more-button">了解更多</span>
-      </div>
-    </div>
-
+    </transition>
     <!-- 职位 -->
     <div class="job-category">
       <h2 class="job-category-title">探索你感兴趣的职位</h2>
       <ul class="job-category-list">
-        <li
-          v-for="item in jobCategories"
-          :key="item.id"
-          class="job-category-item"
-        >
+        <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
           <div class="image" :style="`backgroundImage:url(${item.image})`">
             <span class="overlay" v-if="!item.id">{{ item.zh_name }}</span>
           </div>
-          <div v-if="item.id" class="name">
-            {{ item.zh_name }}
-          </div>
+          <div v-if="item.id" class="name">{{ item.zh_name }}</div>
         </li>
       </ul>
     </div>
@@ -59,9 +52,7 @@
     <!-- 字节范 -->
     <div class="byteStandard">
       <h2 class="title">字节范</h2>
-      <div class="desc">
-        字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则
-      </div>
+      <div class="desc">字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则</div>
       <div class="content">
         <div class="image">
           <img
@@ -69,26 +60,17 @@
             width="100%"
             height="100%"
             :src="byteStandards[byteStandardActiveIndex].image"
-            alt=""
+            alt
           />
         </div>
         <div class="indicator">
           <ul>
-            <li
-              class="indicator-item"
-              v-for="(item, index) in byteStandards"
-              :key="index"
-            >
+            <li class="indicator-item" v-for="(item, index) in byteStandards" :key="index">
               <h3
                 :class="{ active: byteStandardActiveIndex === index }"
                 @click="byteStandardActiveIndex = index"
-              >
-                {{ item.title }}
-              </h3>
-              <p
-                v-html="item.content"
-                v-show="byteStandardActiveIndex === index"
-              ></p>
+              >{{ item.title }}</h3>
+              <p v-html="item.content" v-show="byteStandardActiveIndex === index"></p>
             </li>
           </ul>
         </div>
@@ -104,29 +86,20 @@
           <div class="content">
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
           </div>
         </div>
         <div class="block-item-column block-item-column-image">
-          <img
-            src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png"
-            alt=""
-          />
+          <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
         </div>
       </div>
 
@@ -136,45 +109,35 @@
           <div class="content">
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
           </div>
         </div>
         <div class="block-item-column block-item-column-image">
-          <img
-            src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png"
-            alt=""
-          />
+          <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
         </div>
       </div>
     </div>
 
     <!-- 员工故事 -->
     <div class="staffStory">
+      <h2>员工故事</h2>
       <ul class="staffStory-list clearfix">
         <li v-for="item in staffStories" :key="item.id" class="staffStory-item">
           <div class="avatar">
-            <img width="100%" :src="item.avatar" alt="" srcset="" />
+            <img width="100%" :src="item.avatar" alt srcset />
           </div>
           <div class="text">
             <h2>{{ item.title }}</h2>
-            <div class="desc">
-              {{ item.name }}&nbsp;|&nbsp;{{ item.department }}
-            </div>
+            <div class="desc">{{ item.name }}&nbsp;|&nbsp;{{ item.department }}</div>
             <p class="remark">{{ item.remark }}</p>
           </div>
           <div class="circular-button">→</div>
@@ -196,31 +159,36 @@ export default {
       jobCategories: [],
       byteStandards: [],
       byteStandardActiveIndex: 0,
-      staffStories: [],
+      staffStories: []
     };
   },
   created() {
     const fetchProducts = this.request
       .get("/products")
-      .then((response) => {
+      .then(response => {
         this.products = response;
       })
       .catch();
     const fetchJobCategories = this.request
       .get("/job-categories")
-      .then((response) => {
+      .then(response => {
         this.jobCategories = response;
       });
-    this.request.get("/byte-standards").then((response) => {
+    this.request.get("/byte-standards").then(response => {
       this.byteStandards = response;
     });
-    this.request.get("/staff-stories").then((response) => {
+    this.request.get("/staff-stories").then(response => {
       this.staffStories = response;
     });
     // Promise.all([fetchProducts(), fetchJobCategories()]);
-  },
+  }
 };
 </script>
+
+<style>
+@import "../assets/transition.css"; 
+</style>
+
 <style lang="less" scoped>
 .banner {
   height: 100vh;

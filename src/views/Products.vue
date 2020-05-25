@@ -11,7 +11,7 @@
         <img :src="item.logo" alt />
       </li>
     </ul>
-    <transition duration="400" :name="transitionName" >
+    <transition :duration="duration" :name="transitionName">
       <!-- ... the buttons ... -->
       <div :key="activeIndex" class="view-wrapper" :style="`backgroundImage:url(${item.cover})`">
         <div class="content">
@@ -29,29 +29,6 @@
         </div>
       </div>
     </transition>
-
-    <!-- <ul class="product-fullpage-list"> -->
-
-    <!-- <li
-        class="product-fullpage-item"
-        :class="{ active: activeIndex === index }"
-        v-for="(item, index) in products"
-        :key="item.id"
-        :style="`backgroundImage:url(${item.cover})`"
-      >
-        <div class="content">
-          <div class="logo">
-            <img :src="item.logo" width="100%" height="100%" alt="" />
-          </div>
-          <h2>{{ item.title }}</h2>
-          <div class="description">{{ item.description }}</div>
-          <div class="subDescription">{{ item.subDescription }}</div>
-          <div class="link">
-            更多信息，请访问：<br /><span>{{ item.link }}</span>
-          </div>
-        </div>
-    </li>-->
-    <!-- </ul> -->
   </div>
 </template>
 <script>
@@ -61,11 +38,15 @@ export default {
     return {
       products: [],
       activeIndex: 0,
-      transitionName: "move-up"
+      transitionName: "move-up",
+      scrolling: false,
+      duration: 1000
     };
   },
   watch: {
     activeIndex(newIndex, oldIndex) {
+      // if(newIndex<oldIndex && newIndex!==)
+      if (this.scrolling) return;
       this.transitionName = newIndex < oldIndex ? "move-down" : "move-up";
     }
   },
@@ -77,12 +58,44 @@ export default {
       })
       .catch();
   },
+  mounted() {
+    window.addEventListener("mousewheel", this.mousewheelHandler);
+  },
+  destroyed() {
+    window.removeEventListener("mousewheel", this.mousewheelHandler);
+  },
   computed: {
     item() {
       return this.products[this.activeIndex] || {};
     }
   },
-  methods: {}
+  methods: {
+    mousewheelHandler(e) {
+      if (this.scrolling) {
+        return;
+      }
+      this.scrolling = true;
+      if (e.wheelDelta > 0) {
+        this.transitionName = "move-down";
+        if (this.activeIndex === 0) {
+          this.activeIndex = this.products.length - 1;
+        } else {
+          this.activeIndex--;
+        }
+      } else {
+        this.transitionName = "move-up";
+        if (this.activeIndex === this.products.length - 1) {
+          this.activeIndex = 0;
+          setTimeout(() => {});
+        } else {
+          this.activeIndex++;
+        }
+      }
+      setTimeout(() => {
+        this.scrolling = false;
+      }, this.duration);
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
