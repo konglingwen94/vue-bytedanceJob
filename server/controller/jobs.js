@@ -48,8 +48,8 @@ module.exports = {
     // res.send('Hello Express')
      
 
-    const {  limit = 10, offset = 0 } = req.query;
-    const {keyword = "",job_category_id_list,location_code_list}=req.body
+    // const {   } = req.query;
+    const {limit = 10, offset = 0,keyword = "",job_category_id_list,location_code_list}=req.body
     const query = {
       keyword,
       limit: parseInt(limit) || 10,
