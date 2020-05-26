@@ -7,14 +7,15 @@
 
     <div class="main">
       <!-- 侧边栏过滤选择 -->
-      <div class="aside-filter">
+      <div class="clearfix aside-filter">
         <div class="header">
           <span>选择</span>
-          <span class="clear" @click="clearFilter">清空</span>
+          <span :class="{clearable}" class="clear" @click="clearFilter">清空</span>
         </div>
         <div class="job-category job-filter-block">
           <div class="title"></div>
           <checkbox-transfer
+            title="职位"
             ref="jobCategory"
             v-model="job_category_id_list"
             :props="{ key: 'id', label: 'name' }"
@@ -24,6 +25,7 @@
         <div class="job-city job-filter-block">
           <div class="title"></div>
           <checkbox-transfer
+            title="城市"
             ref="location"
             v-model="location_code_list"
             :props="{ key: 'code', label: 'name' }"
@@ -31,7 +33,7 @@
           ></checkbox-transfer>
         </div>
       </div>
-      <!-- 职位列表 -->
+      <!-- 主体内容 -->
       <div class="content">
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
@@ -39,13 +41,14 @@
             <h3 class="title">{{ item.title }}</h3>
 
             <div class="subTitle">
-              <span class="city">{{ item.city_info.name }}</span>
-              <span class="job_category">{{ item.job_category.name }}</span>
+              <span class="city">{{ item.city_info.name }}</span>&nbsp;|
+              <span class="job_category">{{ item.job_category.name }}</span>&nbsp;|
               <span class="recruitment_channel">社招</span>
             </div>
             <p class="desc">{{ item.description }}</p>
           </li>
         </ul>
+        <!-- 分页器 -->
         <div class="pagination-wrapper">
           <pagination :current-page.sync="currentPage" :total="results.count"></pagination>
         </div>
@@ -88,6 +91,9 @@ export default {
         keyword: this.searchKeyword,
         offset: Math.max(0, this.currentPage - 1) * 10
       };
+    },
+    clearable() {
+      return this.job_category_id_list.length || this.location_code_list.length;
     }
   },
   watch: {
@@ -125,45 +131,53 @@ export default {
   margin: -100px auto 100px;
 }
 .main {
-  padding: 0 100px;
+  padding: 0 100px 0 200px;
   .aside-filter {
     float: left;
     width: 300px;
-    padding-right: 70px;
+    padding-right: 20px;
     .header {
       font-size: 14px;
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
       border-bottom: 1px solid #ccc;
-      padding-bottom: 20px;
+      padding-bottom: 10px;
       width: 100%;
       .clear {
+        &.clearable{
+          color: @main-color;
+
+        }
         cursor: pointer;
-        color: @main-color;
       }
     }
     .job-filter-block {
-      margin-bottom: 70px;
+      margin-bottom: 40px;
     }
   }
 
   .content {
-    padding-left: 70px;
-    border-left: 1px solid #aaa;
+    padding-left: 20px;
+    border-left: 1px solid @light-border-color;
     margin-left: 300px;
     &-title {
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      margin-left: 20px;
     }
     &-item {
-      margin-bottom: 30px;
-      padding: 30px;
+      margin-bottom: 10px;
+      padding: 10px 20px;
       cursor: pointer;
       .title {
-        margin-bottom: 30px;
+        margin: 12px 0;
       }
       .desc {
-        white-space: pre-wrap;
+        white-space: pre-line;
+        font-size: 14px;
+        color: #999;
+        .text-overflow-visible-line(2);
+        text-overflow: clip;
       }
       &:hover {
         border-radius: 3px;
@@ -171,8 +185,8 @@ export default {
         box-shadow: 0 0 3px 0 #ccc;
       }
     }
-    .pagination-wrapper{
-      margin-top:30px;
+    .pagination-wrapper {
+      margin-top: 30px;
       text-align: right;
     }
   }

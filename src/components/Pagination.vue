@@ -55,7 +55,7 @@ export default {
         1,
         Math.min(this.currentPage, this.totalPage)
       );
-      console.log("currentPage=", currentPage);
+       
 
       if (this.totalPage <= this.pagerCount) {
         for (let i = 1; i <= this.totalPage; i++) {

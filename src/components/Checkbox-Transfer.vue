@@ -1,9 +1,16 @@
 <template>
   <div class="checkbox">
+    <h2>{{title}}</h2>
+
     <ul class="checkbox-list">
       <li class="checkbox-item" v-for="(item, index) in targetData" :key="index">
-        <input @change="check(item, $event)" type="checkbox" name :checked="checked[index]" />
-        <span>{{ item[props.label] }}</span>
+        <input
+          @change="check(item, $event)"
+          type="checkbox"
+          :id="item[props.key]"
+          :checked="checked[index]"
+        />
+        <label :for="item[props.key]" class="label-text">{{ item[props.label] }}</label>
       </li>
     </ul>
     <div class="search" v-if="sourceData.length">
@@ -39,6 +46,7 @@ export default {
     };
   },
   props: {
+    title: String,
     targetCount: {
       type: Number,
       default: 5
@@ -144,7 +152,21 @@ export default {
 <style lang="less" scoped>
 .checkbox {
   max-width: 200px;
+  h2 {
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
   &-item {
+    margin-bottom: 3px;
+      cursor: pointer;
+    input,
+    label {
+      cursor: pointer;
+    }
+    .label-text {
+      margin-left: 3px;
+      vertical-align: middle;
+    }
     &:hover {
       border-color: @main-color;
     }

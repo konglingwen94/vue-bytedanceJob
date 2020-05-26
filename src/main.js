@@ -8,6 +8,8 @@ import request from "@/helper/request";
 Vue.config.productionTip = false;
 Vue.prototype.request = request;
 
+
+
 new Vue({
   router,
   render: (h) => h(App),
