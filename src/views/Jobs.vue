@@ -6,6 +6,7 @@
     </div>
 
     <div class="main">
+      <!-- 侧边栏过滤选择 -->
       <div class="aside-filter">
         <div class="header">
           <span>选择</span>
@@ -30,7 +31,7 @@
           ></checkbox-transfer>
         </div>
       </div>
-
+      <!-- 职位列表 -->
       <div class="content">
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
@@ -45,6 +46,9 @@
             <p class="desc">{{ item.description }}</p>
           </li>
         </ul>
+        <div class="pagination-wrapper">
+          <pagination :current-page.sync="currentPage" :total="results.count"></pagination>
+        </div>
       </div>
     </div>
   </div>
@@ -55,6 +59,7 @@ export default {
   data() {
     return {
       searchKeyword: "",
+      currentPage: 1,
       job_category_id_list: [],
       jobCategories: [],
       jobCities: [],
@@ -80,7 +85,8 @@ export default {
       return {
         job_category_id_list: this.job_category_id_list,
         location_code_list: this.location_code_list,
-        keyword: this.searchKeyword
+        keyword: this.searchKeyword,
+        offset: Math.max(0, this.currentPage - 1) * 10
       };
     }
   },
@@ -91,14 +97,16 @@ export default {
   },
   methods: {
     clearFilter() {
-      this.job_category_id_list=[]
-      this.location_code_list=[]
-       
+      this.job_category_id_list = [];
+      this.location_code_list = [];
     },
     fetchList(query) {
       this.request
         .post("/jobs", query)
         .then(response => {
+          if (this.results.count !== response.count) {
+            this.currentPage = 1;
+          }
           this.results = response;
         })
         .catch();
@@ -111,11 +119,10 @@ export default {
   height: 400px;
   margin-bottom: 70px;
   background-image: url("//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/joblistbanner2x.jpg");
-   
 }
 .search-wrapper {
   width: 500px;
-  margin:-100px auto 100px;
+  margin: -100px auto 100px;
 }
 .main {
   padding: 0 100px;
@@ -124,17 +131,16 @@ export default {
     width: 300px;
     padding-right: 70px;
     .header {
-      font-size:14px;
+      font-size: 14px;
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
-      border-bottom:1px solid #ccc;
-      padding-bottom:20px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 20px;
       width: 100%;
       .clear {
         cursor: pointer;
         color: @main-color;
-         
       }
     }
     .job-filter-block {
@@ -151,8 +157,8 @@ export default {
     }
     &-item {
       margin-bottom: 30px;
-      padding:30px;
-      cursor:pointer;
+      padding: 30px;
+      cursor: pointer;
       .title {
         margin-bottom: 30px;
       }
@@ -164,6 +170,10 @@ export default {
         background: #fff;
         box-shadow: 0 0 3px 0 #ccc;
       }
+    }
+    .pagination-wrapper{
+      margin-top:30px;
+      text-align: right;
     }
   }
 }
