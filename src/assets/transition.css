@@ -1,8 +1,0 @@
-.v-enter-active,
-.v-leave-active {
-  transition: all 1s;
-}
-
-.v-enter {
-  transform: translateY(-40px);
-}
