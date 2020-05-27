@@ -1,25 +1,37 @@
 <template>
   <div :class="size" class="input-search">
     <i class="prefix-icon">🔍</i>
-    <input v-bind="$attrs" type="text" v-model="value" @input="$emit('input', value)" />
-    <span @click="$emit('search', value)" class="input-search-button">搜索</span>
+    <input
+      v-bind="$attrs"
+      ref="input"
+      type="text"
+      :value="value"
+      @change="(e)=>$emit('change',e.target.value)"
+    />
+    <span @click="search" class="input-search-button">搜索</span>
   </div>
 </template>
 <script>
 export default {
   name: "input-search",
-  data() {
-    return {
-      value: ""
-    };
+  model: {
+     
+    event: "change"
   },
   props: {
+    value: String,
     size: {
       type: String,
       default: "medium",
       validator(value) {
         return ["small", "medium", "large"].includes(value);
       }
+    }
+  },
+  methods: {
+    search() {
+       
+      this.$emit("search", this.$refs.input.value);
     }
   }
 };
@@ -36,13 +48,11 @@ export default {
   &.small {
     height: 40px;
     font-size: 14px;
-    // border-radius: 14px;
+     
   }
-  // &.small{
-  //   line-height:23px;
-  // }
+   
   &.large {
-    // border-radius: 30px;
+    
     height: 60px;
     font-size: 20px;
   }
@@ -64,7 +74,7 @@ export default {
     padding-left: 1.8em;
   }
   &-button {
-    // line-height: 20px;
+    
     padding: 9px;
     cursor: pointer;
     color: #fff;

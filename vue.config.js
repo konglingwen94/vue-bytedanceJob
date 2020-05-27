@@ -5,7 +5,7 @@ module.exports={
         'style-resources-loader':{
 
             preProcessor:'less',
-            patterns:path.resolve(__dirname,'src/assets/variable.less')
+            patterns:[path.resolve(__dirname,'src/assets/style/variable.less'),path.resolve(__dirname,'src/assets/style/mixin.less')]
         }
     },
     devServer:{

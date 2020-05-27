@@ -13,7 +13,7 @@
     </ul>
     <transition :duration="duration" :name="transitionName">
       <!-- ... the buttons ... -->
-      <div :key="activeIndex" class="view-wrapper" :style="`backgroundImage:url(${item.cover})`">
+      <div :key="activeIndex" class="view-wrapper" v-if="!loading" :style="`backgroundImage:url(${item.cover})`">
         <div class="content">
           <div class="logo">
             <img :src="item.logo" width="100%" height="100%" alt />
@@ -38,23 +38,42 @@ export default {
     return {
       products: [],
       activeIndex: 0,
-      transitionName: "move-up",
+      transitionName: "",
       scrolling: false,
-      duration: 1000
+      duration: 1000,
+      loading: false
     };
   },
   watch: {
     activeIndex(newIndex, oldIndex) {
-      // if(newIndex<oldIndex && newIndex!==)
-      if (this.scrolling) return;
+       
+      if (this.scrolling ) {
+         
+        return
+      };
+      if (this.$route.params.id) {
+         delete this.$route.params.id
+        return;
+      }
+
       this.transitionName = newIndex < oldIndex ? "move-down" : "move-up";
     }
   },
   created() {
+    this.loading = true;
     this.request
       .get("/products")
       .then(response => {
         this.products = response;
+        this.loading = false;
+
+        if (this.$route.params.id) {
+           
+          
+          this.activeIndex = this.products.findIndex(
+            item => item.id === this.$route.params.id
+          );
+        }
       })
       .catch();
   },

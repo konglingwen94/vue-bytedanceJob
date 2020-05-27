@@ -2,7 +2,7 @@
   <div class="jobs">
     <div class="banner"></div>
     <div class="search-wrapper">
-      <input-search @search="value=>searchKeyword=value"></input-search>
+      <input-search v-model="searchKeyword"></input-search>
     </div>
 
     <div class="main">
@@ -60,10 +60,11 @@
 export default {
   name: "job",
   data() {
+    const { keyword = "", job_category_id = "" } = this.$route.params;
     return {
-      searchKeyword: "",
+      searchKeyword: keyword,
       currentPage: 1,
-      job_category_id_list: [],
+      job_category_id_list: job_category_id ? [job_category_id] : [],
       jobCategories: [],
       jobCities: [],
       location_code_list: [],
@@ -97,18 +98,16 @@ export default {
     }
   },
   watch: {
-    queryFilter(query) {
-      this.fetchList(query);
-    }
+    queryFilter: "fetchList"
   },
   methods: {
     clearFilter() {
       this.job_category_id_list = [];
       this.location_code_list = [];
     },
-    fetchList(query) {
+    fetchList() {
       this.request
-        .post("/jobs", query)
+        .post("/jobs", this.queryFilter)
         .then(response => {
           if (this.results.count !== response.count) {
             this.currentPage = 1;
@@ -127,7 +126,7 @@ export default {
   background-image: url("//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/joblistbanner2x.jpg");
 }
 .search-wrapper {
-  width: 500px;
+  width: 800px;
   margin: -100px auto 100px;
 }
 .main {
@@ -145,9 +144,8 @@ export default {
       padding-bottom: 10px;
       width: 100%;
       .clear {
-        &.clearable{
+        &.clearable {
           color: @main-color;
-
         }
         cursor: pointer;
       }
@@ -159,12 +157,13 @@ export default {
 
   .content {
     padding-left: 20px;
-    border-left: 1px solid @light-border-color;
+    border-left: 1px solid @border-lighter-color;
     margin-left: 300px;
     &-title {
       margin-bottom: 30px;
       margin-left: 20px;
     }
+
     &-item {
       margin-bottom: 10px;
       padding: 10px 20px;
@@ -172,17 +171,20 @@ export default {
       .title {
         margin: 12px 0;
       }
+      .subTitle {
+        color: @regular-text-color;
+      }
       .desc {
         white-space: pre-line;
         font-size: 14px;
-        color: #999;
+        color: @secondary-text-color;
         .text-overflow-visible-line(2);
         text-overflow: clip;
       }
       &:hover {
         border-radius: 3px;
         background: #fff;
-        box-shadow: 0 0 3px 0 #ccc;
+        box-shadow: 0 10px 30px 0 rgba(136, 150, 171, 0.15);
       }
     }
     .pagination-wrapper {

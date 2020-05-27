@@ -15,7 +15,7 @@
       </div>
       <h1 class="title">和优秀的人 做有挑战的事</h1>
       <div class="search">
-        <input-search placeholder="placeholder" v-model="search"></input-search>
+        <input-search @search="searchJobs"   size="small" placeholder="placeholder"></input-search>
       </div>
       <span class="arrow-down"></span>
     </div>
@@ -26,14 +26,21 @@
         <h2 class="title">Inspire creativity, enrich life</h2>
         <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
         <ul class="product-list">
-          <li class="product-item" v-for="(item, key) in products" :key="key">
+          <li
+            class="product-item"
+            v-for="(item, key) in products"
+            :key="key"
+            @click="jumpToDetail(item)"
+          >
             <img :src="item.logo" alt />
             <div>{{ item.title }}</div>
           </li>
         </ul>
-        <div class="more">
-          <span class="more-button">了解更多</span>
-        </div>
+        <router-link to="/products">
+          <div class="more">
+            <span class="more-button">了解更多</span>
+          </div>
+        </router-link>
       </div>
     </transition>
     <!-- 职位 -->
@@ -41,10 +48,12 @@
       <h2 class="job-category-title">探索你感兴趣的职位</h2>
       <ul class="job-category-list">
         <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
-          <div class="image" :style="`backgroundImage:url(${item.image})`">
-            <span class="overlay" v-if="!item.id">{{ item.zh_name }}</span>
-          </div>
-          <div v-if="item.id" class="name">{{ item.zh_name }}</div>
+          <router-link :to="{name:'jobs',params:{job_category_id:item.id}}">
+            <div class="image" :style="`backgroundImage:url(${item.image})`">
+              <span class="overlay" v-if="!item.id">{{ item.zh_name }}</span>
+            </div>
+            <div v-if="item.id" class="name">{{ item.zh_name }}</div>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -180,13 +189,20 @@ export default {
     this.request.get("/staff-stories").then(response => {
       this.staffStories = response;
     });
-    // Promise.all([fetchProducts(), fetchJobCategories()]);
+  },
+  methods: {
+    searchJobs(keyword) {
+      this.$router.push({ name: "jobs", params: { keyword } });
+    },
+    jumpToDetail(item) {
+      this.$router.push({ name: "products", params: item });
+    }
   }
 };
 </script>
 
 <style>
-@import "../assets/transition.css"; 
+/* @import "../assets/transition.css";  */
 </style>
 
 <style lang="less" scoped>
@@ -219,7 +235,7 @@ export default {
     margin-top: 150px;
   }
   .search {
-    width: 300px;
+    width: 500px;
     margin-top: 100px;
     margin-bottom: 40px;
   }
