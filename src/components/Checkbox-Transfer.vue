@@ -18,11 +18,12 @@
         @blur="onInputBlur"
         @focus="focusing = true"
         class="search-input"
+        :class="{focusing}"
         :placeholder="placeholder"
         type="text"
         v-model="filterKeyword"
       />
-      <ul class="search-list" v-if="focusing">
+      <ul class="search-list" v-show="focusing">
         <li
           v-for="item in filterableData"
           :key="item[props.key]"
@@ -158,7 +159,7 @@ export default {
   }
   &-item {
     margin-bottom: 3px;
-      cursor: pointer;
+    cursor: pointer;
     input,
     label {
       cursor: pointer;
@@ -174,7 +175,7 @@ export default {
 }
 .search {
   position: relative;
-  margin-left: 30px;
+
   &-placeholder {
     cursor: pointer;
     border-bottom: 1px solid #aaa;
@@ -182,19 +183,30 @@ export default {
   &-input {
     border-width: 0 0 1px 0;
     outline: none;
+    width: 100%;
+    padding: 5px;
+
+    &.focusing {
+      border-color: @main-color;
+    }
   }
   &-list {
+    padding-top: 10px;
     position: absolute;
-    height: 300px;
-    padding: 0 20px;
+
+    z-index: 10000;
+    background-color: #fff;
+    max-height: 300px;
     width: 100%;
     overflow: auto;
     line-height: 30px;
+    box-shadow: 0 10px 30px 0 rgba(136, 150, 171, 0.15);
   }
   &-item {
+    padding: 0 20px;
     &:hover {
       cursor: pointer;
-      background: #eee;
+      background: @bg-base-color;
     }
   }
 }
