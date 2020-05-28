@@ -12,6 +12,7 @@ router.get('/staff-stories/:id',staffStoryController.queryOne)
 
 // jobs routes
 router.post("/jobs", jobController.queryList);
+router.get("/jobs/:id", jobController.queryOne);
 
 router.get("/job-filters",jobController.queryFilters);
 router.get("/job-categories",jobController.queryJobCategoryList);

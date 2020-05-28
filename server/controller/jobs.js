@@ -44,18 +44,41 @@ function getToken() {
 }
 
 module.exports = {
+  queryOne(req,res) {
+    const id=req.params.id
+    fetch(
+      `https://job.bytedance.com/api/v1/job/posts/${id}?portal_type=2&_signature=yG3fiAAAAAA.j3g6Dz7uK8ht35AAJar&portal_type=2`,
+      {
+        credentials: "include",
+        headers: {},
+        referrer:
+          "https://job.bytedance.com/society/position/detail",
+        referrerPolicy: "no-referrer-when-downgrade",
+        body: null,
+        method: "GET",
+        mode: "cors",
+      }
+    ).then(data=>{
+      res.json(data)
+    }).catch(res.json)
+  },
   async queryList(req, res) {
     // res.send('Hello Express')
-     
 
     // const {   } = req.query;
-    const {limit = 10, offset = 0,keyword = "",job_category_id_list,location_code_list}=req.body
+    const {
+      limit = 10,
+      offset = 0,
+      keyword = "",
+      job_category_id_list,
+      location_code_list,
+    } = req.body;
     const query = {
       keyword,
       limit: parseInt(limit) || 10,
       offset: parseInt(offset) || 0,
       job_category_id_list,
-      location_code_list
+      location_code_list,
     };
     const defaultParams = {
       location_code_list: [],
@@ -93,8 +116,7 @@ module.exports = {
         referrer:
           "https://job.bytedance.com/society/position?keywords=&category=&location=&type=&job_hot_flag=&current=1&limit=10",
         referrerPolicy: "no-referrer-when-downgrade",
-        body:
-         JSON.stringify(body),
+        body: JSON.stringify(body),
         method: "POST",
         mode: "cors",
       }
