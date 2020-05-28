@@ -38,14 +38,16 @@
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
           <li class="content-item" v-for="item in results.job_post_list" :key="item.id">
-            <h3 class="title">{{ item.title }}</h3>
+            <router-link :to="`/jobs/${item.id}`">
+              <h3 class="title">{{ item.title }}</h3>
 
-            <div class="subTitle">
-              <span class="city">{{ item.city_info.name }}</span>&nbsp;|
-              <span class="job_category">{{ item.job_category.name }}</span>&nbsp;|
-              <span class="recruitment_channel">社招</span>
-            </div>
-            <p class="desc">{{ item.description }}</p>
+              <div class="subTitle">
+                <span class="city">{{ item.city_info.name }}</span>&nbsp;|
+                <span class="job_category">{{ item.job_category.name }}</span>&nbsp;|
+                <span class="recruitment_channel">社招</span>
+              </div>
+              <p class="desc">{{ item.description }}</p>
+            </router-link>
           </li>
         </ul>
         <!-- 分页器 -->
