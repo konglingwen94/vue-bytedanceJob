@@ -15,7 +15,7 @@
       </div>
       <h1 class="title">和优秀的人 做有挑战的事</h1>
       <div class="search">
-        <input-search @search="searchJobs"   size="small" placeholder="placeholder"></input-search>
+        <input-search @search="searchJobs" size="small" placeholder="placeholder"></input-search>
       </div>
       <span class="arrow-down"></span>
     </div>
@@ -46,7 +46,7 @@
     <!-- 职位 -->
     <div class="job-category">
       <h2 class="job-category-title">探索你感兴趣的职位</h2>
-      <ul class="job-category-list">
+      <ul class="job-category-list clearfix">
         <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
           <router-link :to="{name:'jobs',params:{job_category_id:item.id}}">
             <div class="image" :style="`backgroundImage:url(${item.image})`">
@@ -140,17 +140,23 @@
     <div class="staffStory">
       <h2>员工故事</h2>
       <ul class="staffStory-list clearfix">
-        <li v-for="item in staffStories" :key="item.id" class="staffStory-item">
+        <router-link
+          tag="li"
+          :to="`/staff-stories/${item.id}`"
+          v-for="item in staffStories"
+          :key="item.id"
+          class="staffStory-item"
+        >
           <div class="avatar">
             <img width="100%" :src="item.avatar" alt srcset />
           </div>
           <div class="text">
-            <h2>{{ item.title }}</h2>
+            <h2 class="title">{{ item.title }}</h2>
             <div class="desc">{{ item.name }}&nbsp;|&nbsp;{{ item.department }}</div>
             <p class="remark">{{ item.remark }}</p>
           </div>
           <div class="circular-button">→</div>
-        </li>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -309,25 +315,29 @@ export default {
   margin-top: 90px;
 
   &-list {
-    overflow: hidden;
     margin-top: 70px;
   }
   &-item {
     float: left;
+    margin-bottom: 16px;
     .image {
       width: 250px;
       height: 250px;
       line-height: 250px;
+      background-repeat: no-repeat;
       background-size: 100%;
       border-radius: 50%;
       margin: 0 auto;
-      margin-bottom: 30px;
+
       transition: all 0.3s;
       background-position: center;
       overflow: hidden;
       &:hover {
         box-shadow: 0 0 8px 1px #ccc;
         background-size: 110%;
+        & + .name {
+          color: @main-color;
+        }
       }
       .overlay {
         display: inline-block;
@@ -339,7 +349,10 @@ export default {
         font-size: 40px;
       }
     }
-
+    .name {
+      margin-top: 23px;
+      font-size: @font-size-large;
+    }
     margin: 0 2.5%;
     margin-bottom: 30px;
     width: 20%;
@@ -437,25 +450,50 @@ export default {
 
 .staffStory {
   padding: 140px;
-  // color:#ccc;
+
   &-list {
     text-align: center;
+    margin-top: 30px;
   }
   &-item {
-    height: 400px;
+    // height: 450px;
     overflow: hidden;
     padding: 30px;
     float: left;
-    width: 25%;
+    width: 30%;
+    cursor: pointer;
+
     & + & {
-      margin-left: 12.5%;
+      margin-left: 3.3%;
+    }
+
+    &:hover {
+      box-shadow: 0 10px 30px 0 @box-shadow-hover-color;
+      .circular-button {
+        color: @main-color;
+      }
     }
     .avatar {
       width: 70%;
       margin: auto;
     }
     .text {
+      .title {
+        color: @primary-text-color;
+        font-weight: @font-weight-regular;
+        font-size: @font-size-large;
+        margin: 10px 0;
+        white-space: nowrap;
+      }
+      .desc {
+        color: @primary-text-color;
+        margin: 12px 0;
+        font-size: @font-size-base;
+      }
       .remark {
+        font-size: @font-size-base;
+
+        color: @regular-text-color;
         -webkit-box-orient: vertical;
         display: -webkit-box;
         -webkit-line-clamp: 3;
@@ -469,18 +507,10 @@ export default {
       height: 30px;
       border: 1px solid;
       line-height: 30px;
-      // padding: 4px;
+
       margin: auto;
       margin-top: 20px;
       color: #ccc;
-      // font-size: 30px;
-    }
-
-    &:hover {
-      box-shadow: 0 0 5px 0 #ccc;
-      .circular-button {
-        color: @main-color;
-      }
     }
   }
 }
