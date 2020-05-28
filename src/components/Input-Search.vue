@@ -7,6 +7,7 @@
       type="text"
       :value="value"
       @change="(e)=>$emit('change',e.target.value)"
+      @keypress.enter="search"
     />
     <span @click="search" class="input-search-button">搜索</span>
   </div>

@@ -4,17 +4,17 @@
       <a href="#"></a>
     </div>
     <ul class="navbar">
-      <router-link to="home" v-slot="{ href, navigate, isActive }">
+      <router-link to="/" exact v-slot="{ href, navigate, isActive }">
         <li class="navbar-item" :class="{ active: isActive }">
           <a :href="href" @click="navigate">主页</a>
         </li>
       </router-link>
-      <router-link to="jobs" v-slot="{ href, navigate, isActive }">
+      <router-link exact to="/jobs" v-slot="{ href, navigate, isActive }">
         <li class="navbar-item" :class="{ active: isActive }">
           <a :href="href" @click="navigate">职位</a>
         </li>
       </router-link>
-      <router-link to="products" v-slot="{ href, navigate, isActive }">
+      <router-link to="/products" v-slot="{ href, navigate, isActive }">
         <li class="navbar-item" :class="{ active: isActive }">
           <a :href="href" @click="navigate">产品与服务</a>
         </li>
