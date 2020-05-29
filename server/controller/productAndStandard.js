@@ -6,7 +6,7 @@ module.exports={
         res.json(productList)
     },
     queryByteStandards(req,res){
-        console.log('-=====',byteStandards)
+         
         res.json(byteStandards)
     }
 }
