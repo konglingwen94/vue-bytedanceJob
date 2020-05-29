@@ -1,5 +1,5 @@
 <template>
-  <div class="header" :class="{ is_home: $route.name === 'Home' }">
+  <div class="header" :class="[{ fixedToTop, },themeColor]">
     <div class="logo">
       <a href="#"></a>
     </div>
@@ -28,26 +28,41 @@
   </div>
 </template>
 <script>
+// import { watchScrollDirection } from "@/helper/utilities.js";
 export default {
   name: "Header",
+  props: {
+    fixedToTop: {
+      type: Boolean,
+      default: false
+    },
+    themeColor: {
+      type: String,
+      default: "main-color"
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
 .header {
-  color:#aaa;
-  &.is_home {
-    position: absolute;
-    width: 100%;
-    color: #fff;
-    z-index: 10;
-    .active {
-      color: #fff;
-    }
-  }
+  color: #aaa;
+
   display: flex;
   height: 60px;
   align-items: center;
   padding: 10px 100px;
+  &.fixedToTop {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+     
+  }
+  &.is-transparent {
+    color: #fff;
+    .active {
+      color: #fff;
+    }
+  }
 }
 
 .logo {

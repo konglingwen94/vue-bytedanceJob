@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="banner">
+    <div ref="banner" class="banner">
       <div class="video-wrapper">
         <video
           class="video"
@@ -164,6 +164,7 @@
 
 <script>
 // @ is an alias to /src
+import { watchScrollDirection } from "@/helper/utilities.js";
 
 export default {
   name: "home",
@@ -203,6 +204,17 @@ export default {
     jumpToDetail(item) {
       this.$router.push({ name: "products", params: item });
     }
+  },
+  mounted() {
+    
+    const rootVm = this.$root;
+    this.unwatch = watchScrollDirection(window, function(...args) {
+      // console.log(direction);
+      rootVm.$emit("home-scrolling", ...args);
+    });
+  },
+  destroyed() {
+    this.unwatch();
   }
 };
 </script>

@@ -1,7 +1,13 @@
 <template>
   <div id="app">
-    <header :class="{isHome:$route.name==='Home'}">
-      <Header></Header>
+    <header>
+      <Header
+        @animationstart.native="onAnimationStart"
+        ref="header"
+        :class="animationName"
+        :fixedToTop="$route.path==='/'"
+        :theme-color="themeColor"
+      ></Header>
     </header>
     <main>
       <router-view></router-view>
@@ -16,12 +22,71 @@
 // import Footer from "@/components/footer";
 export default {
   name: "App",
-  components: {
-    // Header,
-    // Footer,
+  data() {
+    return {
+      homeScrollY: 0,
+      // themeColor: this.$route.path==='/'?'is-transparent':'main-color',
+      animationName: ""
+    };
   },
+  computed: {
+    themeColor() {
+      return this.$route.path !== "/"
+        ? "main-color"
+        : this.homeScrollY < Math.max(400, window.innerHeight)
+        ? "is-transparent"
+        : "main-color";
+    }
+  },
+  created() {
+    this.$root.$on("home-scrolling", (direction, pos) => {
+      this.homeScrollY = pos.y;
+
+      if (direction.directionY === -1) {
+        this.animationName = "slideInDown";
+      } else {
+        this.animationName = "slideOutUp";
+      }
+    });
+  },
+  methods: {
+    onAnimationStart(e) {
+      if (e.animationName === "slideInDown") {
+        e.target.style.top = 0;
+      }
+    }
+  },
+  mounted() {
+    this.$refs.header.$el.addEventListener("animationend", function(e) {
+      if (e.animationName === "slideOutUp") {
+        e.target.style.top = "-100%";
+      }
+    });
+    // this.$refs.header.$el.addEventListener("animationstart", function(e) {});
+  }
 };
 </script>
-<style lang="less">
-
+<style lang="less"  >
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slideOutUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+.slideInDown {
+  animation: slideInDown .4s;
+}
+.slideOutUp {
+  animation: slideOutUp .4s;
+}
 </style>
