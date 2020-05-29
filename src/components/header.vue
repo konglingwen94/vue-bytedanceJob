@@ -1,7 +1,7 @@
 <template>
   <div class="header" :class="[{ fixedToTop, },themeColor]">
     <div class="logo">
-      <a href="#">
+      <a href="/">
         <svg v-show="themeColor==='is-transparent'" width="197" height="35">
           <defs>
             <path id="logo-white_svg__a" d="M.424.45h5.404v7.767H.424z" />
@@ -212,7 +212,7 @@
   </div>
 </template>
 <script>
-// import { watchScrollDirection } from "@/helper/utilities.js";
+ 
 export default {
   name: "Header",
   props: {
@@ -255,8 +255,7 @@ export default {
   width: 200px;
   height: 100%;
   a {
-    // background-image: url(http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg);
-    // width: 200px;
+     
     height: 100%;
     display: block;
   }
