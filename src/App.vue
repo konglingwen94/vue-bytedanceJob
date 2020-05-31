@@ -18,14 +18,13 @@
   </div>
 </template>
 <script>
-// import Header from "@/components/header";
-// import Footer from "@/components/footer";
+ 
 export default {
   name: "App",
   data() {
     return {
       homeScrollY: 0,
-      // themeColor: this.$route.path==='/'?'is-transparent':'main-color',
+     
       animationName: ""
     };
   },
@@ -62,7 +61,7 @@ export default {
         e.target.style.top = "-100%";
       }
     });
-    // this.$refs.header.$el.addEventListener("animationstart", function(e) {});
+   
   }
 };
 </script>
