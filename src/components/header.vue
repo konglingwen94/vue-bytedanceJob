@@ -207,8 +207,8 @@
       <li class="navbar-item">
         <a href="https://job.bytedance.com/campus/" target="_blank">校园招聘</a>
       </li>
-    </ul>
-    <div class="login">login</div>
+    </ul>|
+    <div class="login" @click="onLogin">登录</div>
   </div>
 </template>
 <script>
@@ -222,6 +222,11 @@ export default {
     themeColor: {
       type: String,
       default: "main-color"
+    }
+  },
+  methods: {
+    onLogin() {
+      alert("正在开发中...");
     }
   }
 };
@@ -271,7 +276,7 @@ export default {
 .navbar {
   margin-left: auto;
   margin-right: 20px;
-  border-right: 1px solid #aaa;
+
   display: flex;
   &-item {
     padding: 4px 20px;
@@ -281,5 +286,8 @@ export default {
       color: @main-color;
     }
   }
+}
+.login{
+  margin-left:40px;
 }
 </style>

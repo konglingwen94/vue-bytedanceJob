@@ -9,7 +9,6 @@
 export default {
   name: "bytedance-button",
   props: {
-    buttonText: String,
     size: {
       type: String,
       default: "medium",
@@ -32,7 +31,7 @@ export default {
   overflow: hidden;
   border-radius: 20px;
   position: relative;
-  cursor:pointer;
+  cursor: pointer;
   &:hover :after {
     content: "";
     position: absolute;
