@@ -5,6 +5,7 @@
         <video
           class="video"
           preload="auto"
+          muted
           loop
           playsinline
           autoplay
@@ -17,12 +18,17 @@
       <div class="search">
         <input-search @search="searchJobs" size="small" placeholder="placeholder"></input-search>
       </div>
-      <span class="arrow-down"></span>
+      <div class="bottom-tips">
+        <span class="arrow-down" @click="scrollDown">
+          <i>⤓</i>
+        </span>
+        <span class="vertical-dashed"></span>
+      </div>
     </div>
 
     <!-- 产品 -->
-    <transition appear>
-      <div class="product">
+    
+      <div ref="product" class="product">
         <h2 class="title">Inspire creativity, enrich life</h2>
         <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
         <ul class="product-list">
@@ -42,7 +48,7 @@
           </div>
         </router-link>
       </div>
-    </transition>
+     
     <!-- 职位 -->
     <div class="job-category">
       <h2 class="job-category-title">探索你感兴趣的职位</h2>
@@ -64,6 +70,11 @@
       <div class="desc">字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则</div>
       <div class="content">
         <div class="image">
+          <span
+            v-show="productLayerVisible"
+            class="layer"
+            @animationend="onScrollRightAnimationEnd"
+          ></span>
           <img
             v-if="byteStandards[byteStandardActiveIndex]"
             width="100%"
@@ -77,7 +88,7 @@
             <li class="indicator-item" v-for="(item, index) in byteStandards" :key="index">
               <h3
                 :class="{ active: byteStandardActiveIndex === index }"
-                @click="byteStandardActiveIndex = index"
+                @click="()=>{byteStandardActiveIndex = index;productLayerVisible=true}"
               >{{ item.title }}</h3>
               <p v-html="item.content" v-show="byteStandardActiveIndex === index"></p>
             </li>
@@ -170,6 +181,7 @@ export default {
   name: "home",
   data() {
     return {
+      productLayerVisible: true,
       search: "",
       products: [],
       jobCategories: [],
@@ -198,6 +210,15 @@ export default {
     });
   },
   methods: {
+    onScrollRightAnimationEnd() {
+      this.productLayerVisible = false;
+    },
+    scrollDown() {
+      this.$refs.product.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    },
     searchJobs(keyword) {
       this.$router.push({ name: "jobs", params: { keyword } });
     },
@@ -206,10 +227,13 @@ export default {
     }
   },
   mounted() {
-    
     const rootVm = this.$root;
+    rootVm.$emit(
+      "home-scrolling",
+      { directionX: 1, directionY: -1 },
+      { x: document.body.scrollLeft, y: document.body.scrollTop }
+    );
     this.unwatch = watchScrollDirection(window, function(...args) {
-      // console.log(direction);
       rootVm.$emit("home-scrolling", ...args);
     });
   },
@@ -224,6 +248,30 @@ export default {
 </style>
 
 <style lang="less" scoped>
+@keyframes verticalMotion {
+  0% {
+    transform: translateY(6px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(6px);
+  }
+}
+@keyframes scrollToRight {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+    // right:100%;
+    // transform: translateX(100%);
+    // width: 50%;
+  }
+}
+
 .banner {
   height: 100vh;
   min-height: 400px;
@@ -257,14 +305,39 @@ export default {
     margin-top: 100px;
     margin-bottom: 40px;
   }
-  .arrow-down {
+  .bottom-tips {
     margin-top: auto;
-    margin-bottom: 40px;
-    width: 40px;
-    height: 40px;
+    width: 50px;
     flex-shrink: 0;
-    border-radius: 50%;
-    border: 1px solid #fff;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    .arrow-down {
+      margin-bottom: 4px;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      text-align: center;
+      line-height: 40px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 21px;
+      i {
+        animation: verticalMotion 1.3s infinite linear;
+        display: inline-block;
+        font-style: normal;
+      }
+    }
+    .vertical-dashed {
+      border-left: 1px dashed #fff;
+      height: 30px;
+      margin-top: auto;
+      display: block;
+    }
   }
 }
 
@@ -273,6 +346,10 @@ export default {
   margin-top: 40px;
   text-align: center;
   padding: 40px 40px;
+  background: url(//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/global.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0 370px;
   .desc {
     margin: 40px 0;
   }
@@ -282,11 +359,12 @@ export default {
     width: 100%;
   }
   &-item {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    // height: 90px;
+    cursor: pointer;
     &:nth-child(1),
     &:nth-child(9) {
-      margin-top: 106px;
+      margin-top: 116px;
     }
     &:nth-child(2),
     &:nth-child(8) {
@@ -300,9 +378,23 @@ export default {
     &:nth-child(6) {
       margin-top: 30px;
     }
+    &:hover {
+      color: @main-color;
+      img {
+        border-radius: 19px;
+
+        transform: scale(1.2);
+        transform-origin: bottom;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+    }
     img {
-      width: 100%;
-      height: 100%;
+      width: 90px;
+      height: 90px;
+      border-radius: 19px;
+
+      margin-bottom: 10px;
+      transition: transform 0.3s;
     }
   }
   .more {
@@ -382,15 +474,29 @@ export default {
   .desc {
     margin-bottom: 40px;
   }
-  .image {
-    float: left;
-    width: 700px;
-    height: 450px;
-    margin-right: 100px;
-    overflow: hidden;
-    img {
-      border-radius: 6px;
-      object-fit: cover;
+  .content {
+    .image {
+      .layer {
+        // left: -100%;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.8);
+        position: absolute;
+        animation: scrollToRight 0.8s ease-in-out;
+      }
+
+      position: relative;
+
+      float: left;
+      width: 700px;
+      height: 450px;
+      margin-right: 100px;
+      overflow: hidden;
+      img {
+        border-radius: 6px;
+        object-fit: cover;
+      }
     }
   }
   .indicator {
@@ -461,7 +567,7 @@ export default {
 }
 
 .staffStory {
-  padding: 140px;
+  padding: 0 140px;
 
   &-list {
     text-align: center;
