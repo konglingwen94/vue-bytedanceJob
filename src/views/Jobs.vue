@@ -1,6 +1,6 @@
 <template>
   <div class="jobs">
-    <div class="banner"></div>
+    <div class="banner">和优秀的人，做有挑战的事</div>
     <div class="search-wrapper">
       <input-search v-model="searchKeyword"></input-search>
     </div>
@@ -124,8 +124,15 @@ export default {
 <style lang="less" scoped>
 .banner {
   height: 400px;
+  line-height: 400px;
+  color: #fff;
   margin-bottom: 70px;
   background-image: url("//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/joblistbanner2x.jpg");
+  background-size: 186%;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  font-size:@font-size-larger;
 }
 .search-wrapper {
   width: 800px;

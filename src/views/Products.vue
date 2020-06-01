@@ -13,7 +13,12 @@
     </ul>
     <transition :duration="duration" :name="transitionName">
       <!-- ... the buttons ... -->
-      <div :key="activeIndex" class="view-wrapper" v-if="!loading" :style="`backgroundImage:url(${item.cover})`">
+      <div
+        :key="activeIndex"
+        class="view-wrapper"
+        v-if="!loading"
+        :style="`backgroundImage:url(${item.cover})`"
+      >
         <div class="content">
           <div class="logo">
             <img :src="item.logo" width="100%" height="100%" alt />
@@ -46,13 +51,11 @@ export default {
   },
   watch: {
     activeIndex(newIndex, oldIndex) {
-       
-      if (this.scrolling ) {
-         
-        return
-      };
+      if (this.scrolling) {
+        return;
+      }
       if (this.$route.params.id) {
-         delete this.$route.params.id
+        delete this.$route.params.id;
         return;
       }
 
@@ -68,8 +71,6 @@ export default {
         this.loading = false;
 
         if (this.$route.params.id) {
-           
-          
           this.activeIndex = this.products.findIndex(
             item => item.id === this.$route.params.id
           );
@@ -160,11 +161,15 @@ export default {
       width: 40px;
       height: 40px;
       cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 50%;
+      overflow: hidden;
 
       &:hover,
       &.active {
         transform: scale(1.3);
-        box-shadow: 0 0 4px 0 #ccc;
+
+        box-shadow: 0 0 14px 0 @box-shadow-dark-color;
       }
       img {
         width: 100%;

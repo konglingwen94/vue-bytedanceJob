@@ -12,7 +12,7 @@
     <main>
       <router-view></router-view>
     </main>
-    <footer>
+    <footer v-if="$route.name!=='products'">
       <Footer></Footer>
     </footer>
   </div>
@@ -87,5 +87,9 @@ export default {
 }
 .slideOutUp {
   animation: slideOutUp .4s;
+}
+
+footer{
+  margin-top:100px;
 }
 </style>
