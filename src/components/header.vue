@@ -212,7 +212,6 @@
   </div>
 </template>
 <script>
- 
 export default {
   name: "Header",
   props: {
@@ -242,9 +241,19 @@ export default {
   }
   &.main-color {
     background-color: rgba(255, 255, 255, 0.8);
+    .navbar-item {
+      &:hover {
+        color: @main-color;
+      }
+    }
   }
   &.is-transparent {
     color: #fff;
+    .navbar-item {
+      &:hover {
+        color: #ccc;
+      }
+    }
     .active {
       color: #fff;
     }
@@ -255,7 +264,6 @@ export default {
   width: 200px;
   height: 100%;
   a {
-     
     height: 100%;
     display: block;
   }
@@ -267,6 +275,7 @@ export default {
   display: flex;
   &-item {
     padding: 4px 20px;
+
     &.active {
       border-bottom: 2px solid;
       color: @main-color;
