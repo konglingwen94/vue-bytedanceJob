@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div ref="banner" class="banner">
+    <div ref="banner" class="banner content-item-block">
       <div class="video-wrapper">
         <video
           class="video"
@@ -14,7 +14,10 @@
           tabindex="-1"
         ></video>
       </div>
-      <h1 class="title">和优秀的人 做有挑战的事</h1>
+      <h1 class="banner-title">
+        和优秀的人 做有挑战的事
+        <div class="subTitle">JOIN BYTEDANCE</div>
+      </h1>
       <div class="search">
         <input-search @search="searchJobs" size="small" placeholder="placeholder"></input-search>
       </div>
@@ -27,31 +30,32 @@
     </div>
 
     <!-- 产品 -->
-    
-      <div ref="product" class="product">
-        <h2 class="title">Inspire creativity, enrich life</h2>
-        <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
-        <ul class="product-list">
-          <li
-            class="product-item"
-            v-for="(item, key) in products"
-            :key="key"
-            @click="jumpToDetail(item)"
-          >
-            <img :src="item.logo" alt />
-            <div>{{ item.title }}</div>
-          </li>
-        </ul>
-        <router-link to="/products">
-          <div class="more">
-            <span class="more-button">了解更多</span>
-          </div>
-        </router-link>
-      </div>
-     
+
+    <div ref="product" class="product content-item-block">
+      <h1 class="title">Inspire creativity, enrich life</h1>
+      <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
+      <ul class="product-list">
+        <li
+          class="product-item"
+          v-for="(item, key) in products"
+          :key="key"
+          @click="jumpToDetail(item)"
+        >
+          <img :src="item.logo" alt />
+          <div>{{ item.title }}</div>
+        </li>
+      </ul>
+      <router-link to="/products">
+        <div class="more">
+          <!-- <span class="more-button">了解更多</span> -->
+          <bytedance-button size="large">了解更多</bytedance-button>
+        </div>
+      </router-link>
+    </div>
+
     <!-- 职位 -->
-    <div class="job-category">
-      <h2 class="job-category-title">探索你感兴趣的职位</h2>
+    <div class="job-category content-item-block">
+      <h2 class="job-category-title title">探索你感兴趣的职位</h2>
       <ul class="job-category-list clearfix">
         <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
           <router-link :to="{name:'jobs',params:{job_category_id:item.id}}">
@@ -65,8 +69,8 @@
     </div>
 
     <!-- 字节范 -->
-    <div class="byteStandard">
-      <h2 class="title">字节范</h2>
+    <div class="byteStandard content-item-block">
+      <h1 class="title">字节范</h1>
       <div class="desc">字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则</div>
       <div class="content">
         <div class="image">
@@ -98,7 +102,7 @@
     </div>
 
     <!-- 字节生活 -->
-    <div class="byteLife">
+    <div class="byteLife content-item-block">
       <h1 class="byteLife-title">字节生活</h1>
       <div class="block-item block-item-one">
         <div class="block-item-column block-item-column-text">
@@ -148,8 +152,8 @@
     </div>
 
     <!-- 员工故事 -->
-    <div class="staffStory">
-      <h2>员工故事</h2>
+    <div class="staffStory content-item-block">
+      <h2 class="title">员工故事</h2>
       <ul class="staffStory-list clearfix">
         <router-link
           tag="li"
@@ -272,6 +276,14 @@ export default {
   }
 }
 
+.home {
+  .content-item-block {
+    .title {
+      font-size: @font-size-larger;
+    }
+  }
+}
+
 .banner {
   height: 100vh;
   min-height: 400px;
@@ -279,7 +291,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  background: rgba(51, 112, 255, 0.2);
   position: relative;
   .video-wrapper {
     font-size: 0;
@@ -295,10 +307,38 @@ export default {
       object-fit: cover;
     }
   }
-  .title {
+  &-title {
     color: #fff;
-    font-size: 48px;
+    font-size: 60px;
     margin-top: 150px;
+    text-align: center;
+    .subTitle {
+      &::after,
+      &::before {
+        content: "";
+        position: absolute;
+        background-image: linear-gradient(
+          270deg,
+          hsla(0, 0%, 100%, 0),
+          #fff 47%,
+          hsla(0, 0%, 100%, 0)
+        );
+        height: 2px;
+        width: 89px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      &:before {
+        right: 10px;
+      }
+      &:after {
+        left: 10px;
+      }
+      position: relative;
+      margin-top: 10px;
+      font-size: @font-size-base;
+      letter-spacing: 20px;
+    }
   }
   .search {
     width: 500px;
@@ -398,17 +438,10 @@ export default {
     }
   }
   .more {
+    margin: auto;
     margin-top: 170px;
-    text-align: center;
-    &-button {
-      display: inline-block;
-      width: 190px;
-      line-height: 50px;
-      border-radius: 30px;
-      background: @main-color;
-      color: #fff;
-      cursor: pointer;
-    }
+
+    width: 149px;
   }
 }
 
@@ -568,22 +601,23 @@ export default {
 
 .staffStory {
   padding: 0 140px;
+  .title {
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
   &-list {
     text-align: center;
+    display: flex;
+    justify-content: space-between;
     margin-top: 30px;
   }
   &-item {
     // height: 450px;
     overflow: hidden;
     padding: 30px;
-    float: left;
     width: 30%;
     cursor: pointer;
-
-    & + & {
-      margin-left: 3.3%;
-    }
 
     &:hover {
       box-shadow: 0 10px 30px 0 @box-shadow-hover-color;
