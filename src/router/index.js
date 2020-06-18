@@ -11,7 +11,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: ( )=>import(/*webpackChunkName: "Home" */ "@/views/Home.vue")
+    component: () => import(/*webpackChunkName: "Home" */ "@/views/Home.vue"),
   },
   {
     path: "/products",
@@ -20,40 +20,44 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Products.vue")
+      import(/* webpackChunkName: "Products" */ "../views/Products.vue"),
   },
   {
     path: "/jobs",
     name: "jobs",
-     
-    component: () =>
-      import(/* webpackChunkName: "jobs" */ "../views/Jobs.vue")
-  },{
+
+    component: () => import(/* webpackChunkName: "jobs" */ "../views/Jobs.vue"),
+  },
+  {
     path: "/jobs/:id",
     name: "jobDetail",
-     
+
     component: () =>
-      import(/* webpackChunkName: "jobDetail" */ "../views/JobDetail.vue")
-  },{
+      import(/* webpackChunkName: "jobDetail" */ "../views/JobDetail.vue"),
+  },
+  {
     path: "/staff-stories/:id",
     name: "staff-story",
-     
+
     component: () =>
-      import(/* webpackChunkName: "staffStroy" */ "../views/StaffStory.vue")
-  }
+      import(/* webpackChunkName: "staffStroy" */ "../views/StaffStory.vue"),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+  base:
+    process.env.NODE_ENV !== "production"
+      ? process.env.BASE_URL
+      : process.env.BASE_URL  ,
   routes,
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
-  }
+  },
 });
 
 export default router;

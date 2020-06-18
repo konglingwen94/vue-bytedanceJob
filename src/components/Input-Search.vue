@@ -16,7 +16,6 @@
 export default {
   name: "input-search",
   model: {
-     
     event: "change"
   },
   props: {
@@ -31,13 +30,12 @@ export default {
   },
   methods: {
     search() {
-       
       this.$emit("search", this.$refs.input.value);
     }
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="less"  scoped>
 .input-search {
   height: 50px;
   position: relative;
@@ -45,15 +43,15 @@ export default {
   overflow: hidden;
   border: 1px solid @main-color;
   font-size: 17px;
-
+  ::-webkit-input-placeholder {
+    color: @secondary-text-color;
+  }
   &.small {
     height: 40px;
     font-size: 14px;
-     
   }
-   
+
   &.large {
-    
     height: 60px;
     font-size: 20px;
   }
@@ -72,12 +70,11 @@ export default {
     line-height: 100%;
     border: none;
     padding: 10px;
-    padding-left: 1.8em;
+    padding-left: 2em;
   }
   &-button {
-    
     padding: 9px;
-    cursor: pointer;
+
     color: #fff;
     text-align: center;
     position: absolute;
@@ -90,6 +87,19 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      // background: rgba(255, 255, 255, 0.5);
+      &::before {
+        transition: all 0.3s;
+        content: "";
+        position: absolute;
+        width: 100%;
+        top: -1px;
+        bottom: -1px;
+        background: rgba(255, 255, 255, 0.4);
+      }
+    }
   }
 }
 </style>

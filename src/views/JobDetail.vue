@@ -1,18 +1,18 @@
 <template>
   <div class="job-detail">
-    <h1 class="job-detail-title">{{jobDetail.title}}</h1>
+    <h1 class="job-detail-title">{{ jobDetail.title }}</h1>
     <div class="job-detail-subTitle" v-if="jobDetail.id">
-      <span class="city_info">{{jobDetail.city_info.name}}</span>&nbsp;|
-      <span class="job_category">{{jobDetail.job_category.name}}</span>&nbsp;|
-      <span class="recruit_type">{{jobDetail.recruit_type.name}}</span>
+      <span class="city_info">{{ jobDetail.city_info.name }}</span>&nbsp;|
+      <span class="job_category">{{ jobDetail.job_category.name }}</span>&nbsp;|
+      <span class="recruit_type">{{ jobDetail.recruit_type.name }}</span>
     </div>
     <div class="job-detail-description job-detail-block">
       <h2>职位描述</h2>
-      <pre class="textContent">{{jobDetail.description}}</pre>
+      <pre class="textContent">{{ jobDetail.description }}</pre>
     </div>
     <div class="job-detail-requirement job-detail-block">
       <h2>职位要求</h2>
-      <pre class="textContent">{{jobDetail.requirement}}</pre>
+      <pre class="textContent">{{ jobDetail.requirement }}</pre>
     </div>
     <div class="job-detail-button job-detail-block">
       <bytedance-button size="large">投递</bytedance-button>
@@ -24,6 +24,15 @@ export default {
   name: "job-detail",
   data() {
     return { jobDetail: {} };
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log(to, from, next);
+    if(from.name==='jobs'){
+      next()
+    }else{
+      
+    }
+    next()
   },
   created() {
     const { id } = this.$route.params;

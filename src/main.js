@@ -5,7 +5,9 @@ import "@/assets/style/reset.css";
 import "@/assets/style/global.css";
 import "@/helper/registerGlobalComponents.js";
 import request from "@/helper/request";
+
 Vue.config.productionTip = false;
+Vue.config.devtools = true;
 Vue.prototype.request = request;
 
 

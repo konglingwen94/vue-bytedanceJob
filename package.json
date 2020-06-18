@@ -1,15 +1,18 @@
 {
-  "name": "vue-byte_dance_job",
+  "name": "vue-bytedance_job",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "server": "nodemon server/app.js -w server --delay 1",
-    "lint": "vue-cli-service lint"
+    "server:dev": "nodemon server/app.js -w server --delay 1",
+    "server": "node ./server/app.js",
+    "deploy": "scp -r server/ root@123.56.124.33:/var/www/vue-bytedanceJob"
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.4",
     "express": "^4.17.1",
     "lodash": "^4.17.15",

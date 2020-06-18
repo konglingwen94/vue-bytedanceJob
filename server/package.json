@@ -1,0 +1,26 @@
+{
+  "name": "vue-bytedance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start:fork": "pm2 start ./app.js",
+    "start": "node ./app.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "connect-history-api-fallback": "^1.6.0",
+    "core-js": "^3.6.4",
+    "express": "^4.17.1",
+    "express-history-api-fallback": "^2.2.1",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.6"
+  },
+  "keywords": [
+    "vue-bytedance"
+  ],
+  "author": "konglingwen",
+  "license": "ISC"
+}

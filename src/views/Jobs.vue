@@ -2,7 +2,10 @@
   <div class="jobs">
     <div class="banner">和优秀的人，做有挑战的事</div>
     <div class="search-wrapper">
-      <input-search v-model="searchKeyword"></input-search>
+      <input-search
+        placeholder="搜索职位"
+        v-model="searchKeyword"
+      ></input-search>
     </div>
 
     <div class="main">
@@ -10,7 +13,9 @@
       <div class="clearfix aside-filter">
         <div class="header">
           <span>选择</span>
-          <span :class="{clearable}" class="clear" @click="clearFilter">清空</span>
+          <span :class="{ clearable }" class="clear" @click="clearFilter"
+            >清空</span
+          >
         </div>
         <div class="job-category job-filter-block">
           <div class="title"></div>
@@ -37,13 +42,19 @@
       <div class="content">
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
-          <li class="content-item" v-for="item in results.job_post_list" :key="item.id">
+          <li
+            class="content-item"
+            v-for="item in results.job_post_list"
+            :key="item.id"
+          >
             <router-link :to="`/jobs/${item.id}`">
               <h3 class="title">{{ item.title }}</h3>
 
               <div class="subTitle">
-                <span class="city">{{ item.city_info.name }}</span>&nbsp;|
-                <span class="job_category">{{ item.job_category.name }}</span>&nbsp;|
+                <span class="city">{{ item.city_info.name }}</span
+                >&nbsp;|
+                <span class="job_category">{{ item.job_category.name }}</span
+                >&nbsp;|
                 <span class="recruitment_channel">社招</span>
               </div>
               <p class="desc">{{ item.description }}</p>
@@ -52,7 +63,10 @@
         </ul>
         <!-- 分页器 -->
         <div class="pagination-wrapper">
-          <pagination :current-page.sync="currentPage" :total="results.count"></pagination>
+          <pagination
+            :current-page.sync="currentPage"
+            :total="results.count"
+          ></pagination>
         </div>
       </div>
     </div>
@@ -72,13 +86,20 @@ export default {
       location_code_list: [],
       cityList: [],
       cities: [],
-      results: []
+      results: [],
     };
+  },
+  beforeCreate() {
+     
+    const id = new URL(location).searchParams.get("id");
+    if (id) {
+      // this.$router.push(`/jobs/${id}`);
+    }
   },
   created() {
     this.request
       .get("/job-filters")
-      .then(response => {
+      .then((response) => {
         this.jobCities = response.city_list;
         this.jobCategories = response.job_type_list;
       })
@@ -92,15 +113,15 @@ export default {
         job_category_id_list: this.job_category_id_list,
         location_code_list: this.location_code_list,
         keyword: this.searchKeyword,
-        offset: Math.max(0, this.currentPage - 1) * 10
+        offset: Math.max(0, this.currentPage - 1) * 10,
       };
     },
     clearable() {
       return this.job_category_id_list.length || this.location_code_list.length;
-    }
+    },
   },
   watch: {
-    queryFilter: "fetchList"
+    queryFilter: "fetchList",
   },
   methods: {
     clearFilter() {
@@ -110,15 +131,15 @@ export default {
     fetchList() {
       this.request
         .post("/jobs", this.queryFilter)
-        .then(response => {
+        .then((response) => {
           if (this.results.count !== response.count) {
             this.currentPage = 1;
           }
           this.results = response;
         })
         .catch();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -132,7 +153,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   text-align: center;
-  font-size:@font-size-larger;
+  font-size: @font-size-larger;
 }
 .search-wrapper {
   width: 800px;
