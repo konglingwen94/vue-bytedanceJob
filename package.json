@@ -7,8 +7,7 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "server:dev": "nodemon server/app.js -w server --delay 1",
-    "server": "node ./server/app.js",
-    "deploy": "npm run build && scp -r server/* root@123.56.124.33:/var/www/vue-bytedanceJob"
+    "server": "node ./server/app.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
