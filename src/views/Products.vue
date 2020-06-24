@@ -97,19 +97,13 @@ export default {
       this.scrolling = true;
       if (e.wheelDelta > 0) {
         this.transitionName = "move-down";
-        if (this.activeIndex === 0) {
-          this.activeIndex = this.products.length - 1;
-        } else {
-          this.activeIndex--;
-        }
+        this.activeIndex =
+          this.activeIndex === 0
+            ? this.products.length - 1
+            : this.activeIndex - 1;
       } else {
         this.transitionName = "move-up";
-        if (this.activeIndex === this.products.length - 1) {
-          this.activeIndex = 0;
-          setTimeout(() => {});
-        } else {
-          this.activeIndex++;
-        }
+        this.activeIndex = (this.activeIndex + 1) % this.products.length;
       }
       setTimeout(() => {
         this.scrolling = false;
