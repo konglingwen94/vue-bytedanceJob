@@ -60,16 +60,16 @@ npm run build
 
 ## 服务端`API`
 
-1. [首页](./docs/api/home.md)
+1. [首页](./docs/home.md)
    - http://123.56.124.33:3000/api/staff-stories
    - http://123.56.124.33:3000/api/byte-standards
-2. [产品](./docs/api/product.md)
+2. [产品](./docs/product.md)
 
    - http://123.56.124.33:3000/api/products
 
-3. [职位](./docs/api/job.md)
+3. [职位](./docs/job.md)
 
-   - http://123.56.124.33:3000/api/jobs
+   - `POST` http://123.56.124.33:3000/api/jobs
 
    * http://123.56.124.33:3000/api/jobs/6826273638594103559
 

@@ -4,10 +4,7 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path:'/',
-  //   redirect:'/home'
-  // },
+  
   {
     path: "/",
     name: "Home",
@@ -16,9 +13,7 @@ const routes = [
   {
     path: "/products",
     name: "products",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    
     component: () =>
       import(/* webpackChunkName: "Products" */ "../views/Products.vue"),
   },
@@ -46,10 +41,10 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  base:
-    process.env.NODE_ENV !== "production"
-      ? process.env.BASE_URL
-      : process.env.BASE_URL  ,
+  // base:
+  //   process.env.NODE_ENV !== "production"
+  //     ? process.env.BASE_URL
+  //     : process.env.BASE_URL  ,
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
