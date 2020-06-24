@@ -54,9 +54,28 @@ npm run build
 
 `vue-cli` `less`
 
-`axios` `lodash`  `es6`
+`axios` `lodash` `es6`
 
 `express` `node-fetch`
+
+## 服务端`API`
+
+1. [首页](./docs/api/home.md)
+   - http://123.56.124.33:3000/api/staff-stories
+   - http://123.56.124.33:3000/api/byte-standards
+2. [产品](./docs/api/product.md)
+
+   - http://123.56.124.33:3000/api/products
+
+3. [职位](./docs/api/job.md)
+
+   - http://123.56.124.33:3000/api/jobs
+
+   * http://123.56.124.33:3000/api/jobs/6826273638594103559
+
+   - http://123.56.124.33:3000/api/job-filters
+
+   * http://123.56.124.33:3000/api/job-categories
 
 ## 项目结构
 
