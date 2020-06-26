@@ -152,3 +152,10 @@ vue-byte_dance_job
 ![vue-bytedanceJob](./screenshots/jobDetail.gif)<br>
 ![vue-bytedanceJob](./screenshots/product.gif)<br>
 ![vue-bytedanceJob](./screenshots/staffStory.gif)
+
+
+## 支持
+
+如果看完此项目对您学习`Vue`有帮助的话，请您动手点一下`star`，有了您的支持，我会有更大的动力开源更多有趣的项目出来，谢谢！
+
+>查看本项目技术解密文章请点击我的个人博客[https://juejin.im/post/5ef338c75188252e7f772aee](https://juejin.im/post/5ef338c75188252e7f772aee)查看，欢迎点赞和留言！
