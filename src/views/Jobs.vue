@@ -89,13 +89,7 @@ export default {
       results: [],
     };
   },
-  beforeCreate() {
-     
-    const id = new URL(location).searchParams.get("id");
-    if (id) {
-      // this.$router.push(`/jobs/${id}`);
-    }
-  },
+   
   created() {
     this.request
       .get("/job-filters")
