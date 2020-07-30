@@ -8,7 +8,7 @@
       ></input-search>
     </div>
 
-    <div class="main">
+    <div class="main clearfix">
       <!-- 侧边栏过滤选择 -->
       <div class="clearfix aside-filter">
         <div class="header">
