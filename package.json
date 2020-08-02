@@ -7,8 +7,12 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "server:dev": "nodemon server/app.js -w server --delay 1",
-    "server:debug":"nodemon --inspect server/app.js -w server ",
-    "server": "node ./server/app.js"
+    "server:debug": "nodemon --inspect server/app.js -w server ",
+    "server": "node ./server/app.js",
+    "deploy":"sh deploy.sh"
+  },
+  "gitHooks":{
+    "pre-push":"npm run deploy"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -36,6 +40,7 @@
     "prettier": "^1.19.1",
     "style-resources-loader": "^1.3.3",
     "vue-cli-plugin-style-resources-loader": "^0.1.4",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "yorkie": "^2.0.0"
   }
 }
