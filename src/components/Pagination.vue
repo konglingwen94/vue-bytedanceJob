@@ -1,17 +1,18 @@
 <template>
-  <div class="pagination">
+  <div v-if="visiblePagers.length" class="pagination">
     <ul class="pagination-list">
       <li
         title="上一页"
         @click="$emit('update:currentPage',Math.max(1,currentPage-1))"
         class="pagination-item"
+        :class="{disabled:currentPage===1}"
       >
         <span><</span>
       </li>
       <li
         class="pagination-item"
         :class="{current:currentPage===item}"
-        v-for="(item,index) in visiblePages"
+        v-for="(item,index) in visiblePagers"
         @click="change(item)"
         :key="index"
       >
@@ -21,6 +22,7 @@
         title="下一页"
         @click="$emit('update:currentPage',Math.min(totalPage,currentPage+1))"
         class="pagination-item"
+        :class="{disabled:currentPage===totalPage}"
       >
         <span>></span>
       </li>
@@ -49,13 +51,12 @@ export default {
     totalPage() {
       return Math.ceil(parseInt(this.total) / this.perPage);
     },
-    visiblePages() {
+    visiblePagers() {
       let pages = [];
       const currentPage = Math.max(
         1,
         Math.min(this.currentPage, this.totalPage)
       );
-       
 
       if (this.totalPage <= this.pagerCount) {
         for (let i = 1; i <= this.totalPage; i++) {
@@ -102,9 +103,15 @@ export default {
   display: flex;
 }
 .pagination-item {
-  margin-right: 4px;
+  margin-right: 12px;
   cursor: pointer;
   padding: 8px;
+  &.disabled {
+    cursor: not-allowed;
+
+    color: #ccc !important;
+  }
+
   &:hover {
     color: @main-color;
   }
