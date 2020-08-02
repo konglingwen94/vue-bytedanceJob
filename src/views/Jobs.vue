@@ -212,7 +212,7 @@ export default {
       }
     }
     .pagination-wrapper {
-      margin-top: 30px;
+      margin-top: 50px;
       text-align: right;
     }
   }
