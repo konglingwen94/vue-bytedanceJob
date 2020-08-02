@@ -7,6 +7,7 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "server:dev": "nodemon server/app.js -w server --delay 1",
+    "server:debug":"nodemon --inspect server/app.js -w server ",
     "server": "node ./server/app.js"
   },
   "dependencies": {
