@@ -6,15 +6,15 @@
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "server:dev": "nodemon server/app.js -w server --delay 1",
-    "server:debug":"nodemon --inspect server/app.js -w server ",
-    "server": "node ./server/app.js"
+    "server:dev-debug": "cross-env NODE_ENV=development  nodemon  --inspect server/app.js -w server --delay 1",
+    "server": "cross-env NODE_ENV=production node ./server/app.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.4",
     "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.5",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "vue": "^2.6.11",
@@ -27,6 +27,7 @@
     "@vue/cli-service": "~4.3.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.2.2",
