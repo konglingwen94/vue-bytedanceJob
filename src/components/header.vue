@@ -208,12 +208,34 @@
         <a href="https://job.bytedance.com/campus/" target="_blank">校园招聘</a>
       </li>
     </ul>|
-    <div class="login" @click="onLogin">登录</div>
+    <div class="user">
+      <div class="login" v-if="!isLogin">
+        <router-link to="/user">
+          <span class="login__text">登录</span>
+        </router-link>
+        
+      </div>
+
+      <div class="dropdown-menu" v-else>
+        <span class="email">
+          794430884@qq.com
+          <i class="arrow"></i>
+        </span>
+        <ul class="dropdown-menu__wrapper">
+          <li class="dropdown-menu__item">退出</li>
+          <li class="dropdown-menu__item">退出</li>
+          <li class="dropdown-menu__item">退出</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: "Header",
+  data: () => ({
+    isLogin: false
+  }),
   props: {
     fixedToTop: {
       type: Boolean,
@@ -224,11 +246,7 @@ export default {
       default: "main-color"
     }
   },
-  methods: {
-    onLogin() {
-      alert("正在开发中...");
-    }
-  }
+  methods: {}
 };
 </script>
 <style lang="less" scoped>
@@ -250,6 +268,9 @@ export default {
       &:hover {
         color: @main-color;
       }
+    }
+    .login-text {
+      color: @main-color;
     }
   }
   &.is-transparent {
@@ -287,7 +308,54 @@ export default {
     }
   }
 }
-.login{
-  margin-left:40px;
+.user {
+  margin-left: 40px;
+  position: relative;
+
+  .arrow {
+    display: inline-block;
+    border: 1px solid;
+    border-width: 1px 1px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: center;
+    vertical-align: middle;
+    margin-left: 5px;
+    transition: all 0.3s;
+    width: 10px;
+    height: 10px;
+  }
+  &:hover {
+    .arrow {
+      transform: rotate(135deg);
+      margin-top: -10px;
+    }
+    .dropdown-menu__wrapper {
+      display: block;
+    }
+  }
+  .dropdown-menu {
+    position: relative;
+    z-index: 1000;
+    &__wrapper {
+      position: absolute;
+      display: none;
+      right: 0;
+      color: @regular-text-color;
+      // &__wrapper {
+      padding: 9px 0;
+      width: 200px;
+      border-radius: 5px;
+      box-shadow: 0 0px 2px 1px #eee;
+      background: #fff;
+      // }
+    }
+    &__item {
+      padding: 9px 12px;
+      cursor: pointer;
+      &:hover {
+        background: #efefef58;
+      }
+    }
+  }
 }
 </style>
