@@ -1,6 +1,6 @@
-# vue-byte_dance_job
+# vue-bytedance_job
 
-高仿字节跳动招聘官网的单页面应用
+`Vue`重构字节跳动招聘官网的单页面应用
 
 ## 线上预览
 
@@ -8,27 +8,35 @@
 
 ![vue-bytedanceJob](./screenshots/previewQrcode.png)
 
+## Clone project
+
+```bash
+git clone git@github.com:konglingwen94/vue-bytedanceJob.git
+```
+
 ## Project setup
 
-```
+```bash
 npm install
 ```
 
 ### Compiles and hot-reloads for development
 
-```
+```bash
 npm run dev
 ```
 
 ### Start server API
 
-```
+```bash
 npm  run server
 ```
 
+> 如果`vue.config.js`文件中的`devServer.proxy`选项为本地服务器地址的话，则需要启动此命令。
+
 ### Compiles and minifies for production
 
-```
+```bash
 npm run build
 ```
 
@@ -153,9 +161,8 @@ vue-byte_dance_job
 ![vue-bytedanceJob](./screenshots/product.gif)<br>
 ![vue-bytedanceJob](./screenshots/staffStory.gif)
 
-
 ## 支持
 
 如果看完此项目对您学习`Vue`有帮助的话，请您动手点一下`star`，有了您的支持，我会有更大的动力开源更多有趣的项目出来，谢谢！
 
->查看本项目技术解密文章请点击我的个人博客[https://juejin.im/post/5ef338c75188252e7f772aee](https://juejin.im/post/5ef338c75188252e7f772aee)查看，欢迎点赞和留言！
+> 查看本项目技术解密文章请点击我的个人博客[https://juejin.im/post/5ef338c75188252e7f772aee](https://juejin.im/post/5ef338c75188252e7f772aee)查看，欢迎点赞和留言！
