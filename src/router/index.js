@@ -4,7 +4,6 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const routes = [
-  
   {
     path: "/",
     name: "Home",
@@ -13,7 +12,7 @@ const routes = [
   {
     path: "/products",
     name: "products",
-    
+
     component: () =>
       import(/* webpackChunkName: "Products" */ "../views/Products.vue"),
   },
@@ -36,6 +35,13 @@ const routes = [
 
     component: () =>
       import(/* webpackChunkName: "staffStroy" */ "../views/StaffStory.vue"),
+  },
+  {
+    path: "/user",
+    name: "user",
+    component() {
+      return import(/* webpackChunkName: "user" */ "../views/User.vue");
+    },
   },
 ];
 
