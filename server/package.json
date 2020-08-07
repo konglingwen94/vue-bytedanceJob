@@ -7,11 +7,10 @@
     "start": "pm2 start --name=\"vue-bytedanceJob\" ./app.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.4",
     "express": "^4.17.1",
-    "express-history-api-fallback": "^2.2.1",
+    "http-proxy-middleware": "^1.0.5",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0"
   },
