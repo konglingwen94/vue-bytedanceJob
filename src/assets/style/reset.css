@@ -34,8 +34,20 @@ a:-webkit-any-link {
   text-decoration: none;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
+}
+
+textarea,
+input[type="text"] {
+  border-style: solid;
+  font-weight: 300;
+  outline: none;
+  border-width: 1px;
+  border-color: #dcdfe6;
+  font-size: inherit;
+  line-height:inherit;
 }
 
 /* custom */
