@@ -40,14 +40,15 @@ textarea:focus {
 }
 
 textarea,
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   border-style: solid;
   font-weight: 300;
   outline: none;
   border-width: 1px;
   border-color: #dcdfe6;
   font-size: inherit;
-  line-height:inherit;
+  line-height: inherit;
 }
 
 /* custom */

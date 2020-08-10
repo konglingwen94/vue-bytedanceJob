@@ -11,9 +11,10 @@ module.exports = {
     },
   },
   outputDir: "server/dist",
-  publicPath: process.env.NODE_ENV !== "production" ? "/" : "/",
+  // publicPath: process.env.NODE_ENV !== "production" ? "/" : "/",
   //   assetsDir: "static",
   devServer: {
+    // proxy: "http://localhost:3000",
     proxy: "http://123.56.124.33:3000",
   },
   pages: {
