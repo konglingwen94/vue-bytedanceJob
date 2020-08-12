@@ -1,5 +1,5 @@
 <template>
-  <div class="bytedance-button" :class="`bytedance-button-${size}`">
+  <div v-on="$listeners" class="bytedance-button" :class="`bytedance-button-${size}`">
     <span>
       <slot>bytedance-button</slot>
     </span>
@@ -21,7 +21,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .bytedance-button {
-  height: 30px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +29,7 @@ export default {
   background: @main-color;
   color: #fff;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 23px;
   position: relative;
   cursor: pointer;
   &:hover :after {
@@ -42,10 +42,10 @@ export default {
     bottom: 0;
   }
   &-small {
-    height: 20px;
+    height: 26px;
   }
   &-large {
-    height: 40px;
+    height: 50px;
   }
 }
 </style>
