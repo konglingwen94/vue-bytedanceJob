@@ -11,6 +11,7 @@ import {
   Upload,
   Loading,
   Message,
+  Button,
 } from "element-ui";
 
 Vue.use(Form);
@@ -24,3 +25,5 @@ Vue.use(TabPane);
 Vue.use(Upload);
 Vue.use(Loading);
 Vue.use(Message);
+// Vue.component()
+Vue.use(Button);
