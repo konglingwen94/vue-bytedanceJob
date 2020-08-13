@@ -1,14 +1,23 @@
 import axios from "axios";
 import instance from "./request";
- 
+import {Message} from 'element-ui'
+
 
 const requestWithToken = axios.create({
   baseURL: "/api",
+  xsrfCookieName: "atsx-csrf-token", // default
+
+  // `xsrfHeaderName` 是承载 xsrf token 的值的 HTTP 头的名称
+  xsrfHeaderName: "x-csrf-token", // 默认的
 });
 
 requestWithToken.interceptors.response.use(
   (response) => {
     if (response.data) {
+      if (response.data.code !== 0) {
+        Message.error(response.data.message)
+        return Promise.reject(response.data);
+      }
       return Promise.resolve(response.data);
     }
     return Promise.resolve(response);
@@ -33,8 +42,7 @@ requestWithToken.interceptors.response.use(
   }
 );
 
-export const fetchProfile = () =>
-  requestWithToken.get("/v1/user/latest/resume");
+export const fetchProfile = () => requestWithToken.get("/v1/user/profile");
 
 export const fetchCommonSettings = () =>
   requestWithToken.get("/v1/common/setting");
@@ -47,6 +55,8 @@ export const fetchEmailRegisterStatus = (payload) =>
 
 export const fetchLoginByEmail = (payload) =>
   requestWithToken.post("/v1/user/email/login", payload);
+export const fetchLoginByPhone = (payload) =>
+  requestWithToken.post("/v1/user/mobile/login", payload);
 
 export const fetchResume = () => requestWithToken.get("/v1/user/latest/resume");
 
@@ -70,3 +80,5 @@ export const fetchSaveResume = (resume_id, payload) =>
 // POST /api/v1/user/logout  退出登录
 
 // Post /api/v1/user/resumes/6855865337356044552  保存编辑好的简历 --data-raw '{resume:{},resume_id:'',portal_type: 2}'
+
+// POST /api/v1/user/mobile/login  --data-raw {"country_code":"CN_1","mobile":"16692669622","auth_code":"772378","portal_entrance":1}
