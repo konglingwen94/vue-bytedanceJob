@@ -6,42 +6,27 @@
           class="login-tabbar__item"
           :class="{ 'login-tabbar__item--active': loginMode === 'phone' }"
           @click="toggleLoginMode('phone')"
-        >
-          手机号登录
-        </li>
+        >手机号登录</li>
         <li
           class="login-tabbar__item"
           @click="toggleLoginMode('email')"
           :class="{ 'login-tabbar__item--active': loginMode === 'email' }"
-        >
-          邮箱登录
-        </li>
+        >邮箱登录</li>
       </ul>
 
       <ul class="login-form-content">
         <li class="login-form-content__phone" v-if="loginMode === 'phone'">
-          <el-form>
+          <el-form :model="phoneForm" key="phone">
             <el-form-item>
-              <el-input
-                v-model="phoneForm.phone"
-                placeholder="输入手机号"
-                class="input-with-select"
-              >
-                <el-select
-                  slot="prepend"
-                  v-model="selectedCountry"
-                  placeholder="请选择"
-                >
-                  <el-option value="disabled" disabled
-                    >选择国家和地区</el-option
-                  >
+              <el-input v-model="phoneForm.phone" placeholder="输入手机号" class="input-with-select">
+                <el-select slot="prepend" v-model="selectedCountry" placeholder="请选择">
+                  <el-option value="disabled" disabled>选择国家和地区</el-option>
                   <hr class="input-with-select__divider" />
                   <el-option
                     :value="`+${item.val}`"
                     v-for="item in mobileCode"
                     :key="item.id"
-                    >{{ item.country }} +{{ item.val }}</el-option
-                  >
+                  >{{ item.country }} +{{ item.val }}</el-option>
                 </el-select>
               </el-input>
             </el-form-item>
@@ -53,19 +38,22 @@
           </el-form>
         </li>
         <li class="login-form-content__email" v-else>
-          <el-form>
-            <el-form-item>
+          <el-form key="email" :rules="emailFormRules" :model="emailForm" ref="emailForm">
+            <el-form-item ref="emailFormItem" prop="email">
               <el-input
+                @blur="onEmailInputBlur"
+                @focus="clearEmailValidation"
                 v-model="emailForm.email"
                 placeholder="请输入邮箱"
               ></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item prop="password" ref="passFormItem">
               <el-input
                 class="input-with-icon"
                 placeholder="请输入密码"
                 v-model="emailForm.password"
                 :type="passwordInputType"
+                @focus="$refs.passFormItem.clearValidate('password')"
               >
                 <i
                   slot="suffix"
@@ -82,45 +70,128 @@
         </li>
       </ul>
       <div class="login__button">
-        <bytedance-button type="primary" size="large">登录</bytedance-button>
+        <bytedance-button @click="handlerLogin" type="primary" size="large">登录</bytedance-button>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {
+  fetchLoginByEmail,
+  fetchCommonSettings,
+  fetchEmailRegisterStatus
+} from "@/helper/requestWithToken.js";
+import store from "@/store/index.js";
+
+// console.log(store)
 export default {
   data() {
+    const self = this;
+    const validator = async (rule, val, cb, source, opt) => {
+      await new Promise((resolve, reject) => setTimeout(resolve, 100));
+
+      const triggerType = rule.validator && rule.validator.triggerType;
+
+      if (triggerType === "submit") return;
+      try {
+        var result = await fetchEmailRegisterStatus({
+          email: self.emailForm.email
+        });
+      } catch (error) {
+        throw error;
+      }
+
+      if (result.data.email_status === 0) {
+        throw new Error("邮箱未注册");
+      }
+    };
+    const mutipleEmailRules = [
+      {
+        required: true,
+        trigger: "blur",
+        message: "邮箱不能为空"
+      },
+      {
+        type: "email",
+        trigger: "blur",
+        message: "邮箱格式不正确"
+      },
+      {
+        validator,
+        trigger: "blur"
+      }
+    ];
     return {
-      loginMode: "phone",
+      emailFormRules: {
+        email: mutipleEmailRules,
+        password: {
+          required: true,
+          message: "密码不能为空"
+        }
+      },
+      loginMode: "email",
       mobileCode: [],
       phoneForm: {
         verifyCode: "",
-        phone: "",
+        phone: ""
       },
       emailForm: {
         email: "",
-        password: "",
+        password: ""
       },
       passwordInputType: "password",
-      selectedCountry: "",
+      selectedCountry: ""
     };
   },
+
   created() {
-    this.request("/v1/common/setting").then((response) => {
-      console.log(response);
+    fetchCommonSettings().then(response => {
       this.mobileCode = response.data.mobile_code;
     });
   },
+
   methods: {
+    async handlerLogin() {
+      this.emailFormRules.email[2].validator.triggerType = "submit";
+      try {
+        await this.$refs.emailForm.validate();
+      } catch (err) {
+        return;
+      }
+
+      try {
+        var loginResult = await fetchLoginByEmail(this.emailForm);
+      } catch (error) {
+        return error;
+      }
+      try {
+        var isLogin = await store.requestLoginStatus();
+      } catch (error) {
+        return;
+      }
+      try {
+        await store.requestUserInfo();
+      } catch (error) {
+        return error;
+      }
+
+      this.$router.push("/");
+    },
+    onEmailInputBlur() {
+      this.emailFormRules.email[2].validator.triggerType = "blur";
+    },
+    clearEmailValidation() {
+      this.$refs.emailForm.clearValidate("email");
+    },
+
     toggleLoginMode(mode) {
-      // console.log(tab, event);
       this.loginMode = mode;
     },
     togglePasswordInputType() {
       this.passwordInputType =
         this.passwordInputType === "password" ? "text" : "password";
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less">

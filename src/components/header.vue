@@ -209,20 +209,19 @@
       </li>
     </ul>|
     <div class="user">
-      <div class="login" v-if="!isLogin">
+      <div class="login" v-if="!state.isLogin">
         <router-link to="/user">
           <span class="login__text">登录</span>
         </router-link>
-        
       </div>
 
       <div class="dropdown-menu" v-else>
         <span class="email">
-          794430884@qq.com
+          {{ state.userInfo.email}}
           <i class="arrow"></i>
         </span>
         <ul class="dropdown-menu__wrapper">
-          <li class="dropdown-menu__item">退出</li>
+          <li class="dropdown-menu__item" @click="handleLogout">退出</li>
           <li class="dropdown-menu__item">退出</li>
           <li class="dropdown-menu__item">退出</li>
         </ul>
@@ -231,11 +230,30 @@
   </div>
 </template>
 <script>
+import store from "@/store";
 export default {
   name: "Header",
   data: () => ({
-    isLogin: false
+    state: store.state
   }),
+  created() {
+    store
+      .requestLoginStatus()
+      .then(isLogin => {
+        if (!isLogin) {
+          store.expireLogin();
+        } else if (isLogin && !this.state.userInfo.email) {
+          console.log(this.state.userInfo.email);
+          store
+            .requestUserInfo()
+            .then(res => {})
+            .catch(err => {});
+        }
+      })
+      .catch(err => {
+        store.expireLogin();
+      });
+  },
   props: {
     fixedToTop: {
       type: Boolean,
@@ -246,7 +264,14 @@ export default {
       default: "main-color"
     }
   },
-  methods: {}
+  methods: {
+    handleLogout() {
+      store
+        .requestLogout()
+        .then(res => {})
+        .catch(err => {});
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -316,9 +341,9 @@ export default {
     display: inline-block;
     border: 1px solid;
     border-width: 1px 1px 0 0;
-    transform: rotate(-45deg);
+    transform: rotate(135deg);
     transform-origin: center;
-    vertical-align: middle;
+    vertical-align: 5px;
     margin-left: 5px;
     transition: all 0.3s;
     width: 10px;
@@ -326,8 +351,8 @@ export default {
   }
   &:hover {
     .arrow {
-      transform: rotate(135deg);
-      margin-top: -10px;
+      transform: rotate(-45deg);
+      vertical-align: -3px;
     }
     .dropdown-menu__wrapper {
       display: block;
