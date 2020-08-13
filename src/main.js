@@ -15,8 +15,17 @@ import "@/helper/registerGlobalComponents.js";
 // 引入请求实例
 import request from "@/helper/request";
 
+// 开发环境捕获错误插件
+
+import NotificationPlugin from "./helper/notification.plugin";
+if (process.env.NODE_ENV !== "production") {
+  Vue.createElement = new Vue().$createElement;
+  Vue.use(NotificationPlugin);
+  Vue.config.devtools = true;
+}
+
+ 
 Vue.config.productionTip = false;
-Vue.config.devtools = true;
 Vue.prototype.request = request;
 
 new Vue({
