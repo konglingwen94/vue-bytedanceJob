@@ -1,7 +1,6 @@
 import axios from "axios";
 import instance from "./request";
-import {Message} from 'element-ui'
-
+import { Message } from "element-ui";
 
 const requestWithToken = axios.create({
   baseURL: "/api",
@@ -15,7 +14,7 @@ requestWithToken.interceptors.response.use(
   (response) => {
     if (response.data) {
       if (response.data.code !== 0) {
-        Message.error(response.data.message)
+        Message.error(response.data.message);
         return Promise.reject(response.data);
       }
       return Promise.resolve(response.data);
@@ -55,6 +54,7 @@ export const fetchEmailRegisterStatus = (payload) =>
 
 export const fetchLoginByEmail = (payload) =>
   requestWithToken.post("/v1/user/email/login", payload);
+
 export const fetchLoginByPhone = (payload) =>
   requestWithToken.post("/v1/user/mobile/login", payload);
 
