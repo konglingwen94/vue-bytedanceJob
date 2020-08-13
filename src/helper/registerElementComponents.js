@@ -24,6 +24,5 @@ Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Upload);
 Vue.use(Loading);
-Vue.use(Message);
-// Vue.component()
 Vue.use(Button);
+Vue.prototype.$message = Message;

@@ -6,27 +6,42 @@
           class="login-tabbar__item"
           :class="{ 'login-tabbar__item--active': loginMode === 'phone' }"
           @click="toggleLoginMode('phone')"
-        >手机号登录</li>
+        >
+          手机号登录
+        </li>
         <li
           class="login-tabbar__item"
           @click="toggleLoginMode('email')"
           :class="{ 'login-tabbar__item--active': loginMode === 'email' }"
-        >邮箱登录</li>
+        >
+          邮箱登录
+        </li>
       </ul>
 
       <ul class="login-form-content">
         <li class="login-form-content__phone" v-if="loginMode === 'phone'">
           <el-form :model="phoneForm" key="phone">
             <el-form-item>
-              <el-input v-model="phoneForm.phone" placeholder="输入手机号" class="input-with-select">
-                <el-select slot="prepend" v-model="selectedCountry" placeholder="请选择">
-                  <el-option value="disabled" disabled>选择国家和地区</el-option>
+              <el-input
+                v-model="phoneForm.phone"
+                placeholder="输入手机号"
+                class="input-with-select"
+              >
+                <el-select
+                  slot="prepend"
+                  v-model="selectedCountry"
+                  placeholder="请选择"
+                >
+                  <el-option value="disabled" disabled
+                    >选择国家和地区</el-option
+                  >
                   <hr class="input-with-select__divider" />
                   <el-option
                     :value="`+${item.val}`"
                     v-for="item in mobileCode"
                     :key="item.id"
-                  >{{ item.country }} +{{ item.val }}</el-option>
+                    >{{ item.country }} +{{ item.val }}</el-option
+                  >
                 </el-select>
               </el-input>
             </el-form-item>
@@ -38,7 +53,12 @@
           </el-form>
         </li>
         <li class="login-form-content__email" v-else>
-          <el-form key="email" :rules="emailFormRules" :model="emailForm" ref="emailForm">
+          <el-form
+            key="email"
+            :rules="emailFormRules"
+            :model="emailForm"
+            ref="emailForm"
+          >
             <el-form-item ref="emailFormItem" prop="email">
               <el-input
                 @blur="onEmailInputBlur"
@@ -70,7 +90,9 @@
         </li>
       </ul>
       <div class="login__button">
-        <bytedance-button @click="handlerLogin" type="primary" size="large">登录</bytedance-button>
+        <bytedance-button @click="handlerLogin" type="primary" size="large"
+          >登录</bytedance-button
+        >
       </div>
     </div>
   </div>
@@ -79,7 +101,7 @@
 import {
   fetchLoginByEmail,
   fetchCommonSettings,
-  fetchEmailRegisterStatus
+  fetchEmailRegisterStatus,
 } from "@/helper/requestWithToken.js";
 import store from "@/store/index.js";
 
@@ -95,7 +117,7 @@ export default {
       if (triggerType === "submit") return;
       try {
         var result = await fetchEmailRegisterStatus({
-          email: self.emailForm.email
+          email: self.emailForm.email,
         });
       } catch (error) {
         throw error;
@@ -109,49 +131,53 @@ export default {
       {
         required: true,
         trigger: "blur",
-        message: "邮箱不能为空"
+        message: "邮箱不能为空",
       },
       {
         type: "email",
         trigger: "blur",
-        message: "邮箱格式不正确"
+        message: "邮箱格式不正确",
       },
       {
         validator,
-        trigger: "blur"
-      }
+        trigger: "blur",
+      },
     ];
     return {
       emailFormRules: {
         email: mutipleEmailRules,
         password: {
           required: true,
-          message: "密码不能为空"
-        }
+          message: "密码不能为空",
+        },
       },
       loginMode: "email",
       mobileCode: [],
       phoneForm: {
         verifyCode: "",
-        phone: ""
+        phone: "",
       },
       emailForm: {
         email: "",
-        password: ""
+        password: "",
       },
       passwordInputType: "password",
-      selectedCountry: ""
+      selectedCountry: "",
     };
   },
 
   created() {
-    fetchCommonSettings().then(response => {
+    fetchCommonSettings().then((response) => {
       this.mobileCode = response.data.mobile_code;
     });
   },
 
   methods: {
     async handlerLogin() {
+      if (this.loginMode !== "email") {
+        this.$message.warning("功能开发中，请使用邮箱登录");
+      }
+
       this.emailFormRules.email[2].validator.triggerType = "submit";
       try {
         await this.$refs.emailForm.validate();
@@ -190,8 +216,8 @@ export default {
     togglePasswordInputType() {
       this.passwordInputType =
         this.passwordInputType === "password" ? "text" : "password";
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less">
