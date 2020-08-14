@@ -43,6 +43,18 @@ const routes = [
       return import(/* webpackChunkName: "user" */ "../views/User.vue");
     },
   },
+  {
+    path: "/resume",
+    name: "resume",
+    component: () =>
+      import(/* webpackChunkName "resume"*/ "@/views/Resume.vue"),
+  },
+  {
+    path: "/resume/edit",
+    name: "resume-editor",
+    component: () =>
+      import(/* webpackChunkName "resume-editor"*/ "@/views/ResumeEditor.vue"),
+  },
 ];
 
 const router = new VueRouter({

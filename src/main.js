@@ -15,6 +15,10 @@ import "@/helper/registerGlobalComponents.js";
 // 引入请求实例
 import request from "@/helper/request";
 
+// 日期格式化过滤器
+
+import { formatDate } from "@/helper/utilities";
+
 // 开发环境捕获错误插件
 
 import NotificationPlugin from "./helper/notification.plugin";
@@ -24,7 +28,10 @@ if (process.env.NODE_ENV !== "production") {
   Vue.config.devtools = true;
 }
 
- 
+// 注册日期格式化过滤器
+
+Vue.filter("formatDate",formatDate);
+
 Vue.config.productionTip = false;
 Vue.prototype.request = request;
 

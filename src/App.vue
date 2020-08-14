@@ -56,6 +56,11 @@ export default {
     }
   },
   mounted() {
+
+
+this.$router.push('/resume')
+
+
     this.$refs.header.$el.addEventListener("animationend", function(e) {
       if (e.animationName === "slideOutUp") {
         e.target.style.top = "-100%";

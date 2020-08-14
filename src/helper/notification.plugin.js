@@ -76,7 +76,7 @@ const handlerDevtoolsChange = (event, Vue) => {
       notificationCount++;
 
       const warnIns = Notification.warning({
-        title: vm ? `${vm.$options.__file || vm.$options.name}` : vm,
+        title: vm && vm.$options ? `${vm.$options.__file || vm.$options.name}` : '',
         message: `<pre class="global-notification__warning-message">${err.toString()}</pre><p class="global-notification__warning-track">${info}</p>`,
         dangerouslyUseHTMLString: true,
         duration: 0,
