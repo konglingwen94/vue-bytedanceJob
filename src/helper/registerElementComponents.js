@@ -12,8 +12,10 @@ import {
   Loading,
   Message,
   Button,
+  Checkbox
 } from "element-ui";
 
+Vue.use(Checkbox);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);

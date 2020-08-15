@@ -58,7 +58,7 @@ export default {
   mounted() {
 
 
-this.$router.push('/resume')
+this.$router.push('/resume/edit')
 
 
     this.$refs.header.$el.addEventListener("animationend", function(e) {
