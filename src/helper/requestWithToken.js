@@ -7,8 +7,19 @@ const requestWithToken = axios.create({
   xsrfCookieName: "atsx-csrf-token", // default
 
   // `xsrfHeaderName` 是承载 xsrf token 的值的 HTTP 头的名称
-  xsrfHeaderName: "x-csrf-token", // 默认的
+  xsrfHeaderName: "x-csrf-token", // 默认的,
+  // POST 添加公共请求数据字段
+  transformRequest(data){
+    // console.log(data)
+    if(data){
+
+      data.portal_entrance=1
+    }
+    return JSON.stringify(data)
+  },
+  headers:{'Content-Type':'application/json'}
 });
+
 
 requestWithToken.interceptors.response.use(
   (response) => {
