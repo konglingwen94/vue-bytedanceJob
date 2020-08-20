@@ -30,19 +30,16 @@ export const watchScrollDirection = function(scrollElement, callback) {
   };
 };
 
-export function formatDate(date, format=true) {
+export function formatDate(date, format = true) {
   date = new Date(date);
   if (Number.isNaN(date.getTime())) {
     return false;
   }
 
   const Y = date.getFullYear();
-  const M = date
-    .getMonth()
-    .toString()
-    .padStart(2, 0);
+  const M = (parseInt(date.getMonth()) + 1).toString().padStart(2, 0);
   const d = date
-    .getDay()
+    .getDate()
     .toString()
     .padStart(2, 0);
   const h = date
