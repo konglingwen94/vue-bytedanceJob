@@ -26,7 +26,7 @@
                   :on-progress="handleResumeUploadProgress"
                 >
                   <div class="uploadFile__resume">
-                    <div class="beforeUpload" v-if="!resumeUploaded">
+                    <div class="beforeUpload" v-if="!uploadData.id">
                       <h3>将你的简历拖拽到此处</h3>
                       <div class="upload-button">
                         <bytedance-button round type="primary"
@@ -40,7 +40,9 @@
                     <div class="afterUpload" v-else>
                       <h3>{{ uploadData.name }}</h3>
                       <time class="uploadTime"
-                        >本次上传：{{ uploadData.time | formatDate }}</time
+                        >上次上传：{{
+                          uploadData.create_time | formatDate
+                        }}</time
                       >
                       <div class="afterUpload__actionButton">
                         <span class="afterUpload__actionButton-update"
@@ -797,7 +799,6 @@ export default {
                   callback(new Error("请输入合法的手机号"));
                 }
                 callback();
-                
               },
 
               trigger: "submit",
@@ -904,6 +905,7 @@ export default {
   created() {
     fetchResume().then((response) => {
       this.resume = this.mapResumeData(response.data.resume_detail);
+      this.uploadData = this.resume.resume_attachment;
     });
 
     fetchCommonSettings().then((response) => {
@@ -977,6 +979,8 @@ export default {
         .then((res) => {
           this.$messageBox.close();
           this.resume = this.mapResumeData(res.data.talent);
+          this.uploadToken = "";
+          this.resumeUploadUpdateHintVisible = false;
 
           this.$message.success("简历解析成功");
         })
@@ -1027,7 +1031,7 @@ export default {
     handleResumeUploadSuccess({ data }) {
       this.resumeUploaded = true;
       this.resumeUploadUpdateHintVisible = true;
-      this.uploadData = { ...data, time: new Date() };
+      this.uploadData = { ...data, create_time: Date.now() };
 
       this.$messageBox.close();
       this.$message.success({
@@ -1050,7 +1054,6 @@ export default {
             .concat(this.$refs.basicForm.validate())
         );
       } catch (error) {
-        
         return;
       }
 
