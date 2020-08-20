@@ -5,27 +5,26 @@
         @animationstart.native="onAnimationStart"
         ref="header"
         :class="animationName"
-        :fixedToTop="$route.path==='/'"
+        :fixedToTop="$route.path === '/'"
         :theme-color="themeColor"
       ></Header>
     </header>
     <main>
       <router-view></router-view>
     </main>
-    <footer v-if="$route.name!=='products'">
+    <footer v-if="$route.name !== 'products'">
       <Footer></Footer>
     </footer>
   </div>
 </template>
 <script>
- 
 export default {
   name: "App",
   data() {
     return {
       homeScrollY: 0,
-     
-      animationName: ""
+
+      animationName: "",
     };
   },
   computed: {
@@ -35,7 +34,7 @@ export default {
         : this.homeScrollY < Math.max(400, window.innerHeight)
         ? "is-transparent"
         : "main-color";
-    }
+    },
   },
   created() {
     this.$root.$on("home-scrolling", (direction, pos) => {
@@ -53,24 +52,20 @@ export default {
       if (e.animationName === "slideInDown") {
         e.target.style.top = 0;
       }
-    }
+    },
   },
   mounted() {
-
-
-this.$router.push('/resume/edit')
-
+    this.$router.push("/resume/edit");
 
     this.$refs.header.$el.addEventListener("animationend", function(e) {
       if (e.animationName === "slideOutUp") {
         e.target.style.top = "-100%";
       }
     });
-   
-  }
+  },
 };
 </script>
-<style lang="less"  >
+<style lang="less">
 @keyframes slideInDown {
   from {
     transform: translateY(-100%);
@@ -88,13 +83,13 @@ this.$router.push('/resume/edit')
   }
 }
 .slideInDown {
-  animation: slideInDown .4s;
+  animation: slideInDown 0.4s;
 }
 .slideOutUp {
-  animation: slideOutUp .4s;
+  animation: slideOutUp 0.4s;
 }
 
-footer{
-  margin-top:100px;
+footer {
+  margin-top: 100px;
 }
 </style>

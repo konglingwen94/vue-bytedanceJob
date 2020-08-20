@@ -1,6 +1,6 @@
 import axios from "axios";
 import instance from "./request";
-import { Message } from "element-ui";
+import { Message, Notification } from "element-ui";
 
 const requestWithToken = axios.create({
   baseURL: "/api",
@@ -9,16 +9,17 @@ const requestWithToken = axios.create({
   // `xsrfHeaderName` 是承载 xsrf token 的值的 HTTP 头的名称
   xsrfHeaderName: "x-csrf-token", // 默认的,
   // POST 添加公共请求数据字段
-  transformRequest(data){
-    // console.log(data)
-    if(data){
-
-      data.portal_entrance=1
+  transformRequest(data) {
+     
+    if (data) {
+      data.portal_entrance = 1;
     }
-    return JSON.stringify(data)
+    return JSON.stringify(data);
   },
-  headers:{'Content-Type':'application/json'}
+  
+  headers: { "Content-Type": "application/json" },
 });
+
 
 
 requestWithToken.interceptors.response.use(
@@ -33,6 +34,14 @@ requestWithToken.interceptors.response.use(
     return Promise.resolve(response);
   },
   async (error) => {
+    
+    if (error.message === "Network Error") {
+      Notification.error({
+        title: "网络错误",
+      });
+    } else if (error.message && error.message.includes("timeout")) {
+      Notification.error({ title: "网路超时" });
+    }
     if (error.response) {
       if (error.response.status === 405) {
         try {
@@ -75,6 +84,19 @@ export const fetchLogout = () => requestWithToken.post("/v1/user/logout");
 
 export const fetchSaveResume = (resume_id, payload) =>
   requestWithToken.post(`/v1/user/resumes/${resume_id}`, payload);
+
+// 上传简历和解析
+
+export const fetchUploadToken = () =>
+  requestWithToken.post("/v1/attachment/upload/tokens");
+export const fetchResumeParseTaskData = (id) => {
+  return requestWithToken.get(`/v1/attachment/resume/parse/tasks/${id}`);
+};
+ 
+export const fetchResumeParseTaskToken = (payload) =>
+  requestWithToken.post("/v1/attachment/resume/parse/tasks", payload);
+
+// GET /api/v1/attachment/resume/parse/tasks  获取简历解析任务`id`
 
 // GET /api/v1/user/latest/resume  获取个人简历
 

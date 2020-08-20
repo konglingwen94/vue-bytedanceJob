@@ -12,7 +12,10 @@ import {
   Loading,
   Message,
   Button,
-  Checkbox
+  Checkbox,
+  MessageBox,
+  Progress,
+  Notification
 } from "element-ui";
 
 Vue.use(Checkbox);
@@ -25,6 +28,11 @@ Vue.use(DatePicker);
 Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Upload);
-Vue.use(Loading);
 Vue.use(Button);
+Vue.use(Loading);
+Vue.use(Progress);
+ 
+
 Vue.prototype.$message = Message;
+Vue.prototype.$messageBox = MessageBox;
+Vue.prototype.$notify = Notification;

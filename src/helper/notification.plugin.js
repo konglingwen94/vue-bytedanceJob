@@ -1,8 +1,8 @@
 import devtoolsDetect from "devtools-detect";
-// import renderJson from "renderjson";
+ 
 
 import { Notification } from "element-ui";
- 
+
 function padStart(target, maxlength, fillString = " ") {
   target = target.toString();
   maxlength -= target.length;
@@ -23,7 +23,7 @@ function formatDate(date) {
 
   return `${h}:${m}:${s}.${ms}`;
 }
-// const originalConsoleLog = console.log;
+ 
 const styleHTML = `
 
 
@@ -55,13 +55,13 @@ const styleHTML = `
   margin-top:20px;
 }
 `;
-// const initialDevtoolIsOpen=devtoolsDetect.isOpen
+ 
 
 let notificationCount = 0;
 
 const handlerDevtoolsChange = (event, Vue) => {
   const h = Vue.createElement;
-   
+
   const { isOpen } = event.detail;
   if (!isOpen) {
     // 日志捕获弹窗
@@ -76,7 +76,8 @@ const handlerDevtoolsChange = (event, Vue) => {
       notificationCount++;
 
       const warnIns = Notification.warning({
-        title: vm && vm.$options ? `${vm.$options.__file || vm.$options.name}` : '',
+        title:
+          vm && vm.$options ? `${vm.$options.__file || vm.$options.name}` : "",
         message: `<pre class="global-notification__warning-message">${err.toString()}</pre><p class="global-notification__warning-track">${info}</p>`,
         dangerouslyUseHTMLString: true,
         duration: 0,
@@ -107,7 +108,7 @@ const handlerDevtoolsChange = (event, Vue) => {
                   margin: "13px 0",
                 },
               },
-              // err.stack
+               
               err.toString()
             ),
             h(
@@ -116,7 +117,7 @@ const handlerDevtoolsChange = (event, Vue) => {
                 style: {
                   display: "flex",
                   justifyContent: "space-between",
-                  // textAlign: "right",
+                   
                 },
               },
               [
@@ -147,7 +148,6 @@ const handlerDevtoolsChange = (event, Vue) => {
       for (let prop in wrapperStyle) {
         notification.$el.style[prop] = wrapperStyle[prop];
       }
-       
     };
   } else {
     Notification.closeAll();
@@ -165,9 +165,8 @@ const handlerDevtoolsChange = (event, Vue) => {
 
 export default {
   install(Vue) {
-     
     // 警告信息弹窗
-     
+
     handlerDevtoolsChange({ detail: { isOpen: devtoolsDetect.isOpen } }, Vue);
     window.addEventListener("devtoolschange", (event) => {
       handlerDevtoolsChange(event, Vue);
@@ -180,3 +179,5 @@ export default {
     document.head.appendChild(styleDom);
   },
 };
+
+

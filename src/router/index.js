@@ -55,6 +55,10 @@ const routes = [
     component: () =>
       import(/* webpackChunkName "resume-editor"*/ "@/views/ResumeEditor.vue"),
   },
+  {
+    path: "*",
+    redirect: "/",
+  },
 ];
 
 const router = new VueRouter({
@@ -74,3 +78,9 @@ const router = new VueRouter({
 });
 
 export default router;
+
+router.onError((err) => {
+  if (err.name === "ChunkLoadError") {
+    router.app.$notify.error("网络资源加载错误");
+  }
+});
