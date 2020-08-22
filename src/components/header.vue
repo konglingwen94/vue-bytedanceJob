@@ -90,8 +90,12 @@ export default {
     handleLogout() {
       store
         .requestLogout()
-        .then((res) => {})
-        .catch((err) => {});
+        .then((res) => {
+          this.$router.push('/')
+        })
+        .catch((err) => {
+          throw err
+        });
     },
   },
 };

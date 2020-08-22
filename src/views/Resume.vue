@@ -30,15 +30,19 @@
           <div class="resumeViewForm">
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">姓名</div>
-              <div class="resumeViewItem__content">{{resumeDetail.name}}</div>
+              <div class="resumeViewItem__content">{{ resumeDetail.name }}</div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">手机号</div>
-              <div class="resumeViewItem__content">{{resumeDetail.mobile_number}}</div>
+              <div class="resumeViewItem__content">
+                {{ resumeDetail.mobile_number }}
+              </div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">邮箱</div>
-              <div class="resumeViewItem__content">{{resumeDetail.email}}</div>
+              <div class="resumeViewItem__content">
+                {{ resumeDetail.email }}
+              </div>
             </div>
           </div>
         </div>
@@ -48,26 +52,27 @@
 
           <div
             :key="index"
-            v-for="(item,index) in resumeDetail.career_list"
+            v-for="(item, index) in resumeDetail.career_list"
             class="resumeViewForm clearfix"
           >
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">公司</div>
-              <div class="resumeViewItem__content">{{item.company}}</div>
+              <div class="resumeViewItem__content">{{ item.company }}</div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">起止时间</div>
-              <div
-                class="resumeViewItem__content"
-              >{{item.start_time | formatDate(false)}} ~ {{item.end_time | formatDate(false)}}</div>
+              <div class="resumeViewItem__content">
+                {{ item.start_time | formatDate(false) }} ~
+                {{ item.end_time | formatDate(false) }}
+              </div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">职位</div>
-              <div class="resumeViewItem__content">{{item.title}}</div>
+              <div class="resumeViewItem__content">{{ item.title }}</div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
               <div class="resumeViewItem__label">描述</div>
-              <div class="resumeViewItem__content">{{item.description}}</div>
+              <div class="resumeViewItem__content">{{ item.description }}</div>
             </div>
           </div>
         </div>
@@ -77,26 +82,27 @@
 
           <div
             :key="index"
-            v-for="(item,index) in resumeDetail.education_list"
+            v-for="(item, index) in resumeDetail.education_list"
             class="resumeViewForm clearfix"
           >
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">学校</div>
-              <div class="resumeViewItem__content">{{item.school}}</div>
+              <div class="resumeViewItem__content">{{ item.school }}</div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">起止时间</div>
-              <div
-                class="resumeViewItem__content"
-              >{{item.start_time | formatDate(false)}} ~ {{item.end_time | formatDate(false)}}</div>
+              <div class="resumeViewItem__content">
+                {{ item.start_time | formatDate(false) }} ~
+                {{ item.end_time | formatDate(false) }}
+              </div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">专业</div>
-              <div class="resumeViewItem__content">{{item.major}}</div>
+              <div class="resumeViewItem__content">{{ item.major }}</div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">学历</div>
-              <div class="resumeViewItem__content">{{item.description}}</div>
+              <div class="resumeViewItem__content">{{ item.description }}</div>
             </div>
           </div>
         </div>
@@ -107,26 +113,27 @@
 
           <div
             :key="index"
-            v-for="(item,index) in resumeDetail.internship_list"
+            v-for="(item, index) in resumeDetail.internship_list"
             class="resumeViewForm clearfix"
           >
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">公司</div>
-              <div class="resumeViewItem__content">{{item.company}}</div>
+              <div class="resumeViewItem__content">{{ item.company }}</div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">起止时间</div>
-              <div
-                class="resumeViewItem__content"
-              >{{item.start_time | formatDate(false)}} ~ {{item.end_time | formatDate(false)}}</div>
+              <div class="resumeViewItem__content">
+                {{ item.start_time | formatDate(false) }} ~
+                {{ item.end_time | formatDate(false) }}
+              </div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">职位</div>
-              <div class="resumeViewItem__content">{{item.position}}</div>
+              <div class="resumeViewItem__content">{{ item.position }}</div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
               <div class="resumeViewItem__label">描述</div>
-              <div class="resumeViewItem__content">{{item.description}}</div>
+              <div class="resumeViewItem__content">{{ item.description }}</div>
             </div>
           </div>
         </div>
@@ -136,22 +143,23 @@
 
           <div
             :key="index"
-            v-for="(item,index) in resumeDetail.project_list"
+            v-for="(item, index) in resumeDetail.project_list"
             class="resumeViewForm clearfix"
           >
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">项目名称</div>
-              <div class="resumeViewItem__content">{{item.name}}</div>
+              <div class="resumeViewItem__content">{{ item.name }}</div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">起止时间</div>
-              <div
-                class="resumeViewItem__content"
-              >{{item.start_time | formatDate(false)}} ~ {{item.end_time | formatDate(false)}}</div>
+              <div class="resumeViewItem__content">
+                {{ item.start_time | formatDate(false) }} ~
+                {{ item.end_time | formatDate(false) }}
+              </div>
             </div>
             <div class="resumeViewItem" v-if="item.role">
               <div class="resumeViewItem__label">角色</div>
-              <div class="resumeViewItem__content">{{item.role}}</div>
+              <div class="resumeViewItem__content">{{ item.role }}</div>
             </div>
             <div class="resumeViewItem" v-if="item.link">
               <div class="resumeViewItem__label">项目连接</div>
@@ -160,12 +168,13 @@
                   target="_blank"
                   :href="item.link"
                   class="resumeViewItem__content-link"
-                >{{item.link}}</a>
+                  >{{ item.link }}</a
+                >
               </div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
               <div class="resumeViewItem__label">描述</div>
-              <div class="resumeViewItem__content">{{item.description}}</div>
+              <div class="resumeViewItem__content">{{ item.description }}</div>
             </div>
           </div>
         </div>
@@ -175,17 +184,20 @@
 
           <div
             :key="index"
-            v-for="(item,index) in resumeDetail.works_list"
+            v-for="(item, index) in resumeDetail.works_list"
             class="resumeViewForm clearfix"
           >
             <div class="resumeViewItem" v-if="item.works_attachment">
               <div class="resumeViewItem__label">作品附件</div>
-              <div class="resumeViewItem__content">
+              <div class="resumeViewItem__content is-link">
                 <a
-                  :href="item.works_attachment.name"
-                  :download="item.works_attachment.name"
+                  @click="downloadWorks(item, index)"
+                  :href="item.url"
+                  ref="worksNode"
+                  :download="item.url"
                   class="resumeViewItem__content-download"
-                >{{item.works_attachment.name}}</a>
+                  >{{ item.works_attachment.name }}</a
+                >
               </div>
             </div>
             <div class="resumeViewItem" v-if="item.link">
@@ -195,12 +207,13 @@
                   target="_blank"
                   :href="item.link"
                   class="resumeViewItem__content-link"
-                >{{item.link}}</a>
+                  >{{ item.link }}</a
+                >
               </div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
               <div class="resumeViewItem__label">描述</div>
-              <div class="resumeViewItem__content">{{item.description}}</div>
+              <div class="resumeViewItem__content">{{ item.description }}</div>
             </div>
           </div>
         </div>
@@ -210,20 +223,22 @@
 
           <div
             :key="index"
-            v-for="(item,index) in resumeDetail.award_list"
+            v-for="(item, index) in resumeDetail.award_list"
             class="resumeViewForm clearfix"
           >
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">获奖名称</div>
-              <div class="resumeViewItem__content">{{item.title}}</div>
+              <div class="resumeViewItem__content">{{ item.title }}</div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">获奖时间</div>
-              <div class="resumeViewItem__content">{{item.award_time | formatDate(false)}}</div>
+              <div class="resumeViewItem__content">
+                {{ item.award_time | formatDate(false) }}
+              </div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
               <div class="resumeViewItem__label">描述</div>
-              <div class="resumeViewItem__content">{{item.desc}}</div>
+              <div class="resumeViewItem__content">{{ item.desc }}</div>
             </div>
           </div>
         </div>
@@ -233,78 +248,92 @@
 
           <div
             :key="index"
-            v-for="(item,index) in resumeDetail.language_skill_list"
+            v-for="(item, index) in resumeDetail.language_skill_list"
             class="resumeViewForm clearfix"
           >
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">语言</div>
-              <div class="resumeViewItem__content">{{item.language}}</div>
+              <div class="resumeViewItem__content">{{ item.language }}</div>
             </div>
-             
+
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">精通程度</div>
-              <div class="resumeViewItem__content">{{item.proficiency}}</div>
+              <div class="resumeViewItem__content">{{ item.proficiency }}</div>
             </div>
-             
           </div>
         </div>
 
-           <!-- 自我评价 -->
+        <!-- 自我评价 -->
         <div class="resumeViewSection">
           <h2 class="resumeViewSection__title">自我评价</h2>
 
           <div class="resumeViewForm">
-            
-            
             <div class="resumeViewItem resumeViewItem-desc">
-              {{resumeDetail.self_evaluation}}
+              {{ resumeDetail.self_evaluation }}
             </div>
           </div>
         </div>
 
-            <!-- 社交账号 -->
+        <!-- 社交账号 -->
         <div class="resumeViewSection">
           <h2 class="resumeViewSection__title">社交账号</h2>
 
           <div
             :key="index"
-            v-for="(item,index) in resumeDetail.sns_list"
+            v-for="(item, index) in resumeDetail.sns_list"
             class="resumeViewForm clearfix"
           >
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">社交平台</div>
-              <div class="resumeViewItem__content">{{item.sns_type}}</div>
+              <div class="resumeViewItem__content">{{ item.sns_type }}</div>
             </div>
-             
+
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">URL/ID</div>
-              <div class="resumeViewItem__content">{{item.link}}</div>
+              <div class="resumeViewItem__content">{{ item.link }}</div>
             </div>
-             
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 <script>
-import { fetchResume } from "@/helper/requestWithToken.js";
+import {
+  fetchResume,
+  fetchResumeWorksDownloadLink,
+} from "@/helper/requestWithToken.js";
 // const snsMap={}
 export default {
   name: "resume",
   data() {
     return {
-      resumeDetail: {}
+      resumeDetail: {},
+      worksListLinks: [],
     };
   },
 
-  methods: {},
+  methods: {
+    downloadWorks(item, index) {
+      if (item.url) return;
+      fetchResumeWorksDownloadLink({
+        portal_attachment_id: item.works_attachment.id,
+        resume_id: this.resumeDetail.id,
+      }).then((response) => {
+        const { url } = response.data;
+        this.$set(item, "url", url);
+        this.$nextTick(() => {
+          this.$refs.worksNode[index].click();
+        });
+      });
+    },
+  },
   created() {
-    fetchResume().then(res => {
+    fetchResume().then((res) => {
       this.resumeDetail = res.data.resume_detail;
+      return this.resumeDetail.works_list;
     });
-  }
+  },
 };
 </script>
 
@@ -350,6 +379,10 @@ export default {
         width: 50%;
         margin-bottom: 20px;
         min-height: 50px;
+        &__content.is-link {
+          color: @main-color;
+          cursor:pointer;
+        }
         &__label {
           color: @secondary-text-color;
           font-size: @font-size-base;

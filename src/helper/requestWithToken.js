@@ -10,17 +10,14 @@ const requestWithToken = axios.create({
   xsrfHeaderName: "x-csrf-token", // 默认的,
   // POST 添加公共请求数据字段
   transformRequest(data) {
-     
     if (data) {
       data.portal_entrance = 1;
     }
     return JSON.stringify(data);
   },
-  
+
   headers: { "Content-Type": "application/json" },
 });
-
-
 
 requestWithToken.interceptors.response.use(
   (response) => {
@@ -34,7 +31,6 @@ requestWithToken.interceptors.response.use(
     return Promise.resolve(response);
   },
   async (error) => {
-    
     if (error.message === "Network Error") {
       Notification.error({
         title: "网络错误",
@@ -92,9 +88,21 @@ export const fetchUploadToken = () =>
 export const fetchResumeParseTaskData = (id) => {
   return requestWithToken.get(`/v1/attachment/resume/parse/tasks/${id}`);
 };
- 
+
 export const fetchResumeParseTaskToken = (payload) =>
   requestWithToken.post("/v1/attachment/resume/parse/tasks", payload);
+
+// 简历上传作品附件获取保存token
+
+export const fetchResumeAttachmentToken = (payload) =>
+  requestWithToken.post("/v1/attachment/exchange/tokens", payload);
+
+// 简历作品附件下载
+
+export const fetchResumeWorksDownloadLink = (payload) =>
+  requestWithToken.post("/v1/attachment/download/links", payload);
+
+// /v1/attachment/exchange/tokens
 
 // GET /api/v1/attachment/resume/parse/tasks  获取简历解析任务`id`
 

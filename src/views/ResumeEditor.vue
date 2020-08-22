@@ -377,7 +377,7 @@
           <div class="resumeSection__form">
             <div
               class="bottom-action"
-              v-if="resume.works_list && resume.works_list.length === 0"
+              v-show="resume.works_list && resume.works_list.length === 0"
             >
               <i
                 class="el-icon-plus el-icon-plus-top"
@@ -385,6 +385,8 @@
                   resume.works_list.push({
                     description: '',
                     link: '',
+                    uploadStatus: 'pending',
+                    works_attachment: {},
                   })
                 "
                 >添加</i
@@ -395,10 +397,21 @@
               <el-form :key="key" label-position="top">
                 <el-form-item label="作品附件">
                   <el-upload
+                    ref="worksUpload"
                     drag
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    name="content"
                     multiple
                     :show-file-list="false"
+                    :action="`/atsx/blob/${uploadToken}/`"
+                    :on-success="
+                      (file) => handleWorksUploadSuccess(file, item, key)
+                    "
+                    :on-change="
+                      (file) => handleWorksUploadChange(file, item, key)
+                    "
+                    :on-progress="
+                      (file) => handleWorksUploadProgress(file, item, key)
+                    "
                     :before-upload="
                       (file) => handleWorksBeforeUpload(file, item, key)
                     "
@@ -418,9 +431,11 @@
                         class="uploadRejected"
                         v-else-if="item.uploadStatus === 'resolved'"
                       >
-                        <h3>{{ uploadData.name }}</h3>
+                        <h3>{{ item.works_attachment.name }}</h3>
                         <time class="uploadTime"
-                          >本次上传：{{ uploadData.time | formatDate }}</time
+                          >本次上传：{{
+                            item.works_attachment.create_time | formatDate
+                          }}</time
                         >
                         <div class="afterUpload__actionButton">
                           <span class="afterUpload__actionButton-update"
@@ -429,7 +444,13 @@
                           <span class="afterUpload__actionButton-dividerLine"
                             >|</span
                           >
-                          <span @click.stop="item.uploadStatus = 'pending'"
+                          <span
+                            @click.stop="
+                              () => {
+                                item.uploadStatus = 'pending';
+                                item.works_attachment = {};
+                              }
+                            "
                             >删除</span
                           >
                         </div>
@@ -449,7 +470,12 @@
                           <span class="afterUpload__actionButton-dividerLine"
                             >|</span
                           >
-                          <span @click.stop="item.uploadStatus = 'pending'"
+                          <span
+                            @click.stop="
+                              () => {
+                                item.uploadStatus = 'pending';
+                              }
+                            "
                             >删除</span
                           >
                         </div>
@@ -768,6 +794,7 @@ import {
   fetchUploadToken,
   fetchResumeParseTaskToken,
   fetchResumeParseTaskData,
+  fetchResumeAttachmentToken,
 } from "@/helper/requestWithToken";
 
 let footerActionPosition = null;
@@ -905,7 +932,7 @@ export default {
   created() {
     fetchResume().then((response) => {
       this.resume = this.mapResumeData(response.data.resume_detail);
-      this.uploadData = this.resume.resume_attachment;
+      this.uploadData = this.resume.resume_attachment || {};
     });
 
     fetchCommonSettings().then((response) => {
@@ -926,11 +953,70 @@ export default {
     window.removeEventListener("beforeunload", this.onbeforeunloadAlert);
   },
   methods: {
+    async handleWorksUploadChange(file, item, index) {
+      if (file.status === "ready") {
+        const props = {
+          percentage: 0,
+          showText: false,
+        };
+   
+
+        try {
+          var result = await this.$messageBox.alert(
+            this.$createElement("el-progress", {
+              props,
+              ref: "worksUploadProgress",
+            }),
+            "上传中...",
+            {
+              center: true,
+              showCancelButton: true,
+              showConfirmButton: false,
+              cancelButtonClass: "el-button--text",
+              showClose: false,
+            }
+          );
+        } catch (error) {
+          if (error === "cancel") {
+            this.$refs.worksUpload[index].abort();
+            this.$message.warning("已取消上传");
+          }
+          
+        }
+      }
+    },
+    handleWorksUploadProgress(event, item) {
+      if (this.$refs.worksUploadProgress) {
+        this.$refs.worksUploadProgress.percentage = event.percent;
+      }
+    },
     handleWorksBeforeUpload(file, item) {
       if (file.size > 1024 * 1024 * 100) {
         item.uploadStatus = "rejected";
+        return false;
       }
-      return false;
+
+      return fetchUploadToken().then((res) => {
+        this.uploadToken = res.data.token;
+        return true;
+      });
+    },
+    handleWorksUploadSuccess(response, item) {
+       
+      item.works_attachment = {
+        name: response.data.name,
+        create_time: Date.now(),
+      };
+      item.uploadStatus = "resolved";
+      this.$messageBox.close();
+
+      fetchResumeAttachmentToken({ attachment_id: response.data.id })
+        .then((res) => {
+          item.portal_attachment_id = res.data.portal_attachment_id;
+        })
+        .catch((err) => {
+          throw err;
+        });
     },
     handleRemoveUploadResume() {
       this.uploadData = {};
@@ -978,7 +1064,22 @@ export default {
         })
         .then((res) => {
           this.$messageBox.close();
-          this.resume = this.mapResumeData(res.data.talent);
+
+          // 兼容上传简历解析结果部分字段合并到表单中
+
+          res.data.talent.project_list.forEach(
+            (item) => (item.description = item.desc)
+          );
+
+          if (res.data.talent.career_list.length) {
+            this.withoutCareer = false;
+          }
+
+          this.resume = Object.assign(
+            {},
+            this.resume,
+            this.mapResumeData(res.data.talent)
+          );
           this.uploadToken = "";
           this.resumeUploadUpdateHintVisible = false;
 
@@ -1043,17 +1144,28 @@ export default {
     async submit() {
       try {
         await Promise.all(
-          this.$refs.careerForm
+          (this.$refs.careerForm || [])
             .map((form) => form.validate())
-            .concat(this.$refs.languageSkillForm.map((form) => form.validate()))
-            .concat(this.$refs.snsForm.map((form) => form.validate()))
-            .concat(this.$refs.awardForm.map((form) => form.validate()))
-            .concat(this.$refs.projectForm.map((form) => form.validate()))
-            .concat(this.$refs.internshipForm.map((form) => form.validate()))
-            .concat(this.$refs.educationForm.map((form) => form.validate()))
+            .concat(
+              (this.$refs.languageSkillForm || []).map((form) =>
+                form.validate()
+              )
+            )
+            .concat((this.$refs.snsForm || []).map((form) => form.validate()))
+            .concat((this.$refs.awardForm || []).map((form) => form.validate()))
+            .concat(
+              (this.$refs.projectForm || []).map((form) => form.validate())
+            )
+            .concat(
+              (this.$refs.internshipForm || []).map((form) => form.validate())
+            )
+            .concat(
+              (this.$refs.educationForm || []).map((form) => form.validate())
+            )
             .concat(this.$refs.basicForm.validate())
         );
       } catch (error) {
+        throw error;
         return;
       }
 
@@ -1072,11 +1184,23 @@ export default {
     },
 
     transformResumePayload(data) {
+      data.works_list.forEach((item) => {
+        Reflect.deleteProperty(item, "works_attachment");
+        Reflect.deleteProperty(item, "uploadStatus");
+      });
+
       for (let key in data) {
         if (key.endsWith("_list") && Array.isArray(data[key])) {
           data[key].forEach((item) => {
             if (Array.isArray(item.daterange)) {
-              const [start_time, end_time] = item.daterange;
+              let [start_time, end_time] = item.daterange;
+
+              start_time = Number.isNaN(new Date(start_time).getTime())
+                ? Date.now()
+                : start_time;
+              end_time = Number.isNaN(new Date(end_time).getTime())
+                ? Date.now()
+                : end_time;
               item.start_time = start_time;
               item.end_time = end_time;
             }
@@ -1090,10 +1214,20 @@ export default {
       this.careerList = data.career_list;
 
       data.works_list &&
-        data.works_list.forEach((item) => (item.uploadStatus = "pending"));
+        data.works_list.forEach((item) => {
+          if (item.works_attachment && item.works_attachment.id) {
+            item.uploadStatus = "resolved";
+          } else {
+            item.uploadStatus = "pending";
+          }
+        });
 
       for (let key in data) {
-        if (key.endsWith("_list") && Array.isArray(data[key])) {
+        if (key.endsWith("_list")) {
+          if (!Array.isArray(data[key])) {
+            data[key] = [];
+          }
+
           data[key].forEach((item) => {
             if (typeof item !== "object") {
               return;
@@ -1103,10 +1237,15 @@ export default {
               item.hasOwnProperty("start_time") &&
               item.hasOwnProperty("end_time")
             ) {
-              item.daterange = [
-                new Date(item.start_time).getTime(),
-                new Date(item.end_time).getTime(),
-              ];
+              let { start_time, end_time } = item;
+
+              start_time = start_time === -1 ? Date.now() : start_time;
+              end_time = end_time === -1 ? Date.now() : end_time;
+
+              this.$set(item, "daterange", [
+                new Date(start_time).getTime(),
+                new Date(end_time).getTime(),
+              ]);
             }
           });
         }
