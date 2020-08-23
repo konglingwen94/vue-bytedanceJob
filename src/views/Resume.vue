@@ -263,16 +263,7 @@
           </div>
         </div>
 
-        <!-- 自我评价 -->
-        <div class="resumeViewSection">
-          <h2 class="resumeViewSection__title">自我评价</h2>
-
-          <div class="resumeViewForm">
-            <div class="resumeViewItem resumeViewItem-desc">
-              {{ resumeDetail.self_evaluation }}
-            </div>
-          </div>
-        </div>
+     
 
         <!-- 社交账号 -->
         <div class="resumeViewSection" v-if="resumeDetail.sns_list && resumeDetail.sns_list.length">
@@ -294,7 +285,16 @@
             </div>
           </div>
         </div>
+   <!-- 自我评价 -->
+        <div class="resumeViewSection" v-if="resumeDetail.self_evaluation && resumeDetail.self_evaluation.trim()">
+          <h2 class="resumeViewSection__title">自我评价</h2>
 
+          <div class="resumeViewForm">
+            <div class="resumeViewItem resumeViewItem-desc">
+              {{ resumeDetail.self_evaluation }}
+            </div>
+          </div>
+        </div>
         <div class="resumeViewSection" v-if="resumeDetail.resume_attachment">
           <h2 class="resumeViewSection__title">简历</h2>
           <div class="resumeViewItem resumeViewItem__resumeAttachment">

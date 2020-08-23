@@ -248,6 +248,19 @@
             <h2 class="resumeSection__title">实习经历</h2>
           </div>
           <div class="resumeSection__form">
+            <div
+              class="bottom-action"
+              v-if="
+                resume.internship_list && resume.internship_list.length === 0
+              "
+            >
+              <i
+                class="el-icon-plus el-icon-plus-top"
+                @click="resume.internship_list.push({})"
+                >添加</i
+              >
+            </div>
+
             <template v-for="(item, key) in resume.internship_list">
               <el-form
                 ref="internshipForm"
@@ -1218,10 +1231,9 @@ export default {
     },
 
     transformResumePayload(data) {
-      data.works_list.forEach((item) => {
-        Reflect.deleteProperty(item, "works_attachment");
-        Reflect.deleteProperty(item, "uploadStatus");
-      });
+      data.works_list = data.works_list.filter(
+        (item) => item.portal_attachment_id
+      );
 
       if (this.withoutCareer) {
         data.career_list = [];
