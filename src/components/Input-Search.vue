@@ -1,6 +1,6 @@
 <template>
   <div :class="size" class="input-search">
-    <i class="prefix-icon">🔍</i>
+    <i class="prefix-icon el-icon-search"></i>
     <input
       v-bind="$attrs"
       ref="input"

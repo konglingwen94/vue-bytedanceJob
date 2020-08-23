@@ -1,7 +1,13 @@
 <template>
   <div class="jobs">
     <div class="banner">和优秀的人，做有挑战的事</div>
-    <div class="search-wrapper">
+
+    <!-- 搜索 -->
+    <div
+      ref="searchBar"
+      :class="{ fixedTop: searchBarFixedTop }"
+      class="search-wrapper"
+    >
       <input-search
         placeholder="搜索职位"
         v-model="searchKeyword"
@@ -87,9 +93,10 @@ export default {
       cityList: [],
       cities: [],
       results: [],
+      searchBarFixedTop: false,
     };
   },
-   
+
   created() {
     this.request
       .get("/job-filters")
@@ -101,6 +108,27 @@ export default {
 
     this.fetchList();
   },
+  mounted() {
+    let positionY = 0;
+    let searchBarClientHeight;
+    this.$nextTick(() => {
+      positionY = this.$refs.searchBar.offsetTop;
+      searchBarClientHeight = this.$refs.searchBar.clientHeight;
+    });
+    const onPageScroll = () => {
+      const top = this.$refs.searchBar.getBoundingClientRect().top;
+
+      this.searchBarFixedTop =
+        document.scrollingElement.scrollTop >
+        positionY - searchBarClientHeight / 2;
+    };
+    window.addEventListener("scroll", onPageScroll);
+
+    this.$once("hook:destroyed", () => {
+      window.removeEventListener("scroll", onPageScroll);
+    });
+  },
+
   computed: {
     queryFilter() {
       return {
@@ -141,7 +169,7 @@ export default {
   height: 400px;
   line-height: 400px;
   color: #fff;
-  margin-bottom: 70px;
+
   background-image: url("//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/joblistbanner2x.jpg");
   background-size: 186%;
   background-repeat: no-repeat;
@@ -150,10 +178,24 @@ export default {
   font-size: @font-size-larger;
 }
 .search-wrapper {
-  width: 800px;
-  margin: -100px auto 100px;
+  position: absolute;
+  width: 100%;
+  padding: 0 200px;
+  transform: translateY(-50%);
+  z-index: 100;
+  &.fixedTop {
+    position: fixed;
+
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.1);
+    top: 0;
+    padding: 20px 130px;
+
+    background-color: #fff;
+    transform: translateY(0);
+  }
 }
 .main {
+  margin-top: 100px;
   padding: 0 100px 0 200px;
   .aside-filter {
     float: left;
