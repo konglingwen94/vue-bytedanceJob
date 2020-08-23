@@ -45,7 +45,7 @@
         </div>
       </div>
       <!-- 主体内容 -->
-      <div class="content">
+      <div class="content" v-loading="loading">
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
           <li
@@ -68,7 +68,7 @@
           </li>
         </ul>
         <!-- 分页器 -->
-        <div class="pagination-wrapper">
+        <div v-show="!loading" class="pagination-wrapper">
           <pagination
             :current-page.sync="currentPage"
             :total="results.count"
@@ -94,11 +94,14 @@ export default {
       cities: [],
       results: [],
       searchBarFixedTop: false,
+      loading: false,
     };
   },
 
   created() {
-    this.request
+    // this.$loading();
+
+    const jobConfigRequest = this.request
       .get("/job-filters")
       .then((response) => {
         this.jobCities = response.city_list;
@@ -106,7 +109,11 @@ export default {
       })
       .catch();
 
-    this.fetchList();
+    const dataRequest = this.fetchList();
+
+    Promise.all([jobConfigRequest, dataRequest]).then(() => {
+      // this.$loading.close();
+    });
   },
   mounted() {
     let positionY = 0;
@@ -151,15 +158,20 @@ export default {
       this.location_code_list = [];
     },
     fetchList() {
-      this.request
+      this.loading = true;
+      // this.results = {};
+      return this.request
         .post("/jobs", this.queryFilter)
         .then((response) => {
           if (this.results.count !== response.count) {
             this.currentPage = 1;
           }
           this.results = response;
+          this.loading = false;
         })
-        .catch();
+        .catch(() => {
+          this.loading = false;
+        });
     },
   },
 };
@@ -222,6 +234,7 @@ export default {
   }
 
   .content {
+    min-height: 500px;
     padding-left: 20px;
     border-left: 1px solid @border-lighter-color;
     margin-left: 300px;

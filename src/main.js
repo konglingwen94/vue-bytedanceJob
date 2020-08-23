@@ -19,14 +19,26 @@ import request from "@/helper/request";
 
 import { formatDate } from "@/helper/utilities";
 
+
+// 引入loading组件
+
+import Loading from '@/components/Loading/main'
+
+
+
 // 开发环境捕获错误插件
 
 import NotificationPlugin from "./helper/notification.plugin";
+
 if (process.env.NODE_ENV !== "production") {
   Vue.createElement = new Vue().$createElement;
   Vue.use(NotificationPlugin);
   Vue.config.devtools = true;
 }
+
+// 使用loading 组件
+
+Vue.use(Loading)
 
 // 注册日期格式化过滤器
 
@@ -34,6 +46,8 @@ Vue.filter("formatDate",formatDate);
 
 Vue.config.productionTip = false;
 Vue.prototype.request = request;
+
+
 
 new Vue({
   router,
