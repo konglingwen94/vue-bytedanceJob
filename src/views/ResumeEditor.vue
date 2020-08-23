@@ -142,7 +142,7 @@
                   <el-input
                     type="textarea"
                     :rows="5"
-                    v-model="career.desc"
+                    v-model="career.description"
                   ></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -166,6 +166,7 @@
                     <i
                       @click="resume.career_list.splice(key, 1)"
                       class="el-icon-delete"
+                      v-if="resume.career_list.length > 1"
                     ></i>
                   </div>
                 </el-form-item>
@@ -434,6 +435,16 @@
                         class="uploadRejected"
                         v-else-if="item.uploadStatus === 'resolved'"
                       >
+                        <div class="uploadWorks__fileicon">
+                          <file-icon
+                            :file-type="
+                              (() => {
+                                patharr = item.works_attachment.name.split('.');
+                                return patharr[patharr.length - 1];
+                              })()
+                            "
+                          ></file-icon>
+                        </div>
                         <h3>{{ item.works_attachment.name }}</h3>
                         <time class="uploadTime"
                           >本次上传：{{
@@ -932,16 +943,25 @@ export default {
       return patharr[patharr.length - 1];
     },
   },
-  watch: {
-    withoutCareer(newVal) {
-      this.resume.career_list = newVal ? [] : this.careerList;
-    },
-  },
 
   created() {
     fetchResume().then((response) => {
       this.resume = this.mapResumeData(response.data.resume_detail);
       this.uploadData = this.resume.resume_attachment || {};
+      this.withoutCareer = this.resume.career_list.length === 0;
+
+      // 观测一次是否有工作经历，初始化表单数据
+      const unwatch = this.$watch("withoutCareer", (newVal) => {
+        if (
+          this.resume.career_list &&
+          this.resume.career_list.length === 0 &&
+          !newVal
+        ) {
+          this.resume.career_list.push({});
+        }
+
+        unwatch();
+      });
     });
 
     fetchCommonSettings().then((response) => {
@@ -1203,6 +1223,10 @@ export default {
         Reflect.deleteProperty(item, "uploadStatus");
       });
 
+      if (this.withoutCareer) {
+        data.career_list = [];
+      }
+
       for (let key in data) {
         if (key.endsWith("_list") && Array.isArray(data[key])) {
           data[key].forEach((item) => {
@@ -1284,6 +1308,11 @@ export default {
 .el-upload {
   width: 100%;
   .uploadFile__works {
+    .uploadWorks__fileicon {
+      width: 50px;
+      height: 50px;
+      margin: auto;
+    }
     .el-icon-warning {
       font-size: 30px;
     }

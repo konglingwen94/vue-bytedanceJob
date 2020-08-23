@@ -47,7 +47,7 @@
           </div>
         </div>
         <!-- 工作经历 -->
-        <div class="resumeViewSection">
+        <div class="resumeViewSection" v-if="resumeDetail.career_list && resumeDetail.career_list.length">
           <h2 class="resumeViewSection__title">工作经历</h2>
 
           <div
@@ -108,7 +108,7 @@
         </div>
 
         <!-- 实习经历 -->
-        <div class="resumeViewSection">
+        <div class="resumeViewSection" v-if="resumeDetail.internship_list && resumeDetail.internship_list.length">
           <h2 class="resumeViewSection__title">实习经历</h2>
 
           <div
@@ -138,7 +138,7 @@
           </div>
         </div>
         <!-- 项目 -->
-        <div class="resumeViewSection">
+        <div class="resumeViewSection" v-if="resumeDetail.project_list && resumeDetail.project_list.length">
           <h2 class="resumeViewSection__title">项目</h2>
 
           <div
@@ -179,7 +179,7 @@
           </div>
         </div>
         <!-- 作品 -->
-        <div class="resumeViewSection">
+        <div class="resumeViewSection" v-if="resumeDetail.works_list && resumeDetail.works_list.length">
           <h2 class="resumeViewSection__title">作品</h2>
 
           <div
@@ -218,7 +218,7 @@
           </div>
         </div>
         <!-- 获奖 -->
-        <div class="resumeViewSection">
+        <div class="resumeViewSection" v-if="resumeDetail.award_list && resumeDetail.award_list.length">
           <h2 class="resumeViewSection__title">获奖</h2>
 
           <div
@@ -243,7 +243,7 @@
           </div>
         </div>
         <!-- 语言 -->
-        <div class="resumeViewSection">
+        <div class="resumeViewSection" v-if="resumeDetail.language_skill_list && resumeDetail.language_skill_list.length">
           <h2 class="resumeViewSection__title">语言能力</h2>
 
           <div
@@ -275,7 +275,7 @@
         </div>
 
         <!-- 社交账号 -->
-        <div class="resumeViewSection">
+        <div class="resumeViewSection" v-if="resumeDetail.sns_list && resumeDetail.sns_list.length">
           <h2 class="resumeViewSection__title">社交账号</h2>
 
           <div
@@ -295,12 +295,9 @@
           </div>
         </div>
 
-        <div class="resumeViewSection">
+        <div class="resumeViewSection" v-if="resumeDetail.resume_attachment">
           <h2 class="resumeViewSection__title">简历</h2>
-          <div
-            class="resumeViewItem resumeViewItem__resumeAttachment"
-            v-if="resumeDetail.resume_attachment"
-          >
+          <div class="resumeViewItem resumeViewItem__resumeAttachment">
             <div class="fileIcon">
               <file-icon :file-type="resumeFileType"></file-icon>
             </div>
