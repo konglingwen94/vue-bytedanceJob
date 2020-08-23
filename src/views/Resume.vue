@@ -294,6 +294,41 @@
             </div>
           </div>
         </div>
+
+        <div class="resumeViewSection">
+          <h2 class="resumeViewSection__title">简历</h2>
+          <div
+            class="resumeViewItem resumeViewItem__resumeAttachment"
+            v-if="resumeDetail.resume_attachment"
+          >
+            <div class="fileIcon">
+              <file-icon :file-type="resumeFileType"></file-icon>
+            </div>
+            <div class="content">
+              <h3>{{ resumeDetail.resume_attachment.name }}</h3>
+              <time>
+                上传时间：{{
+                  resumeDetail.resume_attachment.create_time | formatDate
+                }}
+              </time>
+            </div>
+            <div class="download-link">
+              <a
+                ref="resumeDownloadLink"
+                :href="resumeAttachmentLink"
+                :download="resumeAttachmentLink"
+                @click="
+                  downloadResume(
+                    resumeDetail.resume_attachment &&
+                      resumeDetail.resume_attachment.id
+                  )
+                "
+              >
+                <i class="el-icon-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -303,17 +338,35 @@ import {
   fetchResume,
   fetchResumeWorksDownloadLink,
 } from "@/helper/requestWithToken.js";
-// const snsMap={}
+
 export default {
   name: "resume",
   data() {
     return {
       resumeDetail: {},
-      worksListLinks: [],
+      resumeAttachmentLink: "",
     };
   },
-
+  computed: {
+    resumeFileType() {
+      const pathArr = this.resumeDetail.resume_attachment.name.split(".");
+      return pathArr[pathArr.length - 1];
+    },
+  },
   methods: {
+    downloadResume(id) {
+      if (this.resumeAttachmentLink) return;
+      fetchResumeWorksDownloadLink({
+        portal_attachment_id: id,
+        resume_id: this.resumeDetail.id,
+      }).then((response) => {
+        const { url } = response.data;
+        this.resumeAttachmentLink = url;
+        this.$nextTick(() => {
+          this.$refs.resumeDownloadLink.click();
+        });
+      });
+    },
     downloadWorks(item, index) {
       if (item.url) return;
       fetchResumeWorksDownloadLink({
@@ -379,9 +432,37 @@ export default {
         width: 50%;
         margin-bottom: 20px;
         min-height: 50px;
+        &__resumeAttachment {
+          display: flex;
+          padding: 10px;
+          background-color: @bg-base-color;
+          align-items: center;
+          time {
+            color: @regular-text-color;
+            font-size: @font-size-base;
+          }
+          .fileIcon {
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+          }
+          .download-link {
+            margin-left: auto;
+
+            .el-icon-download {
+              font-size: @font-size-large;
+              border-radius: 50%;
+              border: 1px solid @border-base-color;
+              padding: 4px;
+            }
+            &:hover {
+              color: @main-color;
+            }
+          }
+        }
         &__content.is-link {
           color: @main-color;
-          cursor:pointer;
+          cursor: pointer;
         }
         &__label {
           color: @secondary-text-color;

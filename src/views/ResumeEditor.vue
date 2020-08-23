@@ -38,6 +38,9 @@
                       </div>
                     </div>
                     <div class="afterUpload" v-else>
+                      <div class="fileicon">
+                        <file-icon :fileType="resumeFileType"></file-icon>
+                      </div>
                       <h3>{{ uploadData.name }}</h3>
                       <time class="uploadTime"
                         >上次上传：{{
@@ -923,6 +926,12 @@ export default {
       },
     };
   },
+  computed: {
+    resumeFileType() {
+      const patharr = this.resume.resume_attachment.name.split(".");
+      return patharr[patharr.length - 1];
+    },
+  },
   watch: {
     withoutCareer(newVal) {
       this.resume.career_list = newVal ? [] : this.careerList;
@@ -959,7 +968,6 @@ export default {
           percentage: 0,
           showText: false,
         };
-   
 
         try {
           var result = await this.$messageBox.alert(
@@ -981,7 +989,6 @@ export default {
             this.$refs.worksUpload[index].abort();
             this.$message.warning("已取消上传");
           }
-          
         }
       }
     },
@@ -1002,7 +1009,6 @@ export default {
       });
     },
     handleWorksUploadSuccess(response, item) {
-       
       item.works_attachment = {
         name: response.data.name,
         create_time: Date.now(),
@@ -1134,12 +1140,20 @@ export default {
       this.resumeUploadUpdateHintVisible = true;
       this.uploadData = { ...data, create_time: Date.now() };
 
+      this.resume.resume_attachment = data;
+
       this.$messageBox.close();
       this.$message.success({
         message: "上传成功",
 
         center: true,
       });
+
+      fetchResumeAttachmentToken({ attachment_id: data.id })
+        .then((res) => {
+          this.resume.portal_attachment_id = res.data.portal_attachment_id;
+        })
+        .catch((err) => {});
     },
     async submit() {
       try {
@@ -1292,6 +1306,11 @@ export default {
     }
 
     .afterUpload {
+      .fileicon {
+        width: 50px;
+        height: 50px;
+        margin: auto;
+      }
       time {
         color: @secondary-text-color;
       }

@@ -11,6 +11,9 @@ const requestWithToken = axios.create({
   // POST 添加公共请求数据字段
   transformRequest(data) {
     if (data) {
+      try {
+        data = JSON.parse(data);
+      } catch (error) {}
       data.portal_entrance = 1;
     }
     return JSON.stringify(data);
