@@ -97,10 +97,8 @@ export default {
       loading: false,
     };
   },
-
+  
   created() {
-    // this.$loading();
-
     const jobConfigRequest = this.request
       .get("/job-filters")
       .then((response) => {
@@ -111,8 +109,9 @@ export default {
 
     const dataRequest = this.fetchList();
 
+     
     Promise.all([jobConfigRequest, dataRequest]).then(() => {
-      // this.$loading.close();
+      
     });
   },
   mounted() {
@@ -159,12 +158,13 @@ export default {
     },
     fetchList() {
       this.loading = true;
-      // this.results = {};
+       
       return this.request
         .post("/jobs", this.queryFilter)
         .then((response) => {
           if (this.results.count !== response.count) {
             this.currentPage = 1;
+            
           }
           this.results = response;
           this.loading = false;

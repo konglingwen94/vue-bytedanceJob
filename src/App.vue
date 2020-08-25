@@ -27,6 +27,7 @@ export default {
       animationName: "",
     };
   },
+
   computed: {
     themeColor() {
       return this.$route.path !== "/"
@@ -47,21 +48,19 @@ export default {
       }
     });
   },
+  mounted() {
+    this.$refs.header.$el.addEventListener("animationend", function(e) {
+      if (e.animationName === "slideOutUp") {
+        e.target.style.top = "-100%";
+      }
+    });
+  },
   methods: {
     onAnimationStart(e) {
       if (e.animationName === "slideInDown") {
         e.target.style.top = 0;
       }
     },
-  },
-  mounted() {
-     
-
-    this.$refs.header.$el.addEventListener("animationend", function(e) {
-      if (e.animationName === "slideOutUp") {
-        e.target.style.top = "-100%";
-      }
-    });
   },
 };
 </script>

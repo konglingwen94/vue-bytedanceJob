@@ -29,6 +29,19 @@ export default {
   },
 };
 </script>
+
+<style lang="less">
+.directiveLoading {
+  &-parent {
+    position: relative;
+    &-visible {
+      max-height: 100vh !important;
+      overflow: hidden;
+      min-height: 500px !important;
+    }
+  }
+}
+</style>
 <style lang="less">
 @height: 10px;
 @duration: 400ms;
@@ -58,6 +71,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 1000;
   &-fullscreen {
     position: fixed !important;
     background-color: rgba(255, 255, 255, 0.9);

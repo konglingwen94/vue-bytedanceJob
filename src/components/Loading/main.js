@@ -2,58 +2,40 @@ import Vue from "vue";
 import Loading from "./Loading";
 
 const LoadingCtor = Vue.extend(Loading);
+const fullscreenLoading = new LoadingCtor();
 
 LoadingCtor.install = (Vue) => {
-  const fullscreenLoading = new LoadingCtor();
-
   Vue.directive("loading", {
     bind: (el, binding, vnode, oldVnode) => {
-      const { modifiers } = binding;
-      let loadingIns;
-      //   let parent = el;
-      if (modifiers.fullscreen) {
-        loadingIns = fullscreenLoading;
-
-        // parent = document.body;
-      } else {
-        loadingIns = new LoadingCtor();
-        el.style.setProperty("position", "relative");
-      }
-      el.loading = loadingIns;
-    },
-    inserted(el, binding) {
+      el.loading = new LoadingCtor();
       el.loading.$mount();
-
+      el.appendChild(el.loading.$el);
+      el.classList.add("directiveLoading-parent");
       if (binding.value) {
-        if (binding.modifiers.fullscreen) {
-          document.body.appendChild(el.loading.$el);
-          el.loading.$el.classList.add("bytedanceLoading-fullscreen");
-        } else {
-          el.appendChild(el.loading.$el);
-        }
+        el.classList.add("directiveLoading-parent-visible");
+      } else {
+        el.loading.$el.style.setProperty("display", "none");
       }
     },
-    update(el, binding) {
-      const { value } = binding;
-      //   console.log(el.loading);
-      if (!value) {
-        el.loading.$el.remove();
-        if (!binding.modifiers.fullscreen) {
-          el.style.removeProperty("position");
-        }
+
+    update(el, { value, oldValue }) {
+      console.log("directive-loading-update");
+      
+      if (value) {
+        el.classList.add("directiveLoading-parent-visible");
+        
+
+        
+        el.loading.$el.style.removeProperty("display");
       } else {
-        if (!binding.modifiers.fullscreen) {
-          el.style.setProperty("position", "relative");
-        }
-        el.appendChild(el.loading.$el);
+    
+        el.loading.$el.style.setProperty("display", "none");
+        el.classList.remove("directiveLoading-parent-visible");
       }
     },
     unbind(el, binding) {
-      console.log("unbind");
+      console.log("unbind-directive-loading");
       el.loading.close();
-      if (!binding.modifiers.fullscreen) {
-        el.style.removeProperty("position");
-      }
     },
   });
   const defaultOpts = { target: document.body, fullscreen: false, lock: false };
