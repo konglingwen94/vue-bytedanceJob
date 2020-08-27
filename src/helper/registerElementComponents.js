@@ -9,13 +9,12 @@ import {
   Tabs,
   TabPane,
   Upload,
-  Loading,
   Message,
   Button,
   Checkbox,
   MessageBox,
   Progress,
-  Notification
+  Notification,
 } from "element-ui";
 
 Vue.use(Checkbox);
@@ -29,9 +28,7 @@ Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Upload);
 Vue.use(Button);
-Vue.use(Loading);
 Vue.use(Progress);
- 
 
 Vue.prototype.$message = Message;
 Vue.prototype.$messageBox = MessageBox;

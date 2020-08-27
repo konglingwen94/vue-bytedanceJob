@@ -19,43 +19,40 @@ LoadingCtor.install = (Vue) => {
     },
 
     update(el, { value, oldValue }) {
-      console.log("directive-loading-update");
-      
+
       if (value) {
         el.classList.add("directiveLoading-parent-visible");
-        
 
-        
         el.loading.$el.style.removeProperty("display");
       } else {
-    
         el.loading.$el.style.setProperty("display", "none");
         el.classList.remove("directiveLoading-parent-visible");
       }
     },
     unbind(el, binding) {
-      console.log("unbind-directive-loading");
       el.loading.close();
     },
   });
-  const defaultOpts = { target: document.body, fullscreen: false, lock: false };
+  const defaultOpts = { target: null, fullscreen: false, lock: false };
   Vue.prototype.$loading = function(opts) {
     opts = Object.assign({}, defaultOpts, opts);
     let targetParent;
     if (typeof opts.target === "string") {
-      targetParent = document.querySelector(opts.target);
-    } else if (opts.target instanceof HTMLElement) {
-      targetParent = opts.target;
+      try {
+        targetParent = document.querySelector(opts.target);
+      } catch (error) {
+        targetParent = document.body;
+      }
+    } else if (!opts.target instanceof HTMLElement) {
+      targetParent = document.body;
     }
 
-    targetParent = targetParent || document.body;
-    // if (opts.fullscreen || opts.body) {
-    //   targetParent = document.body;
-    // }
+    targetParent = opts.target || document.body;
+
+    targetParent.style.position = "relative";
 
     const loadingIns = new LoadingCtor({ data: opts });
     loadingIns.$mount();
-    console.log(opts.target);
     targetParent.appendChild(loadingIns.$el);
 
     return loadingIns;

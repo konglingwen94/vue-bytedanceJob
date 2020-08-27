@@ -3,15 +3,8 @@
     <div class="banner">和优秀的人，做有挑战的事</div>
 
     <!-- 搜索 -->
-    <div
-      ref="searchBar"
-      :class="{ fixedTop: searchBarFixedTop }"
-      class="search-wrapper"
-    >
-      <input-search
-        placeholder="搜索职位"
-        v-model="searchKeyword"
-      ></input-search>
+    <div ref="searchBar" :class="{ fixedTop: searchBarFixedTop }" class="search-wrapper">
+      <input-search placeholder="搜索职位" v-model="searchKeyword"></input-search>
     </div>
 
     <div class="main clearfix">
@@ -19,9 +12,7 @@
       <div class="clearfix aside-filter">
         <div class="header">
           <span>选择</span>
-          <span :class="{ clearable }" class="clear" @click="clearFilter"
-            >清空</span
-          >
+          <span :class="{ clearable }" class="clear" @click="clearFilter">清空</span>
         </div>
         <div class="job-category job-filter-block">
           <div class="title"></div>
@@ -48,19 +39,13 @@
       <div class="content" v-loading="loading">
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
-          <li
-            class="content-item"
-            v-for="item in results.job_post_list"
-            :key="item.id"
-          >
+          <li class="content-item" v-for="item in results.job_post_list" :key="item.id">
             <router-link :to="`/jobs/${item.id}`">
               <h3 class="title">{{ item.title }}</h3>
 
               <div class="subTitle">
-                <span class="city">{{ item.city_info.name }}</span
-                >&nbsp;|
-                <span class="job_category">{{ item.job_category.name }}</span
-                >&nbsp;|
+                <span class="city">{{ item.city_info.name }}</span>&nbsp;|
+                <span class="job_category">{{ item.job_category.name }}</span>&nbsp;|
                 <span class="recruitment_channel">社招</span>
               </div>
               <p class="desc">{{ item.description }}</p>
@@ -69,10 +54,7 @@
         </ul>
         <!-- 分页器 -->
         <div v-show="!loading" class="pagination-wrapper">
-          <pagination
-            :current-page.sync="currentPage"
-            :total="results.count"
-          ></pagination>
+          <pagination :current-page.sync="currentPage" :total="results.count"></pagination>
         </div>
       </div>
     </div>
@@ -94,27 +76,28 @@ export default {
       cities: [],
       results: [],
       searchBarFixedTop: false,
-      loading: false,
+      loading: false
     };
   },
-  
+
   created() {
     const jobConfigRequest = this.request
       .get("/job-filters")
-      .then((response) => {
+      .then(response => {
         this.jobCities = response.city_list;
         this.jobCategories = response.job_type_list;
       })
       .catch();
 
     const dataRequest = this.fetchList();
-
-     
+    q
     Promise.all([jobConfigRequest, dataRequest]).then(() => {
-      
+      this.loadingIns.close();
     });
   },
   mounted() {
+    this.loadingIns = this.$loading({ fullscreen: true, target: this.$el });
+
     let positionY = 0;
     let searchBarClientHeight;
     this.$nextTick(() => {
@@ -141,15 +124,15 @@ export default {
         job_category_id_list: this.job_category_id_list,
         location_code_list: this.location_code_list,
         keyword: this.searchKeyword,
-        offset: Math.max(0, this.currentPage - 1) * 10,
+        offset: Math.max(0, this.currentPage - 1) * 10
       };
     },
     clearable() {
       return this.job_category_id_list.length || this.location_code_list.length;
-    },
+    }
   },
   watch: {
-    queryFilter: "fetchList",
+    queryFilter: "fetchList"
   },
   methods: {
     clearFilter() {
@@ -158,13 +141,12 @@ export default {
     },
     fetchList() {
       this.loading = true;
-       
+
       return this.request
         .post("/jobs", this.queryFilter)
-        .then((response) => {
+        .then(response => {
           if (this.results.count !== response.count) {
             this.currentPage = 1;
-            
           }
           this.results = response;
           this.loading = false;
@@ -172,8 +154,8 @@ export default {
         .catch(() => {
           this.loading = false;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
