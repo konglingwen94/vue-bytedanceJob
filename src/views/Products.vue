@@ -64,11 +64,15 @@ export default {
   },
   created() {
     this.loading = true;
+    const loading = this.$loading({
+      position: { top: 60 }
+    });
     this.request
       .get("/products")
       .then(response => {
         this.products = response;
         this.loading = false;
+        loading.close();
 
         if (this.$route.params.id) {
           this.activeIndex = this.products.findIndex(

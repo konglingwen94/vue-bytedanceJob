@@ -36,7 +36,7 @@
         </div>
       </div>
       <!-- 主体内容 -->
-      <div class="content" v-loading="loading">
+      <div class="content" v-loading.scrollFixed="loading">
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
           <li class="content-item" v-for="item in results.job_post_list" :key="item.id">
@@ -90,18 +90,20 @@ export default {
       .catch();
 
     const dataRequest = this.fetchList();
-    q
+
+    this.loadingIns = this.$loading({
+      position: { top: 60 },
+      background: "#fff"
+    });
     Promise.all([jobConfigRequest, dataRequest]).then(() => {
       this.loadingIns.close();
     });
   },
   mounted() {
-    this.loadingIns = this.$loading({ fullscreen: true, target: this.$el });
-
     let positionY = 0;
     let searchBarClientHeight;
     this.$nextTick(() => {
-      positionY = this.$refs.searchBar.offsetTop;
+      positionY = this.positionY = this.$refs.searchBar.offsetTop;
       searchBarClientHeight = this.$refs.searchBar.clientHeight;
     });
     const onPageScroll = () => {
@@ -132,7 +134,10 @@ export default {
     }
   },
   watch: {
-    queryFilter: "fetchList"
+    queryFilter:  function(newVal, oldVal) {
+      newVal.offset !== oldVal.offset && window.scrollTo(0, this.positionY);
+        this.fetchList();
+    }
   },
   methods: {
     clearFilter() {

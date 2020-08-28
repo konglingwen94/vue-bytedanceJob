@@ -34,20 +34,19 @@
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">手机号</div>
-              <div class="resumeViewItem__content">
-                {{ resumeDetail.mobile_number }}
-              </div>
+              <div class="resumeViewItem__content">{{ resumeDetail.mobile_number }}</div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">邮箱</div>
-              <div class="resumeViewItem__content">
-                {{ resumeDetail.email }}
-              </div>
+              <div class="resumeViewItem__content">{{ resumeDetail.email }}</div>
             </div>
           </div>
         </div>
         <!-- 工作经历 -->
-        <div class="resumeViewSection" v-if="resumeDetail.career_list && resumeDetail.career_list.length">
+        <div
+          class="resumeViewSection"
+          v-if="resumeDetail.career_list && resumeDetail.career_list.length"
+        >
           <h2 class="resumeViewSection__title">工作经历</h2>
 
           <div
@@ -108,7 +107,10 @@
         </div>
 
         <!-- 实习经历 -->
-        <div class="resumeViewSection" v-if="resumeDetail.internship_list && resumeDetail.internship_list.length">
+        <div
+          class="resumeViewSection"
+          v-if="resumeDetail.internship_list && resumeDetail.internship_list.length"
+        >
           <h2 class="resumeViewSection__title">实习经历</h2>
 
           <div
@@ -138,7 +140,10 @@
           </div>
         </div>
         <!-- 项目 -->
-        <div class="resumeViewSection" v-if="resumeDetail.project_list && resumeDetail.project_list.length">
+        <div
+          class="resumeViewSection"
+          v-if="resumeDetail.project_list && resumeDetail.project_list.length"
+        >
           <h2 class="resumeViewSection__title">项目</h2>
 
           <div
@@ -168,8 +173,7 @@
                   target="_blank"
                   :href="item.link"
                   class="resumeViewItem__content-link"
-                  >{{ item.link }}</a
-                >
+                >{{ item.link }}</a>
               </div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
@@ -179,7 +183,10 @@
           </div>
         </div>
         <!-- 作品 -->
-        <div class="resumeViewSection" v-if="resumeDetail.works_list && resumeDetail.works_list.length">
+        <div
+          class="resumeViewSection"
+          v-if="resumeDetail.works_list && resumeDetail.works_list.length"
+        >
           <h2 class="resumeViewSection__title">作品</h2>
 
           <div
@@ -196,8 +203,7 @@
                   ref="worksNode"
                   :download="item.url"
                   class="resumeViewItem__content-download"
-                  >{{ item.works_attachment.name }}</a
-                >
+                >{{ item.works_attachment.name }}</a>
               </div>
             </div>
             <div class="resumeViewItem" v-if="item.link">
@@ -207,8 +213,7 @@
                   target="_blank"
                   :href="item.link"
                   class="resumeViewItem__content-link"
-                  >{{ item.link }}</a
-                >
+                >{{ item.link }}</a>
               </div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
@@ -218,7 +223,10 @@
           </div>
         </div>
         <!-- 获奖 -->
-        <div class="resumeViewSection" v-if="resumeDetail.award_list && resumeDetail.award_list.length">
+        <div
+          class="resumeViewSection"
+          v-if="resumeDetail.award_list && resumeDetail.award_list.length"
+        >
           <h2 class="resumeViewSection__title">获奖</h2>
 
           <div
@@ -232,9 +240,7 @@
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">获奖时间</div>
-              <div class="resumeViewItem__content">
-                {{ item.award_time | formatDate(false) }}
-              </div>
+              <div class="resumeViewItem__content">{{ item.award_time | formatDate(false) }}</div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
               <div class="resumeViewItem__label">描述</div>
@@ -243,7 +249,10 @@
           </div>
         </div>
         <!-- 语言 -->
-        <div class="resumeViewSection" v-if="resumeDetail.language_skill_list && resumeDetail.language_skill_list.length">
+        <div
+          class="resumeViewSection"
+          v-if="resumeDetail.language_skill_list && resumeDetail.language_skill_list.length"
+        >
           <h2 class="resumeViewSection__title">语言能力</h2>
 
           <div
@@ -262,8 +271,6 @@
             </div>
           </div>
         </div>
-
-     
 
         <!-- 社交账号 -->
         <div class="resumeViewSection" v-if="resumeDetail.sns_list && resumeDetail.sns_list.length">
@@ -285,14 +292,15 @@
             </div>
           </div>
         </div>
-   <!-- 自我评价 -->
-        <div class="resumeViewSection" v-if="resumeDetail.self_evaluation && resumeDetail.self_evaluation.trim()">
+        <!-- 自我评价 -->
+        <div
+          class="resumeViewSection"
+          v-if="resumeDetail.self_evaluation && resumeDetail.self_evaluation.trim()"
+        >
           <h2 class="resumeViewSection__title">自我评价</h2>
 
           <div class="resumeViewForm">
-            <div class="resumeViewItem resumeViewItem-desc">
-              {{ resumeDetail.self_evaluation }}
-            </div>
+            <div class="resumeViewItem resumeViewItem-desc">{{ resumeDetail.self_evaluation }}</div>
           </div>
         </div>
         <div class="resumeViewSection" v-if="resumeDetail.resume_attachment">
@@ -305,7 +313,7 @@
               <h3>{{ resumeDetail.resume_attachment.name }}</h3>
               <time>
                 上传时间：{{
-                  resumeDetail.resume_attachment.create_time | formatDate
+                resumeDetail.resume_attachment.create_time | formatDate
                 }}
               </time>
             </div>
@@ -333,7 +341,7 @@
 <script>
 import {
   fetchResume,
-  fetchResumeWorksDownloadLink,
+  fetchResumeWorksDownloadLink
 } from "@/helper/requestWithToken.js";
 
 export default {
@@ -341,22 +349,22 @@ export default {
   data() {
     return {
       resumeDetail: {},
-      resumeAttachmentLink: "",
+      resumeAttachmentLink: ""
     };
   },
   computed: {
     resumeFileType() {
       const pathArr = this.resumeDetail.resume_attachment.name.split(".");
       return pathArr[pathArr.length - 1];
-    },
+    }
   },
   methods: {
     downloadResume(id) {
       if (this.resumeAttachmentLink) return;
       fetchResumeWorksDownloadLink({
         portal_attachment_id: id,
-        resume_id: this.resumeDetail.id,
-      }).then((response) => {
+        resume_id: this.resumeDetail.id
+      }).then(response => {
         const { url } = response.data;
         this.resumeAttachmentLink = url;
         this.$nextTick(() => {
@@ -368,22 +376,23 @@ export default {
       if (item.url) return;
       fetchResumeWorksDownloadLink({
         portal_attachment_id: item.works_attachment.id,
-        resume_id: this.resumeDetail.id,
-      }).then((response) => {
+        resume_id: this.resumeDetail.id
+      }).then(response => {
         const { url } = response.data;
         this.$set(item, "url", url);
         this.$nextTick(() => {
           this.$refs.worksNode[index].click();
         });
       });
-    },
+    }
   },
   created() {
-    fetchResume().then((res) => {
+    const loading = this.$loading({ position: { top: 60 } });
+    fetchResume().then(res => {
       this.resumeDetail = res.data.resume_detail;
-      return this.resumeDetail.works_list;
+      loading.close();
     });
-  },
+  }
 };
 </script>
 

@@ -105,7 +105,7 @@ import {
 } from "@/helper/requestWithToken.js";
 import store from "@/store/index.js";
 
-// console.log(store)
+ 
 export default {
   data() {
     const self = this;

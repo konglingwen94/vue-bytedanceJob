@@ -35,9 +35,9 @@ export default {
   &-parent {
     position: relative;
     &-visible {
-      max-height: 100vh !important;
-      overflow: hidden;
-      min-height: 500px !important;
+      // max-height: 100vh !important;
+      // overflow: hidden;
+      // min-height: 500px !important;
     }
   }
 }
@@ -71,11 +71,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.4);
   z-index: 1000;
   &-fullscreen {
     position: fixed !important;
-    background-color: rgba(255, 255, 255, 0.9);
   }
 
   &__inner {

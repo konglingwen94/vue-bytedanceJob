@@ -19,12 +19,9 @@ import request from "@/helper/request";
 
 import { formatDate } from "@/helper/utilities";
 
-
 // 引入loading组件
 
-import Loading from '@/components/Loading/main'
-
-
+import Loading from "@/components/Loading/main";
 
 // 开发环境捕获错误插件
 
@@ -38,18 +35,18 @@ if (process.env.NODE_ENV !== "production") {
 
 // 使用loading 组件
 
-Vue.use(Loading)
+Vue.use(Loading);
 
 // 注册日期格式化过滤器
 
-Vue.filter("formatDate",formatDate);
+Vue.filter("formatDate", formatDate);
 
 Vue.config.productionTip = false;
 Vue.prototype.request = request;
-
-
 
 new Vue({
   router,
   render: (h) => h(App),
 }).$mount("#app");
+
+ 

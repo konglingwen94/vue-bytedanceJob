@@ -69,6 +69,7 @@ const router = new VueRouter({
   //     : process.env.BASE_URL  ,
   routes,
   scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 };
     if (savedPosition) {
       return savedPosition;
     } else {
@@ -78,6 +79,14 @@ const router = new VueRouter({
 });
 
 export default router;
+
+// router.beforeEach((to, from, next) => {
+//   console.log('beforeeach')
+//   document.scrollingElement.scrollTo(0, 0);
+//   next()
+// });
+
+
 
 router.onError((err) => {
   if (err.name === "ChunkLoadError") {
