@@ -18,15 +18,15 @@ export default {
   data() {
     return {
       fullscreen: false,
-      lock: false,
+      lock: false
     };
   },
   methods: {
     close() {
       this.$el.remove();
       this.$destroy();
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -71,7 +71,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 1);
   z-index: 1000;
   &-fullscreen {
     position: fixed !important;

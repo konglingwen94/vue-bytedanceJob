@@ -36,7 +36,7 @@
         </div>
       </div>
       <!-- 主体内容 -->
-      <div class="content" v-loading.scrollFixed="loading">
+      <div class="content" v-loading:#ffffff7d.scrollFixed="loading">
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
           <li class="content-item" v-for="item in results.job_post_list" :key="item.id">
@@ -61,6 +61,9 @@
   </div>
 </template>
 <script>
+let positionY = 0;
+let searchBarClientHeight = 0;
+
 export default {
   name: "job",
   data() {
@@ -100,18 +103,15 @@ export default {
     });
   },
   mounted() {
-    let positionY = 0;
-    let searchBarClientHeight;
     this.$nextTick(() => {
-      positionY = this.positionY = this.$refs.searchBar.offsetTop;
+      positionY = this.$refs.searchBar.offsetTop;
       searchBarClientHeight = this.$refs.searchBar.clientHeight;
     });
     const onPageScroll = () => {
       const top = this.$refs.searchBar.getBoundingClientRect().top;
 
       this.searchBarFixedTop =
-        document.scrollingElement.scrollTop >
-        positionY - searchBarClientHeight / 2;
+        window.scrollY > positionY - searchBarClientHeight / 2;
     };
     window.addEventListener("scroll", onPageScroll);
 
@@ -134,9 +134,9 @@ export default {
     }
   },
   watch: {
-    queryFilter:  function(newVal, oldVal) {
-      newVal.offset !== oldVal.offset && window.scrollTo(0, this.positionY);
-        this.fetchList();
+    queryFilter: function(newVal, oldVal) {
+      newVal.offset !== oldVal.offset && window.scrollTo(0, positionY);
+      this.fetchList();
     }
   },
   methods: {

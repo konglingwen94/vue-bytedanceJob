@@ -11,21 +11,26 @@ LoadingCtor.install = (Vue) => {
       el.loading.$mount();
       el.appendChild(el.loading.$el);
       el.classList.add("directiveLoading-parent");
-      if (binding.modifiers.scrollFixed && binding.value) {
-        const position = {
-          top:
-            el.getBoundingClientRect().top > 0
-              ? Math.abs(el.getBoundingClientRect().top)
-              : 0,
-          bottom:
-            el.getBoundingClientRect().bottom - window.innerHeight > 0
-              ? el.getBoundingClientRect().bottom - window.innerHeight
-              : 0,
-        };
-        el.loading.$el.style.top = position.top + "px";
-        el.loading.$el.style.bottom = position.bottom + "px";
+
+       
+      if (binding.arg) {
+        el.loading.$el.style.backgroundColor = binding.arg;
       }
       if (binding.value) {
+        if (binding.modifiers.scrollFixed) {
+          const position = {
+            top:
+              el.getBoundingClientRect().top > 0
+                ? Math.abs(el.getBoundingClientRect().top)
+                : 0,
+            bottom:
+              el.getBoundingClientRect().bottom - window.innerHeight > 0
+                ? el.getBoundingClientRect().bottom - window.innerHeight
+                : 0,
+          };
+          el.loading.$el.style.top = position.top + "px";
+          el.loading.$el.style.bottom = position.bottom + "px";
+        }
         el.classList.add("directiveLoading-parent-visible");
       } else {
         el.loading.$el.style.setProperty("display", "none");
@@ -34,20 +39,22 @@ LoadingCtor.install = (Vue) => {
 
     update(el, { value, oldValue, ...binding }) {
       if (value === oldValue) return;
-      if (binding.modifiers.scrollFixed && value) {
-        const position = {
-          top:
-            el.getBoundingClientRect().top < 0
-              ? Math.abs(el.getBoundingClientRect().top)
-              : 0,
-          bottom:
-            el.getBoundingClientRect().bottom - window.innerHeight > 0
-              ? el.getBoundingClientRect().bottom - window.innerHeight
-              : 0,
-        };
-        el.loading.$el.style.top = position.top + "px";
-        el.loading.$el.style.bottom = position.bottom + "px";
-      }
+      Vue.nextTick(() => {
+        if (binding.modifiers.scrollFixed && value) {
+          const position = {
+            top:
+              el.getBoundingClientRect().top < 0
+                ? Math.abs(el.getBoundingClientRect().top)
+                : 0,
+            bottom:
+              el.getBoundingClientRect().bottom - window.innerHeight > 0
+                ? el.getBoundingClientRect().bottom - window.innerHeight
+                : 0,
+          };
+          el.loading.$el.style.top = position.top + "px";
+          el.loading.$el.style.bottom = position.bottom + "px";
+        }
+      });
 
       if (value) {
         el.classList.add("directiveLoading-parent-visible");
