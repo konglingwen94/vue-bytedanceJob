@@ -127,7 +127,10 @@ export default {
       };
     },
     clearable() {
-      return this.job_category_id_list.length || this.location_code_list.length;
+      return (
+        this.job_category_id_list.length !== 0 ||
+        this.location_code_list.length !== 0
+      );
     }
   },
   watch: {
@@ -212,8 +215,8 @@ export default {
       .clear {
         &.clearable {
           color: @main-color;
+          cursor: pointer;
         }
-        cursor: pointer;
       }
     }
     .job-filter-block {
