@@ -94,10 +94,7 @@ export default {
 
     const dataRequest = this.fetchList();
 
-    this.loadingIns = this.$loading({
-      // position: { top: 60 },
-      background: "#fff"
-    });
+    this.loadingIns = this.$loading();
     Promise.all([jobConfigRequest, dataRequest]).then(() => {
       this.loadingIns.close();
     });
@@ -141,8 +138,12 @@ export default {
   },
   methods: {
     clearFilter() {
-      this.job_category_id_list = [];
-      this.location_code_list = [];
+      if (this.job_category_id_list.length) {
+        this.job_category_id_list = [];
+      }
+      if (this.location_code_list.length) {
+        this.location_code_list = [];
+      }
     },
     fetchList() {
       this.loading = true;

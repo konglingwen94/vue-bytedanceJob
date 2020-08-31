@@ -108,7 +108,7 @@ export default {
   align-items: center;
   padding: 10px 100px;
   position: relative;
-  z-index: 100000;
+  z-index: 1000;
   &.fixedToTop {
     position: fixed;
      
