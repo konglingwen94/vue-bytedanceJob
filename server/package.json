@@ -11,7 +11,7 @@
     "core-js": "^3.6.4",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-fetch": "^2.6.0"
   },
   "keywords": [
