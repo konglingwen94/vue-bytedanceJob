@@ -10,7 +10,11 @@
       ></Header>
     </header>
     <main>
-      <router-view></router-view>
+      <transition appear :name="pageTransitionName">
+        <keep-alive :exclude="['resume','resume-editor',]" :max="30">
+          <router-view :key="$route.path"></router-view>
+        </keep-alive>
+      </transition>
     </main>
     <footer v-if="$route.name !== 'products'">
       <Footer></Footer>
@@ -23,8 +27,8 @@ export default {
   data() {
     return {
       homeScrollY: 0,
-
-      animationName: "",
+      pageTransitionName: "",
+      animationName: ""
     };
   },
 
@@ -35,7 +39,7 @@ export default {
         : this.homeScrollY < Math.max(400, window.innerHeight)
         ? "is-transparent"
         : "main-color";
-    },
+    }
   },
   created() {
     this.$root.$on("home-scrolling", (direction, pos) => {
@@ -55,13 +59,26 @@ export default {
       }
     });
   },
+  watch: {
+    $route(newRoute) {
+      if (
+        ["jobs", "user", "resume", "jobDetail", "resume-editor"].includes(
+          newRoute.name
+        )
+      ) {
+        this.pageTransitionName = "jumpPage";
+      } else {
+        this.pageTransitionName = "";
+      }
+    }
+  },
   methods: {
     onAnimationStart(e) {
       if (e.animationName === "slideInDown") {
         e.target.style.top = 0;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less">
@@ -86,6 +103,15 @@ export default {
 }
 .slideOutUp {
   animation: slideOutUp 0.4s;
+}
+
+.jumpPage-enter {
+  transform: translate3d(0, 80px, 0);
+  opacity: 0;
+}
+
+.jumpPage-enter-active {
+  transition: all 0.56s;
 }
 
 footer {

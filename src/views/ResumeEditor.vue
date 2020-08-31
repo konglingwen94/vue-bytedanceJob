@@ -714,6 +714,7 @@ import {
 
 let footerActionPosition = null;
 export default {
+  name: "resume-editor",
   data() {
     return {
       submitLoading: false,

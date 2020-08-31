@@ -38,7 +38,7 @@
 </template>
 <script>
 export default {
-  name: "Product",
+  name: "product",
   data() {
     return {
       products: [],

@@ -1,6 +1,11 @@
 <template>
-  <div v-on="$listeners" class="bytedance-button" :class="`bytedance-button-${size}`">
+  <div
+    v-on="$listeners"
+    class="bytedance-button"
+    :class="[`bytedance-button-${size}`,{'bytedance-button-loading':loading}]"
+  >
     <span>
+      <i class="el-icon-loading" v-if="loading"></i>
       <slot>bytedance-button</slot>
     </span>
   </div>
@@ -9,6 +14,9 @@
 export default {
   name: "bytedance-button",
   props: {
+    loading: {
+      type: Boolean
+    },
     size: {
       type: String,
       default: "medium",
@@ -32,7 +40,14 @@ export default {
   border-radius: 23px;
   position: relative;
   cursor: pointer;
-  &:hover :after {
+  .el-icon-loading {
+    margin-right: 5px;
+  }
+  &-loading {
+    pointer-events: none;
+  }
+  &:hover :after,
+  &-loading:after {
     content: "";
     position: absolute;
     background-color: rgba(255, 255, 255, 0.3);
