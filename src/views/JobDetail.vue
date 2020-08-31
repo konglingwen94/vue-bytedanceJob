@@ -15,33 +15,37 @@
       <pre class="textContent">{{ jobDetail.requirement }}</pre>
     </div>
     <div class="job-detail-button job-detail-block">
-      <bytedance-button size="large">投递</bytedance-button>
+      <bytedance-button @click="delivery" size="large">投递</bytedance-button>
     </div>
   </div>
 </template>
 <script>
+import { state } from "@/store";
 export default {
   name: "job-detail",
   data() {
     return { jobDetail: {} };
   },
-  beforeRouteEnter(to, from, next) {
-    console.log(to, from, next);
-    if(from.name==='jobs'){
-      next()
-    }else{
-      
+
+  methods: {
+    delivery() {
+      if (!state.isLogin) {
+        this.$router.push("/user");
+      } else {
+        this.$message.warning("功能开发中...");
+      }
     }
-    next()
   },
   created() {
+    let loading = this.$loading({ position: { top: 60 } });
     const { id } = this.$route.params;
     this.request
       .get(`/jobs/${id}`)
       .then(res => {
         this.jobDetail = res.job_post_detail;
+        loading.close();
       })
-      .catch(console.error);
+      .catch(loading.close);
   }
 };
 </script>

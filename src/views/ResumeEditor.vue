@@ -24,6 +24,7 @@
                   :on-success="handleResumeUploadSuccess"
                   :on-change="handleResumeUploadChange"
                   :on-progress="handleResumeUploadProgress"
+                  :on-error="handleResumeUploadError"
                 >
                   <div class="uploadFile__resume">
                     <div class="beforeUpload" v-if="!uploadData.id">
@@ -695,7 +696,7 @@
       class="resumeEditor-footerAction"
     >
       <el-button round @click="$router.push('/resume')">取消</el-button>
-      <el-button round size="medium" @click="submit" type="primary">保存</el-button>
+      <el-button round :loading="submitLoading" size="medium" @click="submit" type="primary">保存</el-button>
     </div>
   </div>
 </template>
@@ -715,6 +716,7 @@ let footerActionPosition = null;
 export default {
   data() {
     return {
+      submitLoading: false,
       uploadData: {},
       resumeUploadUpdateHintVisible: false,
       shouldEvaluate: true,
@@ -1024,6 +1026,14 @@ export default {
         return true;
       });
     },
+    handleResumeUploadError(err) {
+      this.$message({
+        message: err.message,
+        dangerouslyUseHTMLString: true,
+        type: "error"
+        // duration: 0
+      });
+    },
     handleResumeUploadProgress(progressEvent) {
       this.$refs.resumeUploadProgress.percentage = progressEvent.percent;
     },
@@ -1103,7 +1113,7 @@ export default {
       }
 
       const payload = this.transformResumePayload(this.resume);
-
+      this.submitLoading = true;
       fetchSaveResume(payload.id, {
         resume: payload,
 
@@ -1112,8 +1122,11 @@ export default {
         .then(res => {
           this.$message.success("简历保存成功");
           this.$router.push("/resume");
+          this.submitLoading = false;
         })
-        .catch(err => {});
+        .catch(err => {
+          this.submitLoading = false;
+        });
     },
 
     transformResumePayload(data) {

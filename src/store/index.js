@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
   state.userInfo = account.userInfo;
 });
 
-const state = Vue.observable({
+export const state = Vue.observable({
   isLogin: false,
   userInfo: {},
 });

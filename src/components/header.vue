@@ -25,8 +25,7 @@
       <li class="navbar-item">
         <a href="https://job.bytedance.com/campus/" target="_blank">校园招聘</a>
       </li>
-    </ul>
-    |
+    </ul>|
     <div class="user">
       <div class="login" v-if="!state.isLogin">
         <router-link to="/user">
@@ -56,48 +55,48 @@ import store from "@/store";
 export default {
   name: "Header",
   data: () => ({
-    state: store.state,
+    state: store.state
   }),
   created() {
     store
       .requestLoginStatus()
-      .then((isLogin) => {
+      .then(isLogin => {
         if (!isLogin) {
           store.expireLogin();
         } else if (isLogin && !this.state.userInfo.email) {
           console.log(this.state.userInfo.email);
           store
             .requestUserInfo()
-            .then((res) => {})
-            .catch((err) => {});
+            .then(res => {})
+            .catch(err => {});
         }
       })
-      .catch((err) => {
+      .catch(err => {
         store.expireLogin();
       });
   },
   props: {
     fixedToTop: {
       type: Boolean,
-      default: false,
+      default: false
     },
     themeColor: {
       type: String,
-      default: "main-color",
-    },
+      default: "main-color"
+    }
   },
   methods: {
     handleLogout() {
       store
         .requestLogout()
-        .then((res) => {
-          this.$router.push('/')
+        .then(res => {
+          this.$router.push("/");
         })
-        .catch((err) => {
-          throw err
+        .catch(err => {
+          throw err;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -108,9 +107,11 @@ export default {
   height: 60px;
   align-items: center;
   padding: 10px 100px;
+  position: relative;
+  z-index: 100000;
   &.fixedToTop {
     position: fixed;
-    z-index: 100;
+     
     width: 100%;
   }
   &.main-color {
@@ -187,12 +188,12 @@ export default {
   .dropdown-menu {
     position: relative;
     z-index: 1000;
-    &__email{
-      line-height:2;
-      cursor:pointer;
+    &__email {
+      line-height: 2;
+      cursor: pointer;
     }
     &__wrapper {
-    // padding-top:10px;
+      // padding-top:10px;
       position: absolute;
       display: none;
       right: 0;

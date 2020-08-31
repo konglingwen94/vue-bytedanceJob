@@ -95,7 +95,7 @@ export default {
     const dataRequest = this.fetchList();
 
     this.loadingIns = this.$loading({
-      position: { top: 60 },
+      // position: { top: 60 },
       background: "#fff"
     });
     Promise.all([jobConfigRequest, dataRequest]).then(() => {
@@ -188,7 +188,7 @@ export default {
     box-shadow: 0 5px 4px rgba(0, 0, 0, 0.1);
     top: 0;
     padding: 20px 130px;
-
+    z-index: 1000;
     background-color: #fff;
     transform: translateY(0);
   }

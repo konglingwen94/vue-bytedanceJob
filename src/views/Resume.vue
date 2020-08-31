@@ -387,7 +387,7 @@ export default {
     }
   },
   created() {
-    const loading = this.$loading({ position: { top: 60 } });
+    const loading = this.$loading();
     fetchResume().then(res => {
       this.resumeDetail = res.data.resume_detail;
       loading.close();

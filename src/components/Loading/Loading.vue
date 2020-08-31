@@ -72,7 +72,7 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: rgba(255, 255, 255, 1);
-  z-index: 1000;
+  z-index: 100;
   &-fullscreen {
     position: fixed !important;
   }

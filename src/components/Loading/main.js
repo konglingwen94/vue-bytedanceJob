@@ -2,7 +2,7 @@ import Vue from "vue";
 import Loading from "./Loading";
 
 const LoadingCtor = Vue.extend(Loading);
-const fullscreenLoading = new LoadingCtor();
+// const fullscreenLoading = new LoadingCtor();
 
 LoadingCtor.install = (Vue) => {
   Vue.directive("loading", {
