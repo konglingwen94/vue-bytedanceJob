@@ -1109,7 +1109,7 @@ export default {
             .concat(this.$refs.basicForm.validate())
         );
       } catch (error) {
-        throw error;
+         this.$message.error('表单验证未通过')
         return;
       }
 

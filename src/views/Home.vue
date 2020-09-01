@@ -20,7 +20,7 @@
         <div class="subTitle">JOIN BYTEDANCE</div>
       </h1>
       <div class="search">
-        <input-search @search="searchJobs" size="small" placeholder="输入城市或职位进行搜索"></input-search>
+        <input-search @search="searchJobs" placeholder="输入城市或职位进行搜索"></input-search>
       </div>
       <div class="bottom-tips">
         <span class="arrow-down" @click="scrollDown">

@@ -67,11 +67,10 @@ let searchBarClientHeight = 0;
 export default {
   name: "job",
   data() {
-    const { keyword = "", job_category_id = "" } = this.$route.params;
     return {
-      searchKeyword: keyword,
+      searchKeyword: "",
       currentPage: 1,
-      job_category_id_list: job_category_id ? [job_category_id] : [],
+      job_category_id_list: [],
       jobCategories: [],
       jobCities: [],
       location_code_list: [],
@@ -83,6 +82,12 @@ export default {
     };
   },
 
+  activated() {
+    this.searchKeyword = this.$route.params.keyword || "";
+    if (this.$route.params.job_category_id) {
+      this.job_category_id_list = [this.$route.params.job_category_id];
+    }
+  },
   created() {
     const jobConfigRequest = this.request
       .get("/job-filters")
@@ -104,7 +109,10 @@ export default {
       positionY = this.$refs.searchBar.offsetTop;
       searchBarClientHeight = this.$refs.searchBar.clientHeight;
     });
+  },
+  activated() {
     const onPageScroll = () => {
+      
       const top = this.$refs.searchBar.getBoundingClientRect().top;
 
       this.searchBarFixedTop =
@@ -112,11 +120,10 @@ export default {
     };
     window.addEventListener("scroll", onPageScroll);
 
-    this.$once("hook:destroyed", () => {
+    this.$on("hook:deactivated", () => {
       window.removeEventListener("scroll", onPageScroll);
     });
   },
-
   computed: {
     queryFilter() {
       return {
@@ -135,7 +142,7 @@ export default {
   },
   watch: {
     queryFilter: function(newVal, oldVal) {
-      newVal.offset !== oldVal.offset && window.scrollTo(0, positionY);
+      this.searchBarFixedTop && window.scrollTo(0, positionY);
       this.fetchList();
     }
   },
