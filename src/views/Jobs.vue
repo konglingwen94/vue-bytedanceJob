@@ -4,7 +4,11 @@
 
     <!-- 搜索 -->
     <div ref="searchBar" :class="{ fixedTop: searchBarFixedTop }" class="search-wrapper">
-      <input-search placeholder="搜索职位" v-model="searchKeyword"></input-search>
+      <input-search
+        :size="searchBarFixedTop?'small':'medium'"
+        placeholder="搜索职位"
+        v-model="searchKeyword"
+      ></input-search>
     </div>
 
     <div class="main clearfix">
@@ -61,6 +65,7 @@
   </div>
 </template>
 <script>
+import { getOffsetTop } from "@/helper/utilities";
 let positionY = 0;
 let searchBarClientHeight = 0;
 
@@ -106,13 +111,13 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      positionY = this.$refs.searchBar.offsetTop;
+      positionY = getOffsetTop(document.body, this.$refs.searchBar);
       searchBarClientHeight = this.$refs.searchBar.clientHeight;
+
     });
   },
   activated() {
     const onPageScroll = () => {
-      
       const top = this.$refs.searchBar.getBoundingClientRect().top;
 
       this.searchBarFixedTop =

@@ -107,11 +107,11 @@ export default {
   height: 60px;
   align-items: center;
   padding: 10px 100px;
-  position: relative;
+  // position: relative;
   z-index: 1000;
   &.fixedToTop {
     position: fixed;
-     
+
     width: 100%;
   }
   &.main-color {

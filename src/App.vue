@@ -117,4 +117,9 @@ export default {
 footer {
   margin-top: 100px;
 }
+
+#app,
+main {
+  position: relative;
+}
 </style>

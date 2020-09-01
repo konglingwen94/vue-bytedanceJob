@@ -57,3 +57,12 @@ export function formatDate(date, format = true) {
 
   return format ? `${Y}-${M}-${d} ${h}:${m}:${s}` : `${Y}-${M}-${d}`;
 }
+
+export function getOffsetTop(relativeNode, node, topSum = 0) {
+  topSum += node.offsetTop;
+   
+  if (node.offsetParent !== relativeNode) {
+    return getOffsetTop(relativeNode, node.offsetParent, topSum);
+  }
+  return topSum;
+}
