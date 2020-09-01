@@ -3,6 +3,7 @@
     <div ref="banner" class="banner content-item-block">
       <div class="video-wrapper">
         <video
+          ref="video"
           class="video"
           preload="auto"
           muted
@@ -230,7 +231,8 @@ export default {
       this.$router.push({ name: "products", params: item });
     }
   },
-  mounted() {
+  activated() {
+    this.$refs.video.play();
     const rootVm = this.$root;
     rootVm.$emit(
       "home-scrolling",
@@ -241,7 +243,7 @@ export default {
       rootVm.$emit("home-scrolling", ...args);
     });
   },
-  destroyed() {
+  deactivated() {
     this.unwatch();
   }
 };
