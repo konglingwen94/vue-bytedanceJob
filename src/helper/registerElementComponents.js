@@ -1,5 +1,6 @@
 import Vue from "vue";
 import {
+  Alert,
   Input,
   Form,
   FormItem,
@@ -29,6 +30,7 @@ Vue.use(TabPane);
 Vue.use(Upload);
 Vue.use(Button);
 Vue.use(Progress);
+Vue.use(Alert);
 
 Vue.prototype.$message = Message;
 Vue.prototype.$messageBox = MessageBox;

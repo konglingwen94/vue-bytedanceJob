@@ -1,5 +1,21 @@
 <template>
   <div class="user">
+    <!-- 用户使用邮箱登录注册提示 -->
+    <div style="position:absolute;width:400px;left:30%;top:70px">
+      <el-alert type="warning" show-icon  >
+        <span slot="title">请在官方网站使用邮箱注册账号后才可以登录</span>
+        <span
+          >注册点这里
+          <a
+            href="https://job.bytedance.com/society/createaccount"
+            style="color:blue"
+            target="_blank"
+            >这里</a
+          >
+        </span>
+      </el-alert>
+    </div>
+
     <div class="login">
       <ul class="login-tabbar">
         <li
@@ -106,7 +122,7 @@
 import {
   fetchLoginByEmail,
   fetchCommonSettings,
-  fetchEmailRegisterStatus
+  fetchEmailRegisterStatus,
 } from "@/helper/requestWithToken.js";
 import store from "@/store/index.js";
 
@@ -122,7 +138,7 @@ export default {
       if (triggerType === "submit") return;
       try {
         var result = await fetchEmailRegisterStatus({
-          email: self.emailForm.email
+          email: self.emailForm.email,
         });
       } catch (error) {
         throw error;
@@ -136,44 +152,44 @@ export default {
       {
         required: true,
         trigger: "blur",
-        message: "邮箱不能为空"
+        message: "邮箱不能为空",
       },
       {
         type: "email",
         trigger: "blur",
-        message: "邮箱格式不正确"
+        message: "邮箱格式不正确",
       },
       {
         validator,
-        trigger: "blur"
-      }
+        trigger: "blur",
+      },
     ];
     return {
       emailFormRules: {
         email: mutipleEmailRules,
         password: {
           required: true,
-          message: "密码不能为空"
-        }
+          message: "密码不能为空",
+        },
       },
       loginMode: "email",
       mobileCode: [],
       phoneForm: {
         verifyCode: "",
-        phone: ""
+        phone: "",
       },
       emailForm: {
         email: "",
-        password: ""
+        password: "",
       },
       passwordInputType: "password",
       selectedCountry: "",
-      loading: false
+      loading: false,
     };
   },
 
   created() {
-    fetchCommonSettings().then(response => {
+    fetchCommonSettings().then((response) => {
       this.mobileCode = response.data.mobile_code;
     });
   },
@@ -226,8 +242,8 @@ export default {
     togglePasswordInputType() {
       this.passwordInputType =
         this.passwordInputType === "password" ? "text" : "password";
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less">
