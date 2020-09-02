@@ -1,16 +1,22 @@
 <template>
   <div class="checkbox">
-    <h2>{{title}}</h2>
+    <h2>{{ title }}</h2>
 
     <ul class="checkbox-list">
-      <li class="checkbox-item" v-for="(item, index) in targetData" :key="index">
+      <li
+        class="checkbox-item"
+        v-for="(item, index) in targetData"
+        :key="index"
+      >
         <input
           @change="check(item, $event)"
           type="checkbox"
           :id="item[props.key]"
           :checked="checked[index]"
         />
-        <label :for="item[props.key]" class="label-text">{{ item[props.label] }}</label>
+        <label :for="item[props.key]" class="label-text">{{
+          item[props.label]
+        }}</label>
       </li>
     </ul>
     <div class="search" v-if="sourceData.length">
@@ -18,7 +24,7 @@
         @blur="onInputBlur"
         @focus="focusing = true"
         class="search-input"
-        :class="{focusing}"
+        :class="{ focusing }"
         :placeholder="placeholder"
         type="text"
         v-model="filterKeyword"

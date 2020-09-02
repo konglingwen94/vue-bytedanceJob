@@ -6,27 +6,42 @@
           class="login-tabbar__item"
           :class="{ 'login-tabbar__item--active': loginMode === 'phone' }"
           @click="toggleLoginMode('phone')"
-        >手机号登录</li>
+        >
+          手机号登录
+        </li>
         <li
           class="login-tabbar__item"
           @click="toggleLoginMode('email')"
           :class="{ 'login-tabbar__item--active': loginMode === 'email' }"
-        >邮箱登录</li>
+        >
+          邮箱登录
+        </li>
       </ul>
 
       <ul class="login-form-content">
         <li class="login-form-content__phone" v-if="loginMode === 'phone'">
           <el-form :model="phoneForm" key="phone">
             <el-form-item>
-              <el-input v-model="phoneForm.phone" placeholder="输入手机号" class="input-with-select">
-                <el-select slot="prepend" v-model="selectedCountry" placeholder="请选择">
-                  <el-option value="disabled" disabled>选择国家和地区</el-option>
+              <el-input
+                v-model="phoneForm.phone"
+                placeholder="输入手机号"
+                class="input-with-select"
+              >
+                <el-select
+                  slot="prepend"
+                  v-model="selectedCountry"
+                  placeholder="请选择"
+                >
+                  <el-option value="disabled" disabled
+                    >选择国家和地区</el-option
+                  >
                   <hr class="input-with-select__divider" />
                   <el-option
                     :value="`+${item.val}`"
                     v-for="item in mobileCode"
                     :key="item.id"
-                  >{{ item.country }} +{{ item.val }}</el-option>
+                    >{{ item.country }} +{{ item.val }}</el-option
+                  >
                 </el-select>
               </el-input>
             </el-form-item>
@@ -38,7 +53,12 @@
           </el-form>
         </li>
         <li class="login-form-content__email" v-else>
-          <el-form key="email" :rules="emailFormRules" :model="emailForm" ref="emailForm">
+          <el-form
+            key="email"
+            :rules="emailFormRules"
+            :model="emailForm"
+            ref="emailForm"
+          >
             <el-form-item ref="emailFormItem" prop="email">
               <el-input
                 @blur="onEmailInputBlur"
@@ -71,7 +91,13 @@
         </li>
       </ul>
       <div class="login__button">
-        <bytedance-button :loading="loading" @click="handlerLogin" type="primary" size="large">登录</bytedance-button>
+        <bytedance-button
+          :loading="loading"
+          @click="handlerLogin"
+          type="primary"
+          size="large"
+          >登录</bytedance-button
+        >
       </div>
     </div>
   </div>
@@ -151,7 +177,7 @@ export default {
       this.mobileCode = response.data.mobile_code;
     });
   },
-   
+
   methods: {
     async handlerLogin() {
       if (this.loginMode !== "email") {

@@ -3,26 +3,28 @@
     <ul class="pagination-list">
       <li
         title="上一页"
-        @click="$emit('update:currentPage',Math.max(1,currentPage-1))"
+        @click="$emit('update:currentPage', Math.max(1, currentPage - 1))"
         class="pagination-item"
-        :class="{disabled:currentPage===1}"
+        :class="{ disabled: currentPage === 1 }"
       >
         <span><</span>
       </li>
       <li
         class="pagination-item"
-        :class="{current:currentPage===item}"
-        v-for="(item,index) in visiblePagers"
+        :class="{ current: currentPage === item }"
+        v-for="(item, index) in visiblePagers"
         @click="change(item)"
         :key="index"
       >
-        <span>{{item}}</span>
+        <span>{{ item }}</span>
       </li>
       <li
         title="下一页"
-        @click="$emit('update:currentPage',Math.min(totalPage,currentPage+1))"
+        @click="
+          $emit('update:currentPage', Math.min(totalPage, currentPage + 1))
+        "
         class="pagination-item"
-        :class="{disabled:currentPage===totalPage}"
+        :class="{ disabled: currentPage === totalPage }"
       >
         <span>></span>
       </li>

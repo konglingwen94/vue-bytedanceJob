@@ -2,8 +2,10 @@
   <div class="job-detail">
     <h1 class="job-detail-title">{{ jobDetail.title }}</h1>
     <div class="job-detail-subTitle" v-if="jobDetail.id">
-      <span class="city_info">{{ jobDetail.city_info.name }}</span>&nbsp;|
-      <span class="job_category">{{ jobDetail.job_category.name }}</span>&nbsp;|
+      <span class="city_info">{{ jobDetail.city_info.name }}</span
+      >&nbsp;|
+      <span class="job_category">{{ jobDetail.job_category.name }}</span
+      >&nbsp;|
       <span class="recruit_type">{{ jobDetail.recruit_type.name }}</span>
     </div>
     <div class="job-detail-description job-detail-block">

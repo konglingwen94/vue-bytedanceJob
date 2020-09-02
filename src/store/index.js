@@ -2,7 +2,7 @@ import Vue from "vue";
 import {
   fetchLoginStatus,
   fetchProfile,
-  fetchLogout,
+  fetchLogout
 } from "../helper/requestWithToken";
 
 window.addEventListener("beforeunload", () => {
@@ -21,7 +21,7 @@ window.addEventListener("load", () => {
 
 export const state = Vue.observable({
   isLogin: false,
-  userInfo: {},
+  userInfo: {}
 });
 
 const store = {
@@ -39,27 +39,27 @@ const store = {
   },
   requestLoginStatus() {
     return fetchLoginStatus()
-      .then((response) => {
+      .then(response => {
         store.setLoginStatus(response.data);
         return response.data;
       })
-      .catch((err) => Promise.reject(err));
+      .catch(err => Promise.reject(err));
   },
   requestLogout() {
     return fetchLogout()
-      .then((res) => {
+      .then(res => {
         if (res.data === "success") {
           store.expireLogin();
         }
       })
-      .catch((err) => Promise.reject(err));
+      .catch(err => Promise.reject(err));
   },
   requestUserInfo() {
     return fetchProfile()
-      .then((response) => {
+      .then(response => {
         store.setUserInfo(response.data);
       })
       .catch(Promise.reject);
-  },
+  }
 };
 export default store;

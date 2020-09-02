@@ -4,7 +4,7 @@ import Loading from "./Loading";
 const LoadingCtor = Vue.extend(Loading);
 // const fullscreenLoading = new LoadingCtor();
 
-LoadingCtor.install = (Vue) => {
+LoadingCtor.install = Vue => {
   Vue.directive("loading", {
     inserted: (el, binding, vnode, oldVnode) => {
       el.loading = new LoadingCtor();
@@ -12,7 +12,6 @@ LoadingCtor.install = (Vue) => {
       el.appendChild(el.loading.$el);
       el.classList.add("directiveLoading-parent");
 
-       
       if (binding.arg) {
         el.loading.$el.style.backgroundColor = binding.arg;
       }
@@ -26,7 +25,7 @@ LoadingCtor.install = (Vue) => {
             bottom:
               el.getBoundingClientRect().bottom - window.innerHeight > 0
                 ? el.getBoundingClientRect().bottom - window.innerHeight
-                : 0,
+                : 0
           };
           el.loading.$el.style.top = position.top + "px";
           el.loading.$el.style.bottom = position.bottom + "px";
@@ -49,7 +48,7 @@ LoadingCtor.install = (Vue) => {
             bottom:
               el.getBoundingClientRect().bottom - window.innerHeight > 0
                 ? el.getBoundingClientRect().bottom - window.innerHeight
-                : 0,
+                : 0
           };
           el.loading.$el.style.top = position.top + "px";
           el.loading.$el.style.bottom = position.bottom + "px";
@@ -67,7 +66,7 @@ LoadingCtor.install = (Vue) => {
     },
     unbind(el, binding) {
       el.loading.close();
-    },
+    }
   });
   const defaultOpts = { target: null, fullscreen: true, lock: false };
   Vue.prototype.$loading = function(opts) {
@@ -92,7 +91,7 @@ LoadingCtor.install = (Vue) => {
     targetParent.appendChild(loadingIns.$el);
 
     if (Object.prototype.toString.call(opts.position) === "[object Object]") {
-      Object.keys(opts.position).forEach((prop) => {
+      Object.keys(opts.position).forEach(prop => {
         loadingIns.$el.style[prop] = opts.position[prop] + "px";
       });
     }

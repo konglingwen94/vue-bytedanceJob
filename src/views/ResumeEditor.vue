@@ -30,9 +30,13 @@
                     <div class="beforeUpload" v-if="!uploadData.id">
                       <h3>将你的简历拖拽到此处</h3>
                       <div class="upload-button">
-                        <bytedance-button round type="primary">选择文件</bytedance-button>
+                        <bytedance-button round type="primary"
+                          >选择文件</bytedance-button
+                        >
                       </div>
-                      <div>请上传 .pdf, .doc, .docx,.ppt,.pptx,.png,jepg,jpg 文件</div>
+                      <div>
+                        请上传 .pdf, .doc, .docx,.ppt,.pptx,.png,jepg,jpg 文件
+                      </div>
                     </div>
                     <div class="afterUpload" v-else>
                       <div class="fileicon">
@@ -40,25 +44,33 @@
                       </div>
                       <h3>{{ uploadData.name }}</h3>
                       <time class="uploadTime">
-                        上次上传：{{
-                        uploadData.create_time | formatDate
-                        }}
+                        上次上传：{{ uploadData.create_time | formatDate }}
                       </time>
                       <div class="afterUpload__actionButton">
-                        <span class="afterUpload__actionButton-update">更新</span>
-                        <span class="afterUpload__actionButton-dividerLine">|</span>
+                        <span class="afterUpload__actionButton-update"
+                          >更新</span
+                        >
+                        <span class="afterUpload__actionButton-dividerLine"
+                          >|</span
+                        >
                         <span @click.stop="handleRemoveUploadResume">删除</span>
                       </div>
                     </div>
                   </div>
-                  <div slot="tip" class="upload-success-tip" v-if="resumeUploadUpdateHintVisible">
+                  <div
+                    slot="tip"
+                    class="upload-success-tip"
+                    v-if="resumeUploadUpdateHintVisible"
+                  >
                     <i class="el-icon-warning"></i>
                     将简历内容解析到下方表单？
-                    <span
-                      @click="resolveResume"
-                      class="tips-resolve"
-                    >解析并覆盖</span>
-                    <i @click="resumeUploadUpdateHintVisible = false" class="el-icon-close"></i>
+                    <span @click="resolveResume" class="tips-resolve"
+                      >解析并覆盖</span
+                    >
+                    <i
+                      @click="resumeUploadUpdateHintVisible = false"
+                      class="el-icon-close"
+                    ></i>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -75,7 +87,7 @@
               :model="{
                 name: resume.name,
                 email: resume.email,
-                mobile_number: resume.mobile_number,
+                mobile_number: resume.mobile_number
               }"
               :rules="validatorRules.basic"
               ref="basicForm"
@@ -109,7 +121,10 @@
                 label-position="top"
               >
                 <el-form-item prop="company" label="公司">
-                  <el-input ref="companyInput" v-model="career.company"></el-input>
+                  <el-input
+                    ref="companyInput"
+                    v-model="career.company"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item prop="title" label="职位">
                   <el-input ref="titleInput" v-model="career.title"></el-input>
@@ -123,7 +138,11 @@
                   ></el-date-picker>
                 </el-form-item>
                 <el-form-item label="描述">
-                  <el-input type="textarea" :rows="5" v-model="career.description"></el-input>
+                  <el-input
+                    type="textarea"
+                    :rows="5"
+                    v-model="career.description"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item>
                   <div class="bottom-action">
@@ -138,10 +157,11 @@
 
                           start_time: 0,
                           end_time: 0,
-                          daterange: [],
+                          daterange: []
                         })
                       "
-                    >添加</i>
+                      >添加</i
+                    >
                     <i
                       @click="resume.career_list.splice(key, 1)"
                       class="el-icon-delete"
@@ -205,10 +225,11 @@
                           start_time: 0,
                           end_time: 0,
                           degree: -1,
-                          daterange: [],
+                          daterange: []
                         })
                       "
-                    >添加</i>
+                      >添加</i
+                    >
                     <i
                       @click="resume.education_list.splice(key, 1)"
                       class="el-icon-delete"
@@ -232,7 +253,11 @@
                 resume.internship_list && resume.internship_list.length === 0
               "
             >
-              <i class="el-icon-plus el-icon-plus-top" @click="resume.internship_list.push({})">添加</i>
+              <i
+                class="el-icon-plus el-icon-plus-top"
+                @click="resume.internship_list.push({})"
+                >添加</i
+              >
             </div>
 
             <template v-for="(item, key) in resume.internship_list">
@@ -257,7 +282,11 @@
                   ></el-date-picker>
                 </el-form-item>
                 <el-form-item label="描述">
-                  <el-input type="textarea" :rows="5" v-model="item.desc"></el-input>
+                  <el-input
+                    type="textarea"
+                    :rows="5"
+                    v-model="item.desc"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item>
                   <div class="bottom-action">
@@ -272,11 +301,15 @@
 
                           start_time: 0,
                           end_time: 0,
-                          daterange: [],
+                          daterange: []
                         })
                       "
-                    >添加</i>
-                    <i @click="resume.internship_list.splice(key, 1)" class="el-icon-delete"></i>
+                      >添加</i
+                    >
+                    <i
+                      @click="resume.internship_list.splice(key, 1)"
+                      class="el-icon-delete"
+                    ></i>
                   </div>
                 </el-form-item>
               </el-form>
@@ -317,7 +350,11 @@
                   ></el-date-picker>
                 </el-form-item>
                 <el-form-item label="描述" prop="description">
-                  <el-input v-model="item.description" :rows="5" type="textarea"></el-input>
+                  <el-input
+                    v-model="item.description"
+                    :rows="5"
+                    type="textarea"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item>
                   <div class="bottom-action">
@@ -332,11 +369,15 @@
                           role: '',
                           start_time: 0,
                           end_time: 0,
-                          daterange: [],
+                          daterange: []
                         })
                       "
-                    >添加</i>
-                    <i @click="resume.project_list.splice(key, 1)" class="el-icon-delete"></i>
+                      >添加</i
+                    >
+                    <i
+                      @click="resume.project_list.splice(key, 1)"
+                      class="el-icon-delete"
+                    ></i>
                   </div>
                 </el-form-item>
               </el-form>
@@ -350,7 +391,10 @@
           </div>
 
           <div class="resumeSection__form">
-            <div class="bottom-action" v-show="resume.works_list && resume.works_list.length === 0">
+            <div
+              class="bottom-action"
+              v-show="resume.works_list && resume.works_list.length === 0"
+            >
               <i
                 class="el-icon-plus el-icon-plus-top"
                 @click="
@@ -358,10 +402,11 @@
                     description: '',
                     link: '',
                     uploadStatus: 'pending',
-                    works_attachment: {},
+                    works_attachment: {}
                   })
                 "
-              >添加</i>
+                >添加</i
+              >
             </div>
 
             <template v-for="(item, key) in resume.works_list">
@@ -375,28 +420,33 @@
                     :show-file-list="false"
                     :action="`/atsx/blob/${uploadToken}/`"
                     :on-success="
-                      (file) => handleWorksUploadSuccess(file, item, key)
+                      file => handleWorksUploadSuccess(file, item, key)
                     "
                     :on-change="
-                      (file) => handleWorksUploadChange(file, item, key)
+                      file => handleWorksUploadChange(file, item, key)
                     "
                     :on-progress="
-                      (file) => handleWorksUploadProgress(file, item, key)
+                      file => handleWorksUploadProgress(file, item, key)
                     "
                     :before-upload="
-                      (file) => handleWorksBeforeUpload(file, item, key)
+                      file => handleWorksBeforeUpload(file, item, key)
                     "
                   >
                     <div class="uploadFile__works uploadFile">
                       <div v-if="item.uploadStatus === 'pending'">
                         <h3>将你的作品拖拽到此处</h3>
                         <div class="upload-button">
-                          <bytedance-button round type="primary">选择文件</bytedance-button>
+                          <bytedance-button round type="primary"
+                            >选择文件</bytedance-button
+                          >
                         </div>
                         <div>只能上传jpg/png文件，且不超过500kb</div>
                       </div>
 
-                      <div class="uploadRejected" v-else-if="item.uploadStatus === 'resolved'">
+                      <div
+                        class="uploadRejected"
+                        v-else-if="item.uploadStatus === 'resolved'"
+                      >
                         <div class="uploadWorks__fileicon">
                           <file-icon
                             :file-type="
@@ -410,12 +460,16 @@
                         <h3>{{ item.works_attachment.name }}</h3>
                         <time class="uploadTime">
                           本次上传：{{
-                          item.works_attachment.create_time | formatDate
+                            item.works_attachment.create_time | formatDate
                           }}
                         </time>
                         <div class="afterUpload__actionButton">
-                          <span class="afterUpload__actionButton-update">更新</span>
-                          <span class="afterUpload__actionButton-dividerLine">|</span>
+                          <span class="afterUpload__actionButton-update"
+                            >更新</span
+                          >
+                          <span class="afterUpload__actionButton-dividerLine"
+                            >|</span
+                          >
                           <span
                             @click.stop="
                               () => {
@@ -423,24 +477,33 @@
                                 item.works_attachment = {};
                               }
                             "
-                          >删除</span>
+                            >删除</span
+                          >
                         </div>
                       </div>
-                      <div class="uploadRejected" v-else-if="item.uploadStatus === 'rejected'">
+                      <div
+                        class="uploadRejected"
+                        v-else-if="item.uploadStatus === 'rejected'"
+                      >
                         <h3>
                           <i class="el-icon-warning"></i>
                         </h3>
                         <div class="uploadTime">请将大小控制在100M以内</div>
                         <div class="afterUpload__actionButton">
-                          <span class="afterUpload__actionButton-update">重新选择</span>
-                          <span class="afterUpload__actionButton-dividerLine">|</span>
+                          <span class="afterUpload__actionButton-update"
+                            >重新选择</span
+                          >
+                          <span class="afterUpload__actionButton-dividerLine"
+                            >|</span
+                          >
                           <span
                             @click.stop="
                               () => {
                                 item.uploadStatus = 'pending';
                               }
                             "
-                          >删除</span>
+                            >删除</span
+                          >
                         </div>
                       </div>
                     </div>
@@ -451,7 +514,11 @@
                 </el-form-item>
 
                 <el-form-item label="描述">
-                  <el-input v-model="item.description" :rows="5" type="textarea"></el-input>
+                  <el-input
+                    v-model="item.description"
+                    :rows="5"
+                    type="textarea"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item>
                   <div class="bottom-action">
@@ -461,11 +528,15 @@
                       @click="
                         resume.works_list.push({
                           description: '',
-                          link: '',
+                          link: ''
                         })
                       "
-                    >添加</i>
-                    <i @click="resume.works_list.splice(key, 1)" class="el-icon-delete"></i>
+                      >添加</i
+                    >
+                    <i
+                      @click="resume.works_list.splice(key, 1)"
+                      class="el-icon-delete"
+                    ></i>
                   </div>
                 </el-form-item>
               </el-form>
@@ -479,16 +550,20 @@
           </div>
 
           <div class="resumeSection__form">
-            <div class="bottom-action" v-if="resume.award_list && resume.award_list.length === 0">
+            <div
+              class="bottom-action"
+              v-if="resume.award_list && resume.award_list.length === 0"
+            >
               <i
                 class="el-icon-plus el-icon-plus-top"
                 @click="
                   resume.award_list.push({
                     description: '',
-                    link: '',
+                    link: ''
                   })
                 "
-              >添加</i>
+                >添加</i
+              >
             </div>
 
             <template v-for="(item, key) in resume.award_list">
@@ -513,7 +588,11 @@
                 </el-form-item>
 
                 <el-form-item label="描述">
-                  <el-input v-model="item.desc" :rows="5" type="textarea"></el-input>
+                  <el-input
+                    v-model="item.desc"
+                    :rows="5"
+                    type="textarea"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item>
                   <div class="bottom-action">
@@ -523,11 +602,15 @@
                       @click="
                         resume.award_list.push({
                           description: '',
-                          link: '',
+                          link: ''
                         })
                       "
-                    >添加</i>
-                    <i @click="resume.award_list.splice(key, 1)" class="el-icon-delete"></i>
+                      >添加</i
+                    >
+                    <i
+                      @click="resume.award_list.splice(key, 1)"
+                      class="el-icon-delete"
+                    ></i>
                   </div>
                 </el-form-item>
               </el-form>
@@ -553,10 +636,11 @@
                 @click="
                   resume.language_skill_list.push({
                     proficiency: '',
-                    language: '',
+                    language: ''
                   })
                 "
-              >添加</i>
+                >添加</i
+              >
             </div>
 
             <template v-for="(item, key) in resume.language_skill_list">
@@ -594,11 +678,15 @@
                       @click="
                         resume.language_skill_list.push({
                           language: '',
-                          proficiency: '',
+                          proficiency: ''
                         })
                       "
-                    >添加</i>
-                    <i @click="resume.language_skill_list.splice(key, 1)" class="el-icon-delete"></i>
+                      >添加</i
+                    >
+                    <i
+                      @click="resume.language_skill_list.splice(key, 1)"
+                      class="el-icon-delete"
+                    ></i>
                   </div>
                 </el-form-item>
               </el-form>
@@ -611,20 +699,29 @@
             <h2 class="resumeSection__title">社交账号</h2>
           </div>
           <div class="resumeSection__form">
-            <div class="bottom-action" v-if="resume.sns_list && resume.sns_list.length === 0">
+            <div
+              class="bottom-action"
+              v-if="resume.sns_list && resume.sns_list.length === 0"
+            >
               <i
                 class="el-icon-plus el-icon-plus-top"
                 @click="
                   resume.sns_list.push({
                     proficiency: '',
-                    language: '',
+                    language: ''
                   })
                 "
-              >添加</i>
+                >添加</i
+              >
             </div>
 
             <template v-for="(item, key) in resume.sns_list">
-              <el-form ref="snsForm" :model="item" :rules="validatorRules.sns" :key="key">
+              <el-form
+                ref="snsForm"
+                :model="item"
+                :rules="validatorRules.sns"
+                :key="key"
+              >
                 <el-form-item label="社交账号" prop="sns_type">
                   <el-select clearable v-model="item.sns_type">
                     <el-option
@@ -646,11 +743,15 @@
                       @click="
                         resume.sns_list.push({
                           language: '',
-                          proficiency: '',
+                          proficiency: ''
                         })
                       "
-                    >添加</i>
-                    <i @click="resume.sns_list.splice(key, 1)" class="el-icon-delete"></i>
+                      >添加</i
+                    >
+                    <i
+                      @click="resume.sns_list.splice(key, 1)"
+                      class="el-icon-delete"
+                    ></i>
                   </div>
                 </el-form-item>
               </el-form>
@@ -665,12 +766,20 @@
           </div>
           <div class="resumeSection__form">
             <div v-if="!shouldEvaluate" class="bottom-action">
-              <i @click="shouldEvaluate = !shouldEvaluate" class="el-icon-plus el-icon-plus-top">添加</i>
+              <i
+                @click="shouldEvaluate = !shouldEvaluate"
+                class="el-icon-plus el-icon-plus-top"
+                >添加</i
+              >
             </div>
 
             <el-form v-else>
               <el-form-item label="自我评价">
-                <el-input type="textarea" v-model="resume.self_evaluation" :rows="5"></el-input>
+                <el-input
+                  type="textarea"
+                  v-model="resume.self_evaluation"
+                  :rows="5"
+                ></el-input>
               </el-form-item>
               <el-form-item>
                 <div class="bottom-action">
@@ -696,7 +805,14 @@
       class="resumeEditor-footerAction"
     >
       <el-button round @click="$router.push('/resume')">取消</el-button>
-      <el-button round :loading="submitLoading" size="medium" @click="submit" type="primary">保存</el-button>
+      <el-button
+        round
+        :loading="submitLoading"
+        size="medium"
+        @click="submit"
+        type="primary"
+        >保存</el-button
+      >
     </div>
   </div>
 </template>
@@ -1109,7 +1225,7 @@ export default {
             .concat(this.$refs.basicForm.validate())
         );
       } catch (error) {
-         this.$message.error('表单验证未通过')
+        this.$message.error("表单验证未通过");
         return;
       }
 

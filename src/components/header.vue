@@ -25,7 +25,8 @@
       <li class="navbar-item">
         <a href="https://job.bytedance.com/campus/" target="_blank">校园招聘</a>
       </li>
-    </ul>|
+    </ul>
+    |
     <div class="user">
       <div class="login" v-if="!state.isLogin">
         <router-link to="/user">
@@ -43,8 +44,6 @@
             <router-link to="/resume">我的简历</router-link>
           </li>
           <li class="dropdown-menu__item" @click="handleLogout">退出</li>
-
-          
         </ul>
       </div>
     </div>
@@ -64,7 +63,6 @@ export default {
         if (!isLogin) {
           store.expireLogin();
         } else if (isLogin && !this.state.userInfo.email) {
-           
           store
             .requestUserInfo()
             .then(res => {})
@@ -107,8 +105,7 @@ export default {
   height: 60px;
   align-items: center;
   padding: 10px 100px;
-   
-  
+
   &.fixedToTop {
     position: fixed;
 

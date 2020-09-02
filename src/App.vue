@@ -3,7 +3,7 @@
     <header>
       <Header
         @animationstart.native="onAnimationStart"
-        :class="{[animationName]:$route.name==='home'}"
+        :class="{ [animationName]: $route.name === 'home' }"
         :fixedToTop="$route.path === '/'"
         ref="header"
         :theme-color="themeColor"
@@ -11,7 +11,10 @@
     </header>
     <main>
       <transition appear :name="pageTransitionName">
-        <keep-alive :exclude="['resume','resume-editor','job','user']" :max="30">
+        <keep-alive
+          :exclude="['resume', 'home', 'resume-editor', 'job', 'user']"
+          :max="30"
+        >
           <router-view :key="$route.path"></router-view>
         </keep-alive>
       </transition>
@@ -28,7 +31,7 @@ export default {
     return {
       homeScrollY: 0,
       pageTransitionName: "",
-      animationName: ""
+      animationName: "",
     };
   },
 
@@ -39,7 +42,7 @@ export default {
         : this.homeScrollY < Math.max(400, window.innerHeight)
         ? "is-transparent"
         : "main-color";
-    }
+    },
   },
   created() {
     this.$root.$on("home-scrolling", (direction, pos) => {
@@ -64,15 +67,15 @@ export default {
       this.pageTransitionName = ["products", "home"].includes(newRoute.name)
         ? ""
         : "jumpPage";
-    }
+    },
   },
   methods: {
     onAnimationStart(e) {
       if (e.animationName === "slideInDown") {
         e.target.style.top = 0;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less">

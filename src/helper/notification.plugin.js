@@ -1,5 +1,4 @@
 import devtoolsDetect from "devtools-detect";
- 
 
 import { Notification } from "element-ui";
 
@@ -23,7 +22,7 @@ function formatDate(date) {
 
   return `${h}:${m}:${s}.${ms}`;
 }
- 
+
 const styleHTML = `
 
 
@@ -55,7 +54,6 @@ const styleHTML = `
   margin-top:20px;
 }
 `;
- 
 
 let notificationCount = 0;
 
@@ -82,7 +80,7 @@ const handlerDevtoolsChange = (event, Vue) => {
         dangerouslyUseHTMLString: true,
         duration: 0,
         customClass: "global-notification__warning",
-        position: "top-left",
+        position: "top-left"
       });
       warnIns.$el.style.width = "auto";
     };
@@ -105,10 +103,10 @@ const handlerDevtoolsChange = (event, Vue) => {
                 style: {
                   color: "#d92e2e",
                   whiteSpace: "pre-wrap",
-                  margin: "13px 0",
-                },
+                  margin: "13px 0"
+                }
               },
-               
+
               err.toString()
             ),
             h(
@@ -116,33 +114,32 @@ const handlerDevtoolsChange = (event, Vue) => {
               {
                 style: {
                   display: "flex",
-                  justifyContent: "space-between",
-                   
-                },
+                  justifyContent: "space-between"
+                }
               },
               [
                 h(
                   "span",
                   {
                     style: {
-                      marginRight: "20px",
-                    },
+                      marginRight: "20px"
+                    }
                   },
                   formatDate(date)
                 ),
                 h("span"),
-                `at: ${vm.$options.__file || vm.$options.name}`,
+                `at: ${vm.$options.__file || vm.$options.name}`
               ]
-            ),
+            )
           ]
         ),
 
-        duration: 0,
+        duration: 0
       });
       const wrapperStyle = {
         backgroundColor: "#fef0f0",
         padding: "10px",
-        width: "auto",
+        width: "auto"
       };
 
       for (let prop in wrapperStyle) {
@@ -168,7 +165,7 @@ export default {
     // 警告信息弹窗
 
     handlerDevtoolsChange({ detail: { isOpen: devtoolsDetect.isOpen } }, Vue);
-    window.addEventListener("devtoolschange", (event) => {
+    window.addEventListener("devtoolschange", event => {
       handlerDevtoolsChange(event, Vue);
     });
 
@@ -177,7 +174,5 @@ export default {
     styleDom.innerHTML = styleHTML;
 
     document.head.appendChild(styleDom);
-  },
+  }
 };
-
-

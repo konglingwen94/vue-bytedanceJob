@@ -149,7 +149,10 @@
                   <use xlink:href="#icon-toutiao_svg__b" />
                 </mask>
                 <use fill="#FFF" xlink:href="#icon-toutiao_svg__b" />
-                <g filter="url(#icon-toutiao_svg__c)" mask="url(#icon-toutiao_svg__d)">
+                <g
+                  filter="url(#icon-toutiao_svg__c)"
+                  mask="url(#icon-toutiao_svg__d)"
+                >
                   <mask id="icon-toutiao_svg__f" fill="#fff">
                     <use xlink:href="#icon-toutiao_svg__e" />
                   </mask>
@@ -206,7 +209,13 @@
                 transform="translate(-1284 -125)"
                 xlink:href="#icon-linkedin_svg__a"
               />
-              <circle cx="16" cy="16" r="16" fill="#1D87BD" transform="translate(.5)" />
+              <circle
+                cx="16"
+                cy="16"
+                r="16"
+                fill="#1D87BD"
+                transform="translate(.5)"
+              />
               <path
                 fill="#FFF"
                 fill-rule="nonzero"
@@ -220,9 +229,7 @@
   </div>
 </template>
 <script>
-export default {
-   
-};
+export default {};
 </script>
 <style lang="less" scoped>
 .footer {

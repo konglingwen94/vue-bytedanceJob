@@ -2,7 +2,10 @@
   <div
     v-on="$listeners"
     class="bytedance-button"
-    :class="[`bytedance-button-${size}`,{'bytedance-button-loading':loading}]"
+    :class="[
+      `bytedance-button-${size}`,
+      { 'bytedance-button-loading': loading }
+    ]"
   >
     <span>
       <i class="el-icon-loading" v-if="loading"></i>

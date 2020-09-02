@@ -14,7 +14,7 @@ import {
   Checkbox,
   MessageBox,
   Progress,
-  Notification,
+  Notification
 } from "element-ui";
 
 Vue.use(Checkbox);

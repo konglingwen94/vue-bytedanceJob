@@ -2,13 +2,13 @@
   <div class="staff-story">
     <div class="banner" :style="`backgroundImage:url(${dataInfo.bannerImage})`">
       <div class="textContent">
-        <div class="remark">{{dataInfo.remark}}</div>
-        <div class>{{dataInfo.name}}-{{dataInfo.department}}</div>
+        <div class="remark">{{ dataInfo.remark }}</div>
+        <div class>{{ dataInfo.name }}-{{ dataInfo.department }}</div>
       </div>
     </div>
     <div class="content">
-      <h1 class="title">{{dataInfo.title}}</h1>
-      <div class="department">{{dataInfo.department}}</div>
+      <h1 class="title">{{ dataInfo.title }}</h1>
+      <div class="department">{{ dataInfo.department }}</div>
       <div class="richContent" v-html="dataInfo.richContent"></div>
     </div>
   </div>

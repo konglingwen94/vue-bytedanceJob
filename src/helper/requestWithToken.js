@@ -19,11 +19,11 @@ const requestWithToken = axios.create({
     return JSON.stringify(data);
   },
 
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json" }
 });
 
 requestWithToken.interceptors.response.use(
-  (response) => {
+  response => {
     if (response.data) {
       if (response.data.code !== 0) {
         Message.error(response.data.message);
@@ -33,10 +33,10 @@ requestWithToken.interceptors.response.use(
     }
     return Promise.resolve(response);
   },
-  async (error) => {
+  async error => {
     if (error.message === "Network Error") {
       Notification.error({
-        title: "网络错误",
+        title: "网络错误"
       });
     } else if (error.message && error.message.includes("timeout")) {
       Notification.error({ title: "网路超时" });
@@ -68,13 +68,13 @@ export const fetchCommonSettings = () =>
 export const fetchLoginStatus = () =>
   requestWithToken.get("/v1/user/mobile/login_status");
 
-export const fetchEmailRegisterStatus = (payload) =>
+export const fetchEmailRegisterStatus = payload =>
   requestWithToken.post("/v1/user/email/register/check", payload);
 
-export const fetchLoginByEmail = (payload) =>
+export const fetchLoginByEmail = payload =>
   requestWithToken.post("/v1/user/email/login", payload);
 
-export const fetchLoginByPhone = (payload) =>
+export const fetchLoginByPhone = payload =>
   requestWithToken.post("/v1/user/mobile/login", payload);
 
 export const fetchResume = () => requestWithToken.get("/v1/user/latest/resume");
@@ -88,21 +88,21 @@ export const fetchSaveResume = (resume_id, payload) =>
 
 export const fetchUploadToken = () =>
   requestWithToken.post("/v1/attachment/upload/tokens");
-export const fetchResumeParseTaskData = (id) => {
+export const fetchResumeParseTaskData = id => {
   return requestWithToken.get(`/v1/attachment/resume/parse/tasks/${id}`);
 };
 
-export const fetchResumeParseTaskToken = (payload) =>
+export const fetchResumeParseTaskToken = payload =>
   requestWithToken.post("/v1/attachment/resume/parse/tasks", payload);
 
 // 简历上传作品附件获取保存token
 
-export const fetchResumeAttachmentToken = (payload) =>
+export const fetchResumeAttachmentToken = payload =>
   requestWithToken.post("/v1/attachment/exchange/tokens", payload);
 
 // 简历作品附件下载
 
-export const fetchResumeWorksDownloadLink = (payload) =>
+export const fetchResumeWorksDownloadLink = payload =>
   requestWithToken.post("/v1/attachment/download/links", payload);
 
 // /v1/attachment/exchange/tokens

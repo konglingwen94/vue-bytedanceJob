@@ -7,58 +7,57 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import(/*webpackChunkName: "Home" */ "@/views/Home.vue"),
+    component: () => import(/*webpackChunkName: "Home" */ "@/views/Home.vue")
   },
   {
     path: "/products",
     name: "products",
 
     component: () =>
-      import(/* webpackChunkName: "Products" */ "../views/Products.vue"),
+      import(/* webpackChunkName: "Products" */ "../views/Products.vue")
   },
   {
     path: "/jobs",
     name: "jobs",
 
-    component: () => import(/* webpackChunkName: "jobs" */ "../views/Jobs.vue"),
+    component: () => import(/* webpackChunkName: "jobs" */ "../views/Jobs.vue")
   },
   {
     path: "/jobs/:id",
     name: "jobDetail",
 
     component: () =>
-      import(/* webpackChunkName: "jobDetail" */ "../views/JobDetail.vue"),
+      import(/* webpackChunkName: "jobDetail" */ "../views/JobDetail.vue")
   },
   {
     path: "/staff-stories/:id",
     name: "staff-story",
 
     component: () =>
-      import(/* webpackChunkName: "staffStroy" */ "../views/StaffStory.vue"),
+      import(/* webpackChunkName: "staffStroy" */ "../views/StaffStory.vue")
   },
   {
     path: "/user",
     name: "user",
     component() {
       return import(/* webpackChunkName: "user" */ "../views/User.vue");
-    },
+    }
   },
   {
     path: "/resume",
     name: "resume",
-    component: () =>
-      import(/* webpackChunkName "resume"*/ "@/views/Resume.vue"),
+    component: () => import(/* webpackChunkName "resume"*/ "@/views/Resume.vue")
   },
   {
     path: "/resume/edit",
     name: "resume-editor",
     component: () =>
-      import(/* webpackChunkName "resume-editor"*/ "@/views/ResumeEditor.vue"),
+      import(/* webpackChunkName "resume-editor"*/ "@/views/ResumeEditor.vue")
   },
   {
     path: "*",
-    redirect: "/",
-  },
+    redirect: "/"
+  }
 ];
 
 const router = new VueRouter({
@@ -75,15 +74,12 @@ const router = new VueRouter({
     } else {
       return { x: 0, y: 0 };
     }
-  },
+  }
 });
 
 export default router;
 
- 
-
-
-router.onError((err) => {
+router.onError(err => {
   if (err.name === "ChunkLoadError") {
     router.app.$notify.error("网络资源加载错误");
   }

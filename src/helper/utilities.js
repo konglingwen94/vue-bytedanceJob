@@ -25,17 +25,17 @@ export const watchScrollDirection = function(scrollElement, callback) {
     scrollPos.x = scrollLeft;
     scrollPos.y = scrollTop;
   }
-
-  scrollElement.addEventListener("scroll", () => {
+  function throttle() {
     let now = Date.now();
     if (!previousTimer) previousTimer = now;
     if (now - previousTimer > 100) {
       onScroll();
       previousTimer = now;
     }
-  });
+  }
+  scrollElement.addEventListener("scroll", throttle);
   return function() {
-    scrollElement.removeEventListener("scroll", onScroll);
+    scrollElement.removeEventListener("scroll", throttle);
   };
 };
 

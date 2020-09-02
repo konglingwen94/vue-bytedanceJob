@@ -46,7 +46,5 @@ Vue.prototype.request = request;
 
 new Vue({
   router,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount("#app");
-
- 

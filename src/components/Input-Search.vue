@@ -6,7 +6,7 @@
       ref="input"
       type="text"
       :value="value"
-      @change="(e)=>$emit('change',e.target.value)"
+      @change="e => $emit('change', e.target.value)"
       @keypress.enter="search"
     />
     <span @click="search" class="input-search-button">搜索</span>
@@ -35,7 +35,7 @@ export default {
   }
 };
 </script>
-<style lang="less"  scoped>
+<style lang="less" scoped>
 .input-search {
   height: 50px;
   position: relative;

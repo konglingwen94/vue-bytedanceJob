@@ -5,7 +5,7 @@
         v-for="(item, index) in products"
         :key="item.id"
         class="product-fullpage-indicator-item"
-        :class="{active:activeIndex===index}"
+        :class="{ active: activeIndex === index }"
         @click="activeIndex = index"
       >
         <img :src="item.logo" alt />

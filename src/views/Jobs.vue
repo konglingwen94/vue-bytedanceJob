@@ -3,9 +3,13 @@
     <div class="banner">和优秀的人，做有挑战的事</div>
 
     <!-- 搜索 -->
-    <div ref="searchBar" :class="{ fixedTop: searchBarFixedTop }" class="search-wrapper">
+    <div
+      ref="searchBar"
+      :class="{ fixedTop: searchBarFixedTop }"
+      class="search-wrapper"
+    >
       <input-search
-        :size="searchBarFixedTop?'small':'medium'"
+        :size="searchBarFixedTop ? 'small' : 'medium'"
         placeholder="搜索职位"
         v-model="searchKeyword"
       ></input-search>
@@ -16,7 +20,9 @@
       <div class="clearfix aside-filter">
         <div class="header">
           <span>选择</span>
-          <span :class="{ clearable }" class="clear" @click="clearFilter">清空</span>
+          <span :class="{ clearable }" class="clear" @click="clearFilter"
+            >清空</span
+          >
         </div>
         <div class="job-category job-filter-block">
           <div class="title"></div>
@@ -43,13 +49,19 @@
       <div class="content" v-loading:#ffffff7d.scrollFixed="loading">
         <h2 class="content-title">开启新的职位 ({{ results.count }})</h2>
         <ul class="content-list">
-          <li class="content-item" v-for="item in results.job_post_list" :key="item.id">
+          <li
+            class="content-item"
+            v-for="item in results.job_post_list"
+            :key="item.id"
+          >
             <router-link :to="`/jobs/${item.id}`">
               <h3 class="title">{{ item.title }}</h3>
 
               <div class="subTitle">
-                <span class="city">{{ item.city_info.name }}</span>&nbsp;|
-                <span class="job_category">{{ item.job_category.name }}</span>&nbsp;|
+                <span class="city">{{ item.city_info.name }}</span
+                >&nbsp;|
+                <span class="job_category">{{ item.job_category.name }}</span
+                >&nbsp;|
                 <span class="recruitment_channel">社招</span>
               </div>
               <p class="desc">{{ item.description }}</p>
@@ -58,7 +70,10 @@
         </ul>
         <!-- 分页器 -->
         <div v-show="!loading" class="pagination-wrapper">
-          <pagination :current-page.sync="currentPage" :total="results.count"></pagination>
+          <pagination
+            :current-page.sync="currentPage"
+            :total="results.count"
+          ></pagination>
         </div>
       </div>
     </div>

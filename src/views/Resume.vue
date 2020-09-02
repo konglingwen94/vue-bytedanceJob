@@ -34,11 +34,15 @@
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">手机号</div>
-              <div class="resumeViewItem__content">{{ resumeDetail.mobile_number }}</div>
+              <div class="resumeViewItem__content">
+                {{ resumeDetail.mobile_number }}
+              </div>
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">邮箱</div>
-              <div class="resumeViewItem__content">{{ resumeDetail.email }}</div>
+              <div class="resumeViewItem__content">
+                {{ resumeDetail.email }}
+              </div>
             </div>
           </div>
         </div>
@@ -109,7 +113,9 @@
         <!-- 实习经历 -->
         <div
           class="resumeViewSection"
-          v-if="resumeDetail.internship_list && resumeDetail.internship_list.length"
+          v-if="
+            resumeDetail.internship_list && resumeDetail.internship_list.length
+          "
         >
           <h2 class="resumeViewSection__title">实习经历</h2>
 
@@ -173,7 +179,8 @@
                   target="_blank"
                   :href="item.link"
                   class="resumeViewItem__content-link"
-                >{{ item.link }}</a>
+                  >{{ item.link }}</a
+                >
               </div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
@@ -203,7 +210,8 @@
                   ref="worksNode"
                   :download="item.url"
                   class="resumeViewItem__content-download"
-                >{{ item.works_attachment.name }}</a>
+                  >{{ item.works_attachment.name }}</a
+                >
               </div>
             </div>
             <div class="resumeViewItem" v-if="item.link">
@@ -213,7 +221,8 @@
                   target="_blank"
                   :href="item.link"
                   class="resumeViewItem__content-link"
-                >{{ item.link }}</a>
+                  >{{ item.link }}</a
+                >
               </div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
@@ -240,7 +249,9 @@
             </div>
             <div class="resumeViewItem">
               <div class="resumeViewItem__label">获奖时间</div>
-              <div class="resumeViewItem__content">{{ item.award_time | formatDate(false) }}</div>
+              <div class="resumeViewItem__content">
+                {{ item.award_time | formatDate(false) }}
+              </div>
             </div>
             <div class="resumeViewItem resumeViewItem-desc">
               <div class="resumeViewItem__label">描述</div>
@@ -251,7 +262,10 @@
         <!-- 语言 -->
         <div
           class="resumeViewSection"
-          v-if="resumeDetail.language_skill_list && resumeDetail.language_skill_list.length"
+          v-if="
+            resumeDetail.language_skill_list &&
+              resumeDetail.language_skill_list.length
+          "
         >
           <h2 class="resumeViewSection__title">语言能力</h2>
 
@@ -273,7 +287,10 @@
         </div>
 
         <!-- 社交账号 -->
-        <div class="resumeViewSection" v-if="resumeDetail.sns_list && resumeDetail.sns_list.length">
+        <div
+          class="resumeViewSection"
+          v-if="resumeDetail.sns_list && resumeDetail.sns_list.length"
+        >
           <h2 class="resumeViewSection__title">社交账号</h2>
 
           <div
@@ -295,12 +312,16 @@
         <!-- 自我评价 -->
         <div
           class="resumeViewSection"
-          v-if="resumeDetail.self_evaluation && resumeDetail.self_evaluation.trim()"
+          v-if="
+            resumeDetail.self_evaluation && resumeDetail.self_evaluation.trim()
+          "
         >
           <h2 class="resumeViewSection__title">自我评价</h2>
 
           <div class="resumeViewForm">
-            <div class="resumeViewItem resumeViewItem-desc">{{ resumeDetail.self_evaluation }}</div>
+            <div class="resumeViewItem resumeViewItem-desc">
+              {{ resumeDetail.self_evaluation }}
+            </div>
           </div>
         </div>
         <div class="resumeViewSection" v-if="resumeDetail.resume_attachment">
@@ -313,7 +334,7 @@
               <h3>{{ resumeDetail.resume_attachment.name }}</h3>
               <time>
                 上传时间：{{
-                resumeDetail.resume_attachment.create_time | formatDate
+                  resumeDetail.resume_attachment.create_time | formatDate
                 }}
               </time>
             </div>
