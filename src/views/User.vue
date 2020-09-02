@@ -151,7 +151,7 @@ export default {
       this.mobileCode = response.data.mobile_code;
     });
   },
-
+   
   methods: {
     async handlerLogin() {
       if (this.loginMode !== "email") {

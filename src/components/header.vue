@@ -44,7 +44,7 @@
           </li>
           <li class="dropdown-menu__item" @click="handleLogout">退出</li>
 
-          <!-- <li class="dropdown-menu__item">退出</li> -->
+          
         </ul>
       </div>
     </div>
@@ -64,7 +64,7 @@ export default {
         if (!isLogin) {
           store.expireLogin();
         } else if (isLogin && !this.state.userInfo.email) {
-          console.log(this.state.userInfo.email);
+           
           store
             .requestUserInfo()
             .then(res => {})
@@ -107,8 +107,8 @@ export default {
   height: 60px;
   align-items: center;
   padding: 10px 100px;
-  // position: relative;
-  z-index: 1000;
+   
+  
   &.fixedToTop {
     position: fixed;
 

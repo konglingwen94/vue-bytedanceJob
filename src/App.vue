@@ -3,15 +3,15 @@
     <header>
       <Header
         @animationstart.native="onAnimationStart"
-        ref="header"
-        :class="animationName"
+        :class="{[animationName]:$route.name==='home'}"
         :fixedToTop="$route.path === '/'"
+        ref="header"
         :theme-color="themeColor"
       ></Header>
     </header>
     <main>
       <transition appear :name="pageTransitionName">
-        <keep-alive :exclude="['resume','resume-editor','job']" :max="30">
+        <keep-alive :exclude="['resume','resume-editor','job','user']" :max="30">
           <router-view :key="$route.path"></router-view>
         </keep-alive>
       </transition>
@@ -61,15 +61,9 @@ export default {
   },
   watch: {
     $route(newRoute) {
-      if (
-        ["jobs", "user", "resume", "jobDetail", "resume-editor"].includes(
-          newRoute.name
-        )
-      ) {
-        this.pageTransitionName = "jumpPage";
-      } else {
-        this.pageTransitionName = "";
-      }
+      this.pageTransitionName = ["products", "home"].includes(newRoute.name)
+        ? ""
+        : "jumpPage";
     }
   },
   methods: {

@@ -250,9 +250,7 @@ export default {
 };
 </script>
 
-<style>
-/* @import "../assets/transition.css";  */
-</style>
+ 
 
 <style lang="less" scoped>
 @keyframes verticalMotion {
@@ -273,9 +271,7 @@ export default {
 
   100% {
     left: 100%;
-    // right:100%;
-    // transform: translateX(100%);
-    // width: 50%;
+    
   }
 }
 
@@ -355,7 +351,7 @@ export default {
     height: 100px;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
+    
     align-items: center;
     .arrow-down {
       margin-bottom: 4px;
@@ -375,6 +371,7 @@ export default {
         font-style: normal;
       }
     }
+    // 分割竖线
     .vertical-dashed {
       border-left: 1px dashed #fff;
       height: 30px;
@@ -601,7 +598,7 @@ export default {
     }
   }
 }
-
+// 员工故事
 .staffStory {
   padding: 0 140px;
   .title {
