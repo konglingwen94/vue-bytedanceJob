@@ -72,10 +72,11 @@ let searchBarClientHeight = 0;
 export default {
   name: "job",
   data() {
+    const { keyword, job_category_id } = this.$route.params;
     return {
-      searchKeyword: "",
+      searchKeyword: keyword || "",
       currentPage: 1,
-      job_category_id_list: [],
+      job_category_id_list: job_category_id ? [job_category_id] : [],
       jobCategories: [],
       jobCities: [],
       location_code_list: [],
@@ -87,12 +88,6 @@ export default {
     };
   },
 
-  activated() {
-    this.searchKeyword = this.$route.params.keyword || "";
-    if (this.$route.params.job_category_id) {
-      this.job_category_id_list = [this.$route.params.job_category_id];
-    }
-  },
   created() {
     const jobConfigRequest = this.request
       .get("/job-filters")
@@ -113,10 +108,13 @@ export default {
     this.$nextTick(() => {
       positionY = getOffsetTop(document.body, this.$refs.searchBar);
       searchBarClientHeight = this.$refs.searchBar.clientHeight;
-
     });
   },
   activated() {
+    this.searchKeyword = this.$route.params.keyword || "";
+    if (this.$route.params.job_category_id) {
+      this.job_category_id_list = [this.$route.params.job_category_id];
+    }
     const onPageScroll = () => {
       const top = this.$refs.searchBar.getBoundingClientRect().top;
 
@@ -127,6 +125,8 @@ export default {
 
     this.$on("hook:deactivated", () => {
       window.removeEventListener("scroll", onPageScroll);
+      // this.clearFilter();
+      // this.searchKeyword = "";
     });
   },
   computed: {

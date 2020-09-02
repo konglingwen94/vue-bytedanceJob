@@ -11,7 +11,7 @@
     </header>
     <main>
       <transition appear :name="pageTransitionName">
-        <keep-alive :exclude="['resume','resume-editor',]" :max="30">
+        <keep-alive :exclude="['resume','resume-editor','job']" :max="30">
           <router-view :key="$route.path"></router-view>
         </keep-alive>
       </transition>
@@ -118,8 +118,8 @@ footer {
   margin-top: 100px;
 }
 
-#app,
-main {
+header {
   position: relative;
+  z-index: 1000;
 }
 </style>

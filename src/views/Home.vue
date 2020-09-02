@@ -240,6 +240,7 @@ export default {
       { x: document.body.scrollLeft, y: document.body.scrollTop }
     );
     this.unwatch = watchScrollDirection(window, function(...args) {
+   
       rootVm.$emit("home-scrolling", ...args);
     });
   },

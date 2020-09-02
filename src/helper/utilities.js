@@ -4,7 +4,7 @@ export const watchScrollDirection = function(scrollElement, callback) {
     directionX: 1,
     directionY: 1,
   };
-
+  let previousTimer;
   function onScroll(e) {
     const scrollTop = scrollElement.scrollTop || scrollElement.pageYOffset;
     const scrollLeft = scrollElement.scrollLeft || scrollElement.pageXOffset;
@@ -19,12 +19,21 @@ export const watchScrollDirection = function(scrollElement, callback) {
     } else {
       scrollDirection.directionX = 1;
     }
+
     callback.call(scrollElement, scrollDirection, scrollPos);
 
     scrollPos.x = scrollLeft;
     scrollPos.y = scrollTop;
   }
-  scrollElement.addEventListener("scroll", onScroll);
+
+  scrollElement.addEventListener("scroll", () => {
+    let now = Date.now();
+    if (!previousTimer) previousTimer = now;
+    if (now - previousTimer > 100) {
+      onScroll();
+      previousTimer = now;
+    }
+  });
   return function() {
     scrollElement.removeEventListener("scroll", onScroll);
   };
@@ -60,7 +69,7 @@ export function formatDate(date, format = true) {
 
 export function getOffsetTop(relativeNode, node, topSum = 0) {
   topSum += node.offsetTop;
-   
+
   if (node.offsetParent !== relativeNode) {
     return getOffsetTop(relativeNode, node.offsetParent, topSum);
   }
