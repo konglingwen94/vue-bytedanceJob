@@ -1,6 +1,6 @@
 {
   "name": "vue-bytedance_job",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "lint": "vue-cli-service lint",
@@ -8,6 +8,16 @@
     "build": "vue-cli-service build",
     "server:dev-debug": "cross-env NODE_ENV=development  nodemon  --inspect server/app.js -w server --delay 1",
     "server": "cross-env NODE_ENV=production node ./server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/konglingwen94/vue-bytedanceJob.git"
+  },
+  "bugs": {
+    "url": "https://github.com/konglingwen94/vue-bytedanceJob/issues"
+  },
+  "gitHooks": {
+    "pre-push": "sh deploy.sh"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -40,6 +50,7 @@
     "prettier": "^1.19.1",
     "style-resources-loader": "^1.3.3",
     "vue-cli-plugin-style-resources-loader": "^0.1.4",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "yorkie": "^2.0.0"
   }
 }
