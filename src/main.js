@@ -22,6 +22,7 @@ import { formatDate } from "@/helper/utilities";
 // 引入loading组件
 
 import Loading from "@/components/Loading/main";
+import PopupProgress from "@/components/popup-progress";
 
 // 开发环境捕获错误插件
 
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV !== "production") {
 // 使用loading 组件
 
 Vue.use(Loading);
+Vue.use(PopupProgress);
 
 // 注册日期格式化过滤器
 
@@ -46,5 +48,5 @@ Vue.prototype.request = request;
 
 new Vue({
   router,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

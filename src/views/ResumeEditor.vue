@@ -1154,37 +1154,19 @@ export default {
       });
     },
     handleResumeUploadProgress(progressEvent) {
-      this.$refs.resumeUploadProgress.percentage = progressEvent.percent;
+      this.$resumeUploadPopupProgress.value = progressEvent.percent;
     },
     async handleResumeUploadChange(file) {
       if (file.status === "ready") {
-        const props = {
-          percentage: 0,
-          showText: false,
-        };
+        const pathArr = file.name.split(".");
 
-        try {
-          var result = await this.$messageBox.alert(
-            this.$createElement("el-progress", {
-              props,
-              ref: "resumeUploadProgress",
-            }),
-            "上传中...",
-            {
-              center: true,
-              showCancelButton: true,
-              showConfirmButton: false,
-              cancelButtonClass: "el-button--text",
-              showClose: false,
-            }
-          );
-        } catch (error) {
-          if (error === "cancel") {
-            this.$refs.resumeUploader.abort();
-            this.$message.warning("已取消上传");
-          }
-          // console.log(error);
-        }
+        this.$resumeUploadPopupProgress = this.$popupProgress({
+          title: "上传中...",
+          fileicon: pathArr[pathArr.length - 1],
+        }).$on("abort", () => {
+          this.$refs.resumeUploader.abort();
+          this.$message.warning("已取消上传");
+        });
       }
     },
     handleResumeUploadSuccess({ data }) {
@@ -1193,7 +1175,8 @@ export default {
       this.uploadData = { ...data, create_time: Date.now() };
 
       this.resume.resume_attachment = data;
-      this.$messageBox.close();
+
+      this.$resumeUploadPopupProgress.close();
       this.$message.success({
         message: "上传成功",
 
@@ -1340,7 +1323,6 @@ export default {
 };
 </script>
 <style lang="less">
-// .upload-file {
 .el-upload {
   width: 100%;
   .uploadFile__works {
