@@ -87,7 +87,7 @@
               :model="{
                 name: resume.name,
                 email: resume.email,
-                mobile_number: resume.mobile_number
+                mobile_number: resume.mobile_number,
               }"
               :rules="validatorRules.basic"
               ref="basicForm"
@@ -157,7 +157,7 @@
 
                           start_time: 0,
                           end_time: 0,
-                          daterange: []
+                          daterange: [],
                         })
                       "
                       >添加</i
@@ -225,7 +225,7 @@
                           start_time: 0,
                           end_time: 0,
                           degree: -1,
-                          daterange: []
+                          daterange: [],
                         })
                       "
                       >添加</i
@@ -301,7 +301,7 @@
 
                           start_time: 0,
                           end_time: 0,
-                          daterange: []
+                          daterange: [],
                         })
                       "
                       >添加</i
@@ -369,7 +369,7 @@
                           role: '',
                           start_time: 0,
                           end_time: 0,
-                          daterange: []
+                          daterange: [],
                         })
                       "
                       >添加</i
@@ -402,7 +402,7 @@
                     description: '',
                     link: '',
                     uploadStatus: 'pending',
-                    works_attachment: {}
+                    works_attachment: {},
                   })
                 "
                 >添加</i
@@ -420,16 +420,16 @@
                     :show-file-list="false"
                     :action="`/atsx/blob/${uploadToken}/`"
                     :on-success="
-                      file => handleWorksUploadSuccess(file, item, key)
+                      (file) => handleWorksUploadSuccess(file, item, key)
                     "
                     :on-change="
-                      file => handleWorksUploadChange(file, item, key)
+                      (file) => handleWorksUploadChange(file, item, key)
                     "
                     :on-progress="
-                      file => handleWorksUploadProgress(file, item, key)
+                      (file) => handleWorksUploadProgress(file, item, key)
                     "
                     :before-upload="
-                      file => handleWorksBeforeUpload(file, item, key)
+                      (file) => handleWorksBeforeUpload(file, item, key)
                     "
                   >
                     <div class="uploadFile__works uploadFile">
@@ -528,7 +528,7 @@
                       @click="
                         resume.works_list.push({
                           description: '',
-                          link: ''
+                          link: '',
                         })
                       "
                       >添加</i
@@ -559,7 +559,7 @@
                 @click="
                   resume.award_list.push({
                     description: '',
-                    link: ''
+                    link: '',
                   })
                 "
                 >添加</i
@@ -602,7 +602,7 @@
                       @click="
                         resume.award_list.push({
                           description: '',
-                          link: ''
+                          link: '',
                         })
                       "
                       >添加</i
@@ -636,7 +636,7 @@
                 @click="
                   resume.language_skill_list.push({
                     proficiency: '',
-                    language: ''
+                    language: '',
                   })
                 "
                 >添加</i
@@ -678,7 +678,7 @@
                       @click="
                         resume.language_skill_list.push({
                           language: '',
-                          proficiency: ''
+                          proficiency: '',
                         })
                       "
                       >添加</i
@@ -708,7 +708,7 @@
                 @click="
                   resume.sns_list.push({
                     proficiency: '',
-                    language: ''
+                    language: '',
                   })
                 "
                 >添加</i
@@ -743,7 +743,7 @@
                       @click="
                         resume.sns_list.push({
                           language: '',
-                          proficiency: ''
+                          proficiency: '',
                         })
                       "
                       >添加</i
@@ -825,7 +825,7 @@ import {
   fetchUploadToken,
   fetchResumeParseTaskToken,
   fetchResumeParseTaskData,
-  fetchResumeAttachmentToken
+  fetchResumeAttachmentToken,
 } from "@/helper/requestWithToken";
 
 let footerActionPosition = null;
@@ -851,7 +851,7 @@ export default {
             {
               required: true,
               trigger: "submit",
-              message: "请输入手机号"
+              message: "请输入手机号",
             },
             {
               validator(rule, value, callback) {
@@ -861,119 +861,119 @@ export default {
                 callback();
               },
 
-              trigger: "submit"
-            }
+              trigger: "submit",
+            },
           ],
           email: [
             { required: true, trigger: "submit", message: "请输入邮箱" },
-            { type: "email", trigger: "submit", message: "请输入合法的邮箱" }
-          ]
+            { type: "email", trigger: "submit", message: "请输入合法的邮箱" },
+          ],
         },
         award: {
           title: {
             required: true,
             trigger: "submit",
-            message: "请输入获奖名称"
-          }
+            message: "请输入获奖名称",
+          },
         },
         sns: {
           link: { required: true, trigger: "submit", message: "请输入URL/ID" },
           sns_type: {
             required: true,
             trigger: "submit",
-            message: "请选择社交平台"
-          }
+            message: "请选择社交平台",
+          },
         },
         languageSkill: {
           language: [
             {
               required: true,
               trigger: "submit",
-              message: "请选择语言技能"
-            }
+              message: "请选择语言技能",
+            },
           ],
           proficiency: {
             required: true,
             trigger: "submit",
-            message: "请选择语言精通程度"
-          }
+            message: "请选择语言精通程度",
+          },
         },
         career: {
           company: [
-            { required: true, trigger: "submit", message: "请输入公司" }
+            { required: true, trigger: "submit", message: "请输入公司" },
           ],
           title: { required: true, trigger: "submit", message: "请输入职位" },
           daterange: [
-            { required: true, trigger: "blur", message: "请输入日期" }
-          ]
+            { required: true, trigger: "blur", message: "请输入日期" },
+          ],
         },
         internship: {
           company: [
-            { required: true, trigger: "submit", message: "请输入公司" }
+            { required: true, trigger: "submit", message: "请输入公司" },
           ],
           position: {
             required: true,
             trigger: "submit",
-            message: "请输入职位"
+            message: "请输入职位",
           },
           daterange: [
-            { required: true, trigger: "blur", message: "请输入日期" }
-          ]
+            { required: true, trigger: "blur", message: "请输入日期" },
+          ],
         },
         project: {
           description: [
-            { required: true, trigger: "submit", message: "请输入项目描述" }
+            { required: true, trigger: "submit", message: "请输入项目描述" },
           ],
           name: {
             required: true,
             trigger: "submit",
-            message: "请输入项目名称"
+            message: "请输入项目名称",
           },
           daterange: [
-            { required: true, trigger: "blur", message: "请选择起止时间" }
-          ]
+            { required: true, trigger: "blur", message: "请选择起止时间" },
+          ],
         },
         award: {
-          name: { required: true, trigger: "submit", message: "请输入公司" }
+          name: { required: true, trigger: "submit", message: "请输入公司" },
         },
         education: {
           school: {
             required: true,
             trigger: "submit",
-            message: "请输入学校名称"
+            message: "请输入学校名称",
           },
           degree: {
             required: true,
             trigger: "submit",
-            message: "请选择学历"
+            message: "请选择学历",
           },
           daterange: {
             required: true,
             trigger: "submit",
-            message: "请选择起止时间"
-          }
-        }
-      }
+            message: "请选择起止时间",
+          },
+        },
+      },
     };
   },
   computed: {
     resumeFileType() {
       const patharr = this.resume.resume_attachment.name.split(".");
       return patharr[patharr.length - 1];
-    }
+    },
   },
 
   created() {
     const loading = this.$loading({ position: { top: 60 } });
 
-    fetchResume().then(response => {
+    fetchResume().then((response) => {
       loading.close();
       this.resume = this.mapResumeData(response.data.resume_detail);
       this.uploadData = this.resume.resume_attachment || {};
       this.withoutCareer = this.resume.career_list.length === 0;
 
       // 观测一次是否有工作经历，初始化表单数据
-      const unwatch = this.$watch("withoutCareer", newVal => {
+      const unwatch = this.$watch("withoutCareer", (newVal) => {
         if (
           this.resume.career_list &&
           this.resume.career_list.length === 0 &&
@@ -986,14 +986,14 @@ export default {
       });
     });
 
-    fetchCommonSettings().then(response => {
+    fetchCommonSettings().then((response) => {
       this.setting = response.data;
     });
   },
   mounted() {
     footerActionPosition = {
       bottom: this.$refs["footerAction"].getBoundingClientRect().bottom,
-      height: this.$refs.footerAction.clientHeight
+      height: this.$refs.footerAction.clientHeight,
     };
     window.addEventListener("scroll", this.onPageScroll);
 
@@ -1008,14 +1008,14 @@ export default {
       if (file.status === "ready") {
         const props = {
           percentage: 0,
-          showText: false
+          showText: false,
         };
 
         try {
           var result = await this.$messageBox.alert(
             this.$createElement("el-progress", {
               props,
-              ref: "worksUploadProgress"
+              ref: "worksUploadProgress",
             }),
             "上传中...",
             {
@@ -1023,7 +1023,7 @@ export default {
               showCancelButton: true,
               showConfirmButton: false,
               cancelButtonClass: "el-button--text",
-              showClose: false
+              showClose: false,
             }
           );
         } catch (error) {
@@ -1045,7 +1045,7 @@ export default {
         return false;
       }
 
-      return fetchUploadToken().then(res => {
+      return fetchUploadToken().then((res) => {
         this.uploadToken = res.data.token;
         return true;
       });
@@ -1053,21 +1053,23 @@ export default {
     handleWorksUploadSuccess(response, item) {
       item.works_attachment = {
         name: response.data.name,
-        create_time: Date.now()
+        create_time: Date.now(),
       };
       item.uploadStatus = "resolved";
       this.$messageBox.close();
 
       fetchResumeAttachmentToken({ attachment_id: response.data.id })
-        .then(res => {
+        .then((res) => {
           item.portal_attachment_id = res.data.portal_attachment_id;
         })
-        .catch(err => {
+        .catch((err) => {
           throw err;
         });
     },
     handleRemoveUploadResume() {
       this.uploadData = {};
+      this.resume.resume_attachment = {};
+      delete this.resume.portal_attachment_id;
       this.resumeUploaded = false;
       this.resumeUploadUpdateHintVisible = false;
     },
@@ -1076,13 +1078,13 @@ export default {
 
       fetchResumeParseTaskToken({
         resume_url: this.uploadData.url,
-        file_name: this.uploadData.name
+        file_name: this.uploadData.name,
       })
-        .then(res => {
+        .then((res) => {
           this.$messageBox.alert(
             this.$createElement("el-progress", {
               props: { percentage: 0, showText: false },
-              ref: "resumeResolveProgress"
+              ref: "resumeResolveProgress",
             }),
             "解析中...",
             {
@@ -1090,7 +1092,7 @@ export default {
               showCancelButton: true,
               showConfirmButton: false,
               cancelButtonClass: "el-button--text",
-              showClose: false
+              showClose: false,
             }
           );
 
@@ -1110,13 +1112,13 @@ export default {
 
           return _fetchResumeParseTaskData(res);
         })
-        .then(res => {
+        .then((res) => {
           this.$messageBox.close();
 
           // 兼容上传简历解析结果部分字段合并到表单中
 
           res.data.talent.project_list.forEach(
-            item => (item.description = item.desc)
+            (item) => (item.description = item.desc)
           );
 
           if (res.data.talent.career_list.length) {
@@ -1133,12 +1135,12 @@ export default {
 
           this.$message.success("简历解析成功");
         })
-        .catch(err => {
+        .catch((err) => {
           this.$messageBox.close();
         });
     },
     handleBeforeUpload() {
-      return fetchUploadToken().then(res => {
+      return fetchUploadToken().then((res) => {
         this.uploadToken = res.data.token;
         return true;
       });
@@ -1147,7 +1149,7 @@ export default {
       this.$message({
         message: err.message,
         dangerouslyUseHTMLString: true,
-        type: "error"
+        type: "error",
         // duration: 0
       });
     },
@@ -1158,14 +1160,14 @@ export default {
       if (file.status === "ready") {
         const props = {
           percentage: 0,
-          showText: false
+          showText: false,
         };
 
         try {
           var result = await this.$messageBox.alert(
             this.$createElement("el-progress", {
               props,
-              ref: "resumeUploadProgress"
+              ref: "resumeUploadProgress",
             }),
             "上传中...",
             {
@@ -1173,7 +1175,7 @@ export default {
               showCancelButton: true,
               showConfirmButton: false,
               cancelButtonClass: "el-button--text",
-              showClose: false
+              showClose: false,
             }
           );
         } catch (error) {
@@ -1191,36 +1193,39 @@ export default {
       this.uploadData = { ...data, create_time: Date.now() };
 
       this.resume.resume_attachment = data;
-
       this.$messageBox.close();
       this.$message.success({
         message: "上传成功",
 
-        center: true
+        center: true,
       });
 
       fetchResumeAttachmentToken({ attachment_id: data.id })
-        .then(res => {
+        .then((res) => {
           this.resume.portal_attachment_id = res.data.portal_attachment_id;
         })
-        .catch(err => {});
+        .catch((err) => {});
     },
     async submit() {
       try {
         await Promise.all(
           (this.$refs.careerForm || [])
-            .map(form => form.validate())
+            .map((form) => form.validate())
             .concat(
-              (this.$refs.languageSkillForm || []).map(form => form.validate())
+              (this.$refs.languageSkillForm || []).map((form) =>
+                form.validate()
+              )
             )
-            .concat((this.$refs.snsForm || []).map(form => form.validate()))
-            .concat((this.$refs.awardForm || []).map(form => form.validate()))
-            .concat((this.$refs.projectForm || []).map(form => form.validate()))
+            .concat((this.$refs.snsForm || []).map((form) => form.validate()))
+            .concat((this.$refs.awardForm || []).map((form) => form.validate()))
             .concat(
-              (this.$refs.internshipForm || []).map(form => form.validate())
+              (this.$refs.projectForm || []).map((form) => form.validate())
             )
             .concat(
-              (this.$refs.educationForm || []).map(form => form.validate())
+              (this.$refs.internshipForm || []).map((form) => form.validate())
+            )
+            .concat(
+              (this.$refs.educationForm || []).map((form) => form.validate())
             )
             .concat(this.$refs.basicForm.validate())
         );
@@ -1230,25 +1235,26 @@ export default {
       }
 
       const payload = this.transformResumePayload(this.resume);
+
       this.submitLoading = true;
       fetchSaveResume(payload.id, {
         resume: payload,
 
-        resume_id: payload.id
+        resume_id: payload.id,
       })
-        .then(res => {
+        .then((res) => {
           this.$message.success("简历保存成功");
           this.$router.push("/resume");
           this.submitLoading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.submitLoading = false;
         });
     },
 
     transformResumePayload(data) {
       data.works_list = data.works_list.filter(
-        item => item.portal_attachment_id
+        (item) => item.portal_attachment_id
       );
 
       if (this.withoutCareer) {
@@ -1257,7 +1263,7 @@ export default {
 
       for (let key in data) {
         if (key.endsWith("_list") && Array.isArray(data[key])) {
-          data[key].forEach(item => {
+          data[key].forEach((item) => {
             if (Array.isArray(item.daterange)) {
               let [start_time, end_time] = item.daterange;
 
@@ -1278,9 +1284,11 @@ export default {
     },
     mapResumeData(data) {
       this.careerList = data.career_list;
-
+      if (data.resume_attachment && data.resume_attachment.id) {
+        data.portal_attachment_id = data.resume_attachment.id;
+      }
       data.works_list &&
-        data.works_list.forEach(item => {
+        data.works_list.forEach((item) => {
           if (item.works_attachment && item.works_attachment.id) {
             item.uploadStatus = "resolved";
           } else {
@@ -1294,7 +1302,7 @@ export default {
             data[key] = [];
           }
 
-          data[key].forEach(item => {
+          data[key].forEach((item) => {
             if (typeof item !== "object") {
               return;
             }
@@ -1310,7 +1318,7 @@ export default {
 
               this.$set(item, "daterange", [
                 new Date(start_time).getTime(),
-                new Date(end_time).getTime()
+                new Date(end_time).getTime(),
               ]);
             }
           });
@@ -1327,8 +1335,8 @@ export default {
       this.footerActionFixed =
         this.$refs["editorFrom"].getBoundingClientRect().bottom >=
         footerActionPosition.bottom - footerActionPosition.height;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less">

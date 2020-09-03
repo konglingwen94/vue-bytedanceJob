@@ -1,6 +1,10 @@
-# vue-bytedancejob
+# vue-bytedanceJob
 
-一个`Vue`重构字节跳动公司招聘官网的单页面应用
+一个用`Vue`重构的某知名互联网公司官方招聘网站
+
+本项目所有数据均同步于官方网站，本人开发此项目主要是为了学习和找工作。
+
+目前本项目大部分功能以开发完成并可以在线访问，我会持续维护此项目。欢迎收藏和关注，谢谢！
 
 ## 线上预览
 
@@ -21,22 +25,23 @@ npm install
 ### Compiles and hot-reloads for development
 
 ```bash
-npm run dev    
+npm run dev
 ```
+
 默认启动 <http://localhost:8080>
+
 ### Start server API
 
 ```bash
 npm  run server      默认监听`http://localhost:3000`
 ```
 
-> 默认不需要启动，如果需要调试服务器接口，请配置根目录下的`vue.config.js`文件，默认配置如下
+> 默认不需要启动，如果需要调试服务器端代码，请配置根目录下的`vue.config.js`文件，修改代理地址如下
 
 ```js
 module.exports = {
   devServer: {
-    proxy: "http://123.56.124.33:3000",
-   //  proxy: "http://localhost:3000",
+    proxy: "http://localhost:3000",
   },
 };
 ```
@@ -60,7 +65,7 @@ npm run build
 - [x] 员工故事
 - [x] 校园招聘(外链)
 
-- [ ] 注册（由于服务端接口代理有一定的复杂度此功能暂未实现，。欢迎有兴趣的同学协同实现此功能）
+- [ ] 注册（由于服务端此接口依赖有一定的复杂度，部分逻辑未实现，。欢迎有兴趣的同学协作实现此功能）
 - [ ] 登录
   - [x] 邮箱登录（需要官方网站注册邮箱账号）
   - [ ] 手机号登录
@@ -81,6 +86,14 @@ npm run build
 `axios` `lodash` `es6~7`
 
 `express` `node-fetch` `http-proxy-middleware`
+
+## 数据接口爬取
+
+为了使此项目高度的还原原网站的功能需求，在项目开发之初找接口的那段时间也算是花费了不少精力。当项目开发完成后，还是感到所花费的时间是值得的。在这里我简单谈一下在找`API接口`过程中的心酸历程，希望对看到这里的你也能有所启发。
+
+首先本项目的所有接口本人都是通过浏览器里`开发者工具`提供的`Network`面板一个一个找到的。在找一些包含大量数据类型的接口时并没有遇到太大的阻力，就按照平常我们开发项目时的基本操作，在多一点耐心，多调试几次就能找到。可是找接口的路还远远没有结束。后来项目开发到`登录`和`注册`的逻辑的时候，找接口的坑就接踵而来。
+
+其主要复杂的接口都在 [这个](./src/helper/requestWithToken.js)文件里。比起之前数据类的接口这个文件里的接口在发送请求的时候需要携带一些验证身份信息的字段。而且中间又牵扯一系列的跨域问题。为了解决这些问题我真的算是绞尽了脑汁，最后在通过使用工具不断的调试之后，终于成功解决了所有存在的问题。
 
 ## 项目结构
 
@@ -163,18 +176,21 @@ server
 └── router.js     代理接口路由
 
 ```
+
 </details>
 
 <b><details><summary>源代码其他文件</summary></b>
+
 ```
 ├── src
 │   ├── App.vue       入口组件
-│   ├── main.js       应用入口  
+│   ├── main.js       应用入口
 │   ├── router          路由
 │   │   └── index.js
 │   ├── store        全局共享状态
 │   │   └── index.js
 ```
+
 </details>
 
 <b><details><summary>根目录</summary></b>
@@ -185,12 +201,13 @@ vue-bytedanceJob
 ├── public/     项目公共文件
 ├── server/       服务端目录
 ├── src/          代码源目录
-├── test/         
+├── test/
 ├── README.md     项目介绍文档
 ├── babel.config.js   按需引入第三方库在这里配置
 ├── package.json     项目包介绍
 └── vue.config.js    项目配置
 ```
+
 </details>
 
 ## 项目截图
@@ -210,4 +227,3 @@ vue-bytedanceJob
 由于服务端部分接口尚未获取到，有部分功能待实现。如果您对本项目有兴趣的话，也欢迎您能贡献代码！
 
 > 查看本项目技术解密文章请点击我的个人博客[https://juejin.im/post/5ef338c75188252e7f772aee](https://juejin.im/post/5ef338c75188252e7f772aee)查看，欢迎点赞和留言！
-
