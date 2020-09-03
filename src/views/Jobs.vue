@@ -99,14 +99,14 @@ export default {
       cities: [],
       results: [],
       searchBarFixedTop: false,
-      loading: false
+      loading: false,
     };
   },
 
   created() {
     const jobConfigRequest = this.request
       .get("/job-filters")
-      .then(response => {
+      .then((response) => {
         this.jobCities = response.city_list;
         this.jobCategories = response.job_type_list;
       })
@@ -124,12 +124,6 @@ export default {
       positionY = getOffsetTop(document.body, this.$refs.searchBar);
       searchBarClientHeight = this.$refs.searchBar.clientHeight;
     });
-  },
-  activated() {
-    this.searchKeyword = this.$route.params.keyword || "";
-    if (this.$route.params.job_category_id) {
-      this.job_category_id_list = [this.$route.params.job_category_id];
-    }
     const onPageScroll = () => {
       const top = this.$refs.searchBar.getBoundingClientRect().top;
 
@@ -138,10 +132,8 @@ export default {
     };
     window.addEventListener("scroll", onPageScroll);
 
-    this.$on("hook:deactivated", () => {
+    this.$on("hook:destroyed", () => {
       window.removeEventListener("scroll", onPageScroll);
-      // this.clearFilter();
-      // this.searchKeyword = "";
     });
   },
   computed: {
@@ -150,7 +142,7 @@ export default {
         job_category_id_list: this.job_category_id_list,
         location_code_list: this.location_code_list,
         keyword: this.searchKeyword,
-        offset: Math.max(0, this.currentPage - 1) * 10
+        offset: Math.max(0, this.currentPage - 1) * 10,
       };
     },
     clearable() {
@@ -158,13 +150,13 @@ export default {
         this.job_category_id_list.length !== 0 ||
         this.location_code_list.length !== 0
       );
-    }
+    },
   },
   watch: {
     queryFilter: function(newVal, oldVal) {
       this.searchBarFixedTop && window.scrollTo(0, positionY);
       this.fetchList();
-    }
+    },
   },
   methods: {
     clearFilter() {
@@ -180,7 +172,7 @@ export default {
 
       return this.request
         .post("/jobs", this.queryFilter)
-        .then(response => {
+        .then((response) => {
           if (this.results.count !== response.count) {
             this.currentPage = 1;
           }
@@ -190,8 +182,8 @@ export default {
         .catch(() => {
           this.loading = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

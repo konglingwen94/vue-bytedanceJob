@@ -11,12 +11,12 @@
     </header>
     <main>
       <transition appear :name="pageTransitionName">
-        <keep-alive
+        <!-- <keep-alive
           :exclude="['resume', 'home', 'resume-editor', 'job', 'user']"
           :max="30"
-        >
-          <router-view :key="$route.path"></router-view>
-        </keep-alive>
+        > -->
+        <router-view :key="$route.path"></router-view>
+        <!-- </keep-alive> -->
       </transition>
     </main>
     <footer v-if="$route.name !== 'products'">
