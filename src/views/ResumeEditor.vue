@@ -828,7 +828,6 @@ import {
   fetchResumeAttachmentToken,
 } from "@/helper/requestWithToken";
 import { getOffsetTop } from "@/helper/utilities";
-let footerActionPosition = null;
 export default {
   name: "resume-editor",
   data() {
