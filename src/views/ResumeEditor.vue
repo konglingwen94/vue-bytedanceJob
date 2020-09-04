@@ -965,41 +965,57 @@ export default {
   created() {
     const loading = this.$loading({ position: { top: 60 } });
 
-    fetchResume().then((response) => {
-      loading.close();
-      this.resume = this.mapResumeData(response.data.resume_detail);
-      this.uploadData = this.resume.resume_attachment || {};
-      this.withoutCareer = this.resume.career_list.length === 0;
-      this.$nextTick(() => {
-        // 初始化后判断页面滚动的位置，设置底部操作栏定位位置
-        const footerActionNode = this.$refs["footerAction"];
-       
-        this.footerActionShouldFixedThreshold =
-          getOffsetTop(document.body, footerActionNode) + footerActionNode.offsetHeight;
-        this.onPageScroll();
+    const fetchResumeRequest = fetchResume()
+      .then((response) => {
+         
+        this.resume = this.mapResumeData(response.data.resume_detail);
+        this.uploadData = this.resume.resume_attachment || {};
+        this.withoutCareer = this.resume.career_list.length === 0;
+        this.$nextTick(() => {
+          // 初始化后判断页面滚动的位置，设置底部操作栏定位位置
+          const footerActionNode = this.$refs["footerAction"];
+
+          this.footerActionShouldFixedThreshold =
+            getOffsetTop(document.body, footerActionNode) +
+            footerActionNode.offsetHeight;
+          this.onPageScroll();
+        });
+
+        // 观测一次是否有工作经历，初始化表单数据
+        const unwatch = this.$watch("withoutCareer", (newVal) => {
+          if (
+            this.resume.career_list &&
+            this.resume.career_list.length === 0 &&
+            !newVal
+          ) {
+            this.resume.career_list.push({});
+          }
+
+          unwatch();
+        });
+      })
+      .catch((err) => {
+         
+        return Promise.reject(err);
       });
 
-      // 观测一次是否有工作经历，初始化表单数据
-      const unwatch = this.$watch("withoutCareer", (newVal) => {
-        if (
-          this.resume.career_list &&
-          this.resume.career_list.length === 0 &&
-          !newVal
-        ) {
-          this.resume.career_list.push({});
-        }
-
-        unwatch();
+    const fetchCommonSettingsRequest = fetchCommonSettings()
+      .then((response) => {
+        this.setting = response.data;
+      })
+      .catch((err) => {
+        return Promise.reject(err);
       });
-    });
 
-    fetchCommonSettings().then((response) => {
-      this.setting = response.data;
-    });
+    Promise.all([fetchCommonSettingsRequest, fetchResumeRequest])
+      .then(() => {
+        loading.close();
+      })
+      .catch((err) => {
+        loading.close();
+      });
   },
   mounted() {
-   
-
     window.addEventListener("scroll", this.onPageScroll);
 
     window.addEventListener("beforeunload", this.onbeforeunloadAlert);
@@ -1013,8 +1029,6 @@ export default {
       this.footerActionFixed =
         window.scrollY <
         this.footerActionShouldFixedThreshold - window.innerHeight;
-
-      
     },
     async handleWorksUploadChange(file, item, index) {
       if (file.status === "ready") {

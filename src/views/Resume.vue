@@ -362,7 +362,7 @@
 <script>
 import {
   fetchResume,
-  fetchResumeWorksDownloadLink
+  fetchResumeWorksDownloadLink,
 } from "@/helper/requestWithToken.js";
 
 export default {
@@ -370,22 +370,22 @@ export default {
   data() {
     return {
       resumeDetail: {},
-      resumeAttachmentLink: ""
+      resumeAttachmentLink: "",
     };
   },
   computed: {
     resumeFileType() {
       const pathArr = this.resumeDetail.resume_attachment.name.split(".");
       return pathArr[pathArr.length - 1];
-    }
+    },
   },
   methods: {
     downloadResume(id) {
       if (this.resumeAttachmentLink) return;
       fetchResumeWorksDownloadLink({
         portal_attachment_id: id,
-        resume_id: this.resumeDetail.id
-      }).then(response => {
+        resume_id: this.resumeDetail.id,
+      }).then((response) => {
         const { url } = response.data;
         this.resumeAttachmentLink = url;
         this.$nextTick(() => {
@@ -397,23 +397,26 @@ export default {
       if (item.url) return;
       fetchResumeWorksDownloadLink({
         portal_attachment_id: item.works_attachment.id,
-        resume_id: this.resumeDetail.id
-      }).then(response => {
+        resume_id: this.resumeDetail.id,
+      }).then((response) => {
         const { url } = response.data;
         this.$set(item, "url", url);
         this.$nextTick(() => {
           this.$refs.worksNode[index].click();
         });
       });
-    }
+    },
   },
   created() {
     const loading = this.$loading();
-    fetchResume().then(res => {
-      this.resumeDetail = res.data.resume_detail;
-      loading.close();
-    });
-  }
+    fetchResume()
+      .then((res) => {
+        this.resumeDetail = res.data.resume_detail;
+      })
+      .catch((err) => {
+        loading.close();
+      });
+  },
 };
 </script>
 
