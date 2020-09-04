@@ -1147,11 +1147,12 @@ export default {
     },
     handleResumeUploadError(err) {
       this.$message({
-        message: err.message,
+        message: err.message || "网络中断",
         dangerouslyUseHTMLString: true,
         type: "error",
         // duration: 0
       });
+      this.$resumeUploadPopupProgress.close();
     },
     handleResumeUploadProgress(progressEvent) {
       this.$resumeUploadPopupProgress.value = progressEvent.percent;

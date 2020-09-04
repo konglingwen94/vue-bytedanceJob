@@ -23,6 +23,7 @@ import { formatDate } from "@/helper/utilities";
 
 import Loading from "@/components/Loading/main";
 import PopupProgress from "@/components/popup-progress";
+import Message from "@/components/message";
 
 // 开发环境捕获错误插件
 
@@ -38,6 +39,7 @@ if (process.env.NODE_ENV !== "production") {
 
 Vue.use(Loading);
 Vue.use(PopupProgress);
+Vue.use(Message);
 
 // 注册日期格式化过滤器
 

@@ -75,3 +75,13 @@ export function getOffsetTop(relativeNode, node, topSum = 0) {
   }
   return topSum;
 }
+
+export function pick(obj = {}, keys = []) {
+  const result = {};
+  keys.forEach((key) => {
+    if (obj.hasOwnProperty(key)) {
+      result[key] = obj[key];
+    }
+  });
+  return result;
+}
