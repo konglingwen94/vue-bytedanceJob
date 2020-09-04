@@ -122,6 +122,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       positionY = getOffsetTop(document.body, this.$refs.searchBar);
+    
       searchBarClientHeight = this.$refs.searchBar.clientHeight;
     });
     const onPageScroll = () => {

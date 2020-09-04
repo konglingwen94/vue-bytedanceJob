@@ -28,7 +28,7 @@ export const watchScrollDirection = function(scrollElement, callback) {
   function throttle() {
     let now = Date.now();
     if (!previousTimer) previousTimer = now;
-    if (now - previousTimer > 100) {
+    if (now - previousTimer > 30) {
       onScroll();
       previousTimer = now;
     }

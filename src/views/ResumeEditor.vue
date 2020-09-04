@@ -827,7 +827,7 @@ import {
   fetchResumeParseTaskData,
   fetchResumeAttachmentToken,
 } from "@/helper/requestWithToken";
-
+import { getOffsetTop } from "@/helper/utilities";
 let footerActionPosition = null;
 export default {
   name: "resume-editor",
@@ -841,7 +841,7 @@ export default {
       setting: {},
       withoutCareer: false,
       careerList: [],
-      footerActionFixed: true,
+      footerActionFixed: false,
       uploadToken: "",
       resumeUploaded: false,
       validatorRules: {
@@ -971,6 +971,14 @@ export default {
       this.resume = this.mapResumeData(response.data.resume_detail);
       this.uploadData = this.resume.resume_attachment || {};
       this.withoutCareer = this.resume.career_list.length === 0;
+      this.$nextTick(() => {
+        // 初始化后判断页面滚动的位置，设置底部操作栏定位位置
+        const footerActionNode = this.$refs["footerAction"];
+       
+        this.footerActionShouldFixedThreshold =
+          getOffsetTop(document.body, footerActionNode) + footerActionNode.offsetHeight;
+        this.onPageScroll();
+      });
 
       // 观测一次是否有工作经历，初始化表单数据
       const unwatch = this.$watch("withoutCareer", (newVal) => {
@@ -991,10 +999,8 @@ export default {
     });
   },
   mounted() {
-    footerActionPosition = {
-      bottom: this.$refs["footerAction"].getBoundingClientRect().bottom,
-      height: this.$refs.footerAction.clientHeight,
-    };
+   
+
     window.addEventListener("scroll", this.onPageScroll);
 
     window.addEventListener("beforeunload", this.onbeforeunloadAlert);
@@ -1004,6 +1010,13 @@ export default {
     window.removeEventListener("beforeunload", this.onbeforeunloadAlert);
   },
   methods: {
+    onPageScroll() {
+      this.footerActionFixed =
+        window.scrollY <
+        this.footerActionShouldFixedThreshold - window.innerHeight;
+
+      
+    },
     async handleWorksUploadChange(file, item, index) {
       if (file.status === "ready") {
         const props = {
@@ -1315,11 +1328,6 @@ export default {
       e.preventDefault();
       e.returnValue = false;
     },
-    onPageScroll() {
-      this.footerActionFixed =
-        this.$refs["editorFrom"].getBoundingClientRect().bottom >=
-        footerActionPosition.bottom - footerActionPosition.height;
-    },
   },
 };
 </script>
@@ -1428,7 +1436,7 @@ export default {
 }
 .resumeEditor-footerAction {
   padding: 30px 190px;
-
+  z-index: 33;
   text-align: right;
   &-fix {
     width: 100%;

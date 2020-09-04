@@ -97,13 +97,16 @@ export default {
   animation: slideOutUp 0.4s;
 }
 
+.jumpPage-leave-active {
+  display: none;
+}
 .jumpPage-enter {
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 }
 
 .jumpPage-enter-active {
-  transition: all 0.56s;
+  transition: all 0.3s;
 }
 
 footer {
