@@ -411,6 +411,7 @@ export default {
     const loading = this.$loading();
     fetchResume()
       .then((res) => {
+        loading.close();
         this.resumeDetail = res.data.resume_detail;
       })
       .catch((err) => {
