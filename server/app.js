@@ -18,37 +18,29 @@ const proxyOpts = {
     if (proxyResponse.headers["set-cookie"]) {
       // 去除原服务器响应 cookie 的`secure`和`httpOnly`字段
       const cookies = proxyResponse.headers["set-cookie"].map((cookie) => {
-        return cookie.replace(/; secure/gi, "").replace(/; httpOnly/gi, "");
+        return cookie
+          .replace(/; secure/gi, "")
+          .replace(/; httpOnly/gi, "")
+          // .replace("604800", 5);
       });
       proxyResponse.headers["set-cookie"] = cookies;
+
+     
       // proxyResponse.headers["set-cookie"] = "atsx-csrf-token=ADVfxg4aVw0_odc7KFbmjheiLFlHVNlSAjyWAu5dqMg=; Path=/; Max-Age=604800";
     }
   },
 };
 // 使用代理服务转发API请求
 app.use("/api/v1", createProxyMiddleware(proxyOpts));
-// 
+//
 // 使用代理服务转发文件上传接口请求
-app.use("/atsx/blob", createProxyMiddleware({
-  changeOrigin:true,
-  target:'https://job.bytedance.com',
-  onProxyReq(proxyReq,req,res){
-    console.clear()
-    console.log(new Date().toISOString(),req.path)
-    // debugger
-    // Object.keys(req.headers).map((key) => {
-    //   req.headers[key]= req.headers[key].replace(
-    //   "http://localhost:8080",
-    //   "https://job.bytedance.com"
-    // );
-  // });
-  
-    // console.log(proxyReq.headers)
-  },
-  // onProxyRes(){
-  //   console.log('onProxyRes')
-  // }
-}));
+app.use(
+  "/atsx/blob",
+  createProxyMiddleware({
+    changeOrigin: true,
+    target: "https://job.bytedance.com",
+  })
+);
 
 app.use(bodyParser());
 // 自定义路由转发

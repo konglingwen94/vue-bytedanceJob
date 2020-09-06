@@ -2,15 +2,15 @@
   <div class="user">
     <!-- 用户使用邮箱登录注册提示 -->
     <div style="position:absolute;width:400px;left:30%;top:70px">
-      <el-alert type="warning" show-icon  >
-        <span slot="title">请在官方网站使用邮箱注册账号后才可以登录</span>
+      <el-alert type="warning" show-icon>
+        <span slot="title">请在官方网站使用邮箱注册账号后再登录</span>
         <span
-          >注册点这里
+          >去
           <a
             href="https://job.bytedance.com/society/createaccount"
             style="color:blue"
             target="_blank"
-            >这里</a
+            >注册</a
           >
         </span>
       </el-alert>
@@ -110,8 +110,10 @@
         <bytedance-button
           :loading="loading"
           @click="handlerLogin"
+          @keydown.enter.native="handlerLogin"
           type="primary"
           size="large"
+          tabindex="0"
           >登录</bytedance-button
         >
       </div>

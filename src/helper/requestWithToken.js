@@ -3,6 +3,7 @@ import request from "./request";
 import { Message, Notification } from "element-ui";
 import router from "@/router";
 import createMessage from "@/components/message";
+import store from "@/store";
 const requestWithToken = axios.create({
   baseURL: "/api",
   xsrfCookieName: "atsx-csrf-token", // default
@@ -27,7 +28,7 @@ requestWithToken.interceptors.response.use(
   (response) => {
     if (response.data) {
       if (response.data.code !== 0) {
-        Message.error(response.data.message);
+        createMessage.error(response.data.message);
         return Promise.reject(response.data);
       }
       return Promise.resolve(response.data);
@@ -44,9 +45,9 @@ requestWithToken.interceptors.response.use(
     }
     if (error.response) {
       if (error.response.status === 401) {
-        createMessage.error("账号未登录");
         router.push("/user");
-        // window.location.href = "/user";
+        store.expireLogin();
+        createMessage.error("登录过期");
       } else if (error.response.status === 405) {
         try {
           await request.post("/v1/csrf/token");

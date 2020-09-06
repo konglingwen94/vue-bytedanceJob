@@ -2,26 +2,12 @@ import Vue from "vue";
 import {
   fetchLoginStatus,
   fetchProfile,
-  fetchLogout
+  fetchLogout,
 } from "../helper/requestWithToken";
-
-window.addEventListener("beforeunload", () => {
-  localStorage.setItem("account", JSON.stringify(state));
-});
-
-window.addEventListener("load", () => {
-  try {
-    var account = JSON.parse(localStorage.getItem("account"));
-  } catch (error) {
-    account = {};
-  }
-  state.isLogin = account.isLogin;
-  state.userInfo = account.userInfo;
-});
 
 export const state = Vue.observable({
   isLogin: false,
-  userInfo: {}
+  userInfo: {},
 });
 
 const store = {
@@ -39,27 +25,41 @@ const store = {
   },
   requestLoginStatus() {
     return fetchLoginStatus()
-      .then(response => {
+      .then((response) => {
         store.setLoginStatus(response.data);
         return response.data;
       })
-      .catch(err => Promise.reject(err));
+      .catch((err) => Promise.reject(err));
   },
   requestLogout() {
     return fetchLogout()
-      .then(res => {
+      .then((res) => {
         if (res.data === "success") {
           store.expireLogin();
         }
       })
-      .catch(err => Promise.reject(err));
+      .catch((err) => Promise.reject(err));
   },
   requestUserInfo() {
     return fetchProfile()
-      .then(response => {
+      .then((response) => {
         store.setUserInfo(response.data);
       })
       .catch(Promise.reject);
-  }
+  },
 };
 export default store;
+
+window.addEventListener("beforeunload", () => {
+  localStorage.setItem("account", JSON.stringify(state));
+});
+
+// window.addEventListener("DOMContentLoaded", () => {
+try {
+  var account = JSON.parse(localStorage.getItem("account"));
+} catch (error) {
+  account = {};
+}
+state.isLogin = account.isLogin;
+state.userInfo = account.userInfo;
+// });

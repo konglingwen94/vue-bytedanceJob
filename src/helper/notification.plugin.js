@@ -151,7 +151,7 @@ const handlerDevtoolsChange = (event, Vue) => {
     if (notificationCount > 0) {
       console.groupEnd();
     } else {
-      console.clear();
+      // console.clear();
     }
     Vue.config.errorHandler = null;
     Vue.config.warnHandler = null;
