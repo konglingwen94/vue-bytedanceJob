@@ -2,6 +2,7 @@
 node_modules
 /dist
 /server/dist
+/server/screenshots
 /test
 
 # local env files
