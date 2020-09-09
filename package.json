@@ -17,7 +17,7 @@
     "url": "https://github.com/konglingwen94/vue-bytedanceJob/issues"
   },
   "gitHooks": {
-    "pre-push": "sh deploy.sh"
+    
   },
   "dependencies": {
     "axios": "^0.19.2",

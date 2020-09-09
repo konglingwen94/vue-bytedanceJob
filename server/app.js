@@ -51,8 +51,6 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, "dist")));
-// 托管项目静态资源截图
-app.use('/screenshots',express.static(path.join(__dirname, "dist")));
 
 
 app.listen(3000, () => {
