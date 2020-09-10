@@ -218,14 +218,15 @@ vue-bytedanceJob
 
 ## 项目截图
 
-![vue-bytedanceJob](./screenshots/navbar.gif)<br>
+![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/navbar.gif)<br>
 ![home](https://user-images.githubusercontent.com/46000016/92583485-f2d86080-f2c4-11ea-8c2e-9a87e234fbf0.gif)
 ![job](https://user-images.githubusercontent.com/46000016/92588487-a3e1f980-f2cb-11ea-998f-fe35a0646cee.gif)
 
-![vue-bytedanceJob](./screenshots/jobDetail.gif)<br>
-![vue-bytedanceJob](./screenshots/product.gif)<br>
-![vue-bytedanceJob](./screenshots/staffStory.gif)
-![vue-bytedanceJob](./screenshots/resume.gif)
+![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/jobDetail.gif)<br>
+![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/resume.gif)
+![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/product.gif)<br>
+![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/staffStory.gif)
+![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/popup-progress&message-success.gif)
 
 ## 支持
 
