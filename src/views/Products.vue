@@ -147,17 +147,23 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
+  min-height: 500px;
+  min-width: 700px;
   &-fullpage-indicator {
     position: absolute;
     z-index: 333;
     right: 50px;
     top: 50%;
     transform: translateY(-50%);
-    width: 100px;
+    // height: 100%;
+    // padding:40px 0;
+    // box-sizing:border-box;
     &-item {
       margin: 22px 0;
-      width: 40px;
-      height: 40px;
+      width: 5vh;
+      height: 5vh;
+      min-height: 30px;
+      min-width: 30px;
       cursor: pointer;
       transition: all 0.3s;
       border-radius: 50%;
@@ -178,19 +184,23 @@ export default {
 
   .view-wrapper {
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
+    background-position: center;
     position: absolute;
     height: 100vh;
     width: 100%;
-    padding-top: 100px;
+    // padding-top: 100px;
     padding-left: 100px;
 
     .content {
       width: 300px;
+      transform: translateY(-50%);
+      position: absolute;
+      top: 50%;
       // text-align: center;
       .logo {
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 80px;
       }
       h2 {
         margin: 30px 0;
