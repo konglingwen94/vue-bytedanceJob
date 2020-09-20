@@ -155,9 +155,7 @@ export default {
     right: 50px;
     top: 50%;
     transform: translateY(-50%);
-    // height: 100%;
-    // padding:40px 0;
-    // box-sizing:border-box;
+     
     &-item {
       margin: 22px 0;
       width: 5vh;
