@@ -3,20 +3,18 @@
     <h2>{{ title }}</h2>
 
     <ul class="checkbox-list">
-      <li
-        class="checkbox-item"
-        v-for="(item, index) in targetData"
-        :key="index"
-      >
+      <li class="checkbox-item" v-for="(item, index) in targetData" :key="index">
         <input
           @change="check(item, $event)"
           type="checkbox"
           :id="item[props.key]"
           :checked="checked[index]"
         />
-        <label :for="item[props.key]" class="label-text">{{
+        <label :for="item[props.key]" class="label-text">
+          {{
           item[props.label]
-        }}</label>
+          }}
+        </label>
       </li>
     </ul>
     <div class="search" v-if="sourceData.length">
@@ -160,15 +158,20 @@ export default {
 .checkbox {
   max-width: 200px;
   h2 {
-    font-weight: 300;
+    font-weight: @font-weight-regular;
     margin-bottom: 12px;
+    color: black;
+    font-size: @font-size-large;
   }
   &-item {
-    margin-bottom: 3px;
-    cursor: pointer;
+    margin-bottom: 8px;
+    // cursor: pointer;
     input,
     label {
       cursor: pointer;
+    }
+    input {
+      transform: scale(1.4);
     }
     .label-text {
       margin-left: 3px;
@@ -184,14 +187,14 @@ export default {
 
   &-placeholder {
     cursor: pointer;
-    border-bottom: 1px solid #aaa;
+    // border-bottom: 1px solid @border-lighter-color;
   }
   &-input {
     border-width: 0 0 1px 0;
     outline: none;
     width: 100%;
     padding: 5px;
-
+    border-color: @border-lighter-color;
     &.focusing {
       border-color: @main-color;
     }
@@ -205,7 +208,7 @@ export default {
     max-height: 300px;
     width: 100%;
     overflow: auto;
-    line-height: 30px;
+    line-height: 34px;
     box-shadow: 0 10px 30px 0 rgba(136, 150, 171, 0.15);
   }
   &-item {

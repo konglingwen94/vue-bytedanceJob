@@ -217,7 +217,7 @@ export default {
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid @border-lighter-color;
       padding-bottom: 10px;
       width: 100%;
       .clear {
