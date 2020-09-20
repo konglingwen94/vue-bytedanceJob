@@ -346,7 +346,6 @@ export default {
     z-index: -1;
     overflow: hidden;
     .video {
-      width: 100%;
       object-fit: cover;
     }
   }
