@@ -32,13 +32,13 @@
         >
           邮箱登录
         </li>
-        <li
+        <!-- <li
           class="login-tabbar__item"
           @click="toggleLoginMode('wechat')"
           :class="{ 'login-tabbar__item--active': loginMode === 'wechat' }"
         >
           微信登录
-        </li>
+        </li> -->
       </ul>
 
       <ul class="login-form-content">
@@ -112,9 +112,9 @@
             </el-form-item>
           </el-form>
         </li>
-        <li class="login-form-content__wechat" v-else>
+        <!-- <li class="login-form-content__wechat" v-else>
           <iframe src="https://job.bytedance.com/api/v1/user/wechat/login?channel=office&amp;platform=pc&amp;tracking=&amp;next_url=https%3A%2F%2Fjob.bytedance.com%2Fsociety%2F&amp;href=data%3Atext%2Fcss%3Bbase64%2CCi5ub3JtYWxQYW5lbCB7CiAgZGlzcGxheTogZmxleDsKICBmbGV4LWRpcmVjdGlvbjogY29sdW1uLXJldmVyc2U7Cn0KLnFyY29kZSB7CiAgd2lkdGg6IDEzNnB4ICFpbXBvcnRhbnQ7CiAgaGVpZ2h0OiAxMzZweDsKICBtYXJnaW4tdG9wOiAwIWltcG9ydGFudDsKICBib3JkZXI6IG5vbmUhaW1wb3J0YW50Owp9Ci50aXRsZSB7CiAgbWFyZ2luLXRvcDogLTRweDsKICBmb250LXNpemU6IDE0cHghaW1wb3J0YW50Owp9Ci5pbmZvIHsKICBkaXNwbGF5OiBub25lOwp9Ci5pbXBvd2VyQm94IHsKICBsaW5lLWhlaWdodDogdW5zZXQ7Cn0K"></iframe>
-        </li> 
+        </li>  -->
       </ul>
       <div class="login__button">
         <bytedance-button
