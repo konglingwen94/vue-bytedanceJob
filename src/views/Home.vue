@@ -31,154 +31,155 @@
     </div>
 
     <!-- 产品 -->
+    <div class="main">
+      <div ref="product" class="product content-item-block">
+        <h1 class="title">Inspire creativity, enrich life</h1>
+        <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
+        <ul class="product-list">
+          <li
+            class="product-item"
+            v-for="(item, key) in products"
+            :key="key"
+            @click="jumpToDetail(item)"
+          >
+            <img :src="item.logo" alt />
+            <div>{{ item.title }}</div>
+          </li>
+        </ul>
+        <router-link to="/products">
+          <div class="more">
+            <!-- <span class="more-button">了解更多</span> -->
+            <bytedance-button size="large">了解更多</bytedance-button>
+          </div>
+        </router-link>
+      </div>
 
-    <div ref="product" class="product content-item-block">
-      <h1 class="title">Inspire creativity, enrich life</h1>
-      <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
-      <ul class="product-list">
-        <li
-          class="product-item"
-          v-for="(item, key) in products"
-          :key="key"
-          @click="jumpToDetail(item)"
-        >
-          <img :src="item.logo" alt />
-          <div>{{ item.title }}</div>
-        </li>
-      </ul>
-      <router-link to="/products">
-        <div class="more">
-          <!-- <span class="more-button">了解更多</span> -->
-          <bytedance-button size="large">了解更多</bytedance-button>
-        </div>
-      </router-link>
-    </div>
+      <!-- 职位 -->
+      <div class="job-category content-item-block">
+        <h2 class="job-category-title title">探索你感兴趣的职位</h2>
+        <ul class="job-category-list clearfix">
+          <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
+            <router-link :to="{ name: 'jobs', params: { job_category_id: item.id } }">
+              <div class="image" :style="`backgroundImage:url(${item.image})`">
+                <span class="overlay" v-if="!item.id">{{ item.zh_name }}</span>
+              </div>
+              <div v-if="item.id" class="name">{{ item.zh_name }}</div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
 
-    <!-- 职位 -->
-    <div class="job-category content-item-block">
-      <h2 class="job-category-title title">探索你感兴趣的职位</h2>
-      <ul class="job-category-list clearfix">
-        <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
-          <router-link :to="{ name: 'jobs', params: { job_category_id: item.id } }">
-            <div class="image" :style="`backgroundImage:url(${item.image})`">
-              <span class="overlay" v-if="!item.id">{{ item.zh_name }}</span>
-            </div>
-            <div v-if="item.id" class="name">{{ item.zh_name }}</div>
-          </router-link>
-        </li>
-      </ul>
-    </div>
-
-    <!-- 字节范 -->
-    <div class="byteStandard content-item-block">
-      <h1 class="title">字节范</h1>
-      <div class="desc">字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则</div>
-      <div class="content">
-        <div class="image">
-          <span
-            v-show="productLayerVisible"
-            class="layer"
-            @animationend="onScrollRightAnimationEnd"
-          ></span>
-          <img
-            v-if="byteStandards[byteStandardActiveIndex]"
-            width="100%"
-            height="100%"
-            :src="byteStandards[byteStandardActiveIndex].image"
-            alt
-          />
-        </div>
-        <div class="indicator">
-          <ul>
-            <li class="indicator-item" v-for="(item, index) in byteStandards" :key="index">
-              <h3
-                :class="{ active: byteStandardActiveIndex === index }"
-                @click="
+      <!-- 字节范 -->
+      <div class="byteStandard content-item-block">
+        <h1 class="title">字节范</h1>
+        <div class="desc">字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则</div>
+        <div class="content">
+          <div class="image">
+            <span
+              v-show="productLayerVisible"
+              class="layer"
+              @animationend="onScrollRightAnimationEnd"
+            ></span>
+            <img
+              v-if="byteStandards[byteStandardActiveIndex]"
+              width="100%"
+              height="100%"
+              :src="byteStandards[byteStandardActiveIndex].image"
+              alt
+            />
+          </div>
+          <div class="indicator">
+            <ul>
+              <li class="indicator-item" v-for="(item, index) in byteStandards" :key="index">
+                <h3
+                  :class="{ active: byteStandardActiveIndex === index }"
+                  @click="
                   () => {
                     byteStandardActiveIndex = index;
                     productLayerVisible = true;
                   }
                 "
-              >{{ item.title }}</h3>
-              <p v-html="item.content" v-show="byteStandardActiveIndex === index"></p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 字节生活 -->
-    <div class="byteLife content-item-block">
-      <h1 class="byteLife-title">字节生活</h1>
-      <div class="block-item block-item-one">
-        <div class="block-item-column block-item-column-text">
-          <h2 class="block-item-column-title">在扁平开放的氛围 里工作</h2>
-          <div class="content">
-            <div class="content-item">
-              <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-            </div>
-            <div class="content-item">
-              <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-            </div>
-            <div class="content-item">
-              <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-            </div>
+                >{{ item.title }}</h3>
+                <p v-html="item.content" v-show="byteStandardActiveIndex === index"></p>
+              </li>
+            </ul>
           </div>
-        </div>
-        <div class="block-item-column block-item-column-image">
-          <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
         </div>
       </div>
 
-      <div class="block-item block-item-one">
-        <div class="block-item-column block-item-column-text">
-          <h2 class="block-item-column-title">在扁平开放的氛围 里工作</h2>
-          <div class="content">
-            <div class="content-item">
-              <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-            </div>
-            <div class="content-item">
-              <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-            </div>
-            <div class="content-item">
-              <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
+      <!-- 字节生活 -->
+      <div class="byteLife content-item-block">
+        <h1 class="byteLife-title">字节生活</h1>
+        <div class="block-item block-item-one">
+          <div class="block-item-column block-item-column-text">
+            <h2 class="block-item-column-title">在扁平开放的氛围 里工作</h2>
+            <div class="content">
+              <div class="content-item">
+                <h2 class="content-item-title">务实扁平的工作氛围</h2>
+                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
+              </div>
+              <div class="content-item">
+                <h2 class="content-item-title">务实扁平的工作氛围</h2>
+                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
+              </div>
+              <div class="content-item">
+                <h2 class="content-item-title">务实扁平的工作氛围</h2>
+                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
+              </div>
             </div>
           </div>
+          <div class="block-item-column block-item-column-image">
+            <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
+          </div>
         </div>
-        <div class="block-item-column block-item-column-image">
-          <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
+
+        <div class="block-item block-item-one">
+          <div class="block-item-column block-item-column-text">
+            <h2 class="block-item-column-title">在扁平开放的氛围 里工作</h2>
+            <div class="content">
+              <div class="content-item">
+                <h2 class="content-item-title">务实扁平的工作氛围</h2>
+                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
+              </div>
+              <div class="content-item">
+                <h2 class="content-item-title">务实扁平的工作氛围</h2>
+                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
+              </div>
+              <div class="content-item">
+                <h2 class="content-item-title">务实扁平的工作氛围</h2>
+                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
+              </div>
+            </div>
+          </div>
+          <div class="block-item-column block-item-column-image">
+            <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 员工故事 -->
-    <div class="staffStory content-item-block">
-      <h2 class="title">员工故事</h2>
-      <ul class="staffStory-list clearfix">
-        <router-link
-          tag="li"
-          :to="`/staff-stories/${item.id}`"
-          v-for="item in staffStories"
-          :key="item.id"
-          class="staffStory-item"
-        >
-          <div class="avatar">
-            <img width="100%" :src="item.avatar" alt srcset />
-          </div>
-          <div class="text">
-            <h2 class="title">{{ item.title }}</h2>
-            <div class="desc">{{ item.name }}&nbsp;|&nbsp;{{ item.department }}</div>
-            <p class="remark">{{ item.remark }}</p>
-          </div>
-          <div class="circular-button">→</div>
-        </router-link>
-      </ul>
+      <!-- 员工故事 -->
+      <div class="staffStory content-item-block">
+        <h2 class="title">员工故事</h2>
+        <ul class="staffStory-list clearfix">
+          <router-link
+            tag="li"
+            :to="`/staff-stories/${item.id}`"
+            v-for="item in staffStories"
+            :key="item.id"
+            class="staffStory-item"
+          >
+            <div class="avatar">
+              <img width="100%" :src="item.avatar" alt srcset />
+            </div>
+            <div class="text">
+              <h2 class="title">{{ item.title }}</h2>
+              <div class="desc">{{ item.name }}&nbsp;|&nbsp;{{ item.department }}</div>
+              <p class="remark">{{ item.remark }}</p>
+            </div>
+            <div class="circular-button">→</div>
+          </router-link>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -276,6 +277,10 @@ export default {
 }
 
 .home {
+  .main {
+    width: @main-width;
+    margin: auto;
+  }
   .content-item-block {
     .title {
       font-size: @font-size-larger;
@@ -286,6 +291,7 @@ export default {
 .banner {
   height: 100vh;
   min-height: 400px;
+  min-width: @main-width;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -350,7 +356,7 @@ export default {
     width: 50px;
     height: 50px;
     flex-shrink: 0;
-     
+
     text-align: center;
     .arrow-down {
       display: block;

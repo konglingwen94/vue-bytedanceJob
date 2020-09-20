@@ -37,8 +37,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .input-search {
+  margin-left: auto;
+  margin-right: auto;
   height: 50px;
+  width: 100%;
   min-width: 400px;
+  max-width: @main-width;
   position: relative;
   border-radius: 30px;
   overflow: hidden;
