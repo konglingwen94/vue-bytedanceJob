@@ -4,14 +4,13 @@
     <div style="position:absolute;width:400px;left:30%;top:70px">
       <el-alert type="warning" show-icon>
         <span slot="title">请在官方网站使用邮箱注册账号后再登录</span>
-        <span
-          >去
+        <span>
+          去
           <a
             href="https://job.bytedance.com/society/createaccount"
             style="color:blue"
             target="_blank"
-            >注册</a
-          >
+          >注册</a>
         </span>
       </el-alert>
     </div>
@@ -22,49 +21,34 @@
           class="login-tabbar__item"
           :class="{ 'login-tabbar__item--active': loginMode === 'phone' }"
           @click="toggleLoginMode('phone')"
-        >
-          手机号登录
-        </li>
+        >手机号登录</li>
         <li
           class="login-tabbar__item"
           @click="toggleLoginMode('email')"
           :class="{ 'login-tabbar__item--active': loginMode === 'email' }"
-        >
-          邮箱登录
-        </li>
+        >邮箱登录</li>
         <!-- <li
           class="login-tabbar__item"
           @click="toggleLoginMode('wechat')"
           :class="{ 'login-tabbar__item--active': loginMode === 'wechat' }"
         >
           微信登录
-        </li> -->
+        </li>-->
       </ul>
 
       <ul class="login-form-content">
         <li class="login-form-content__phone" v-if="loginMode === 'phone'">
           <el-form :model="phoneForm" key="phone">
             <el-form-item>
-              <el-input
-                v-model="phoneForm.phone"
-                placeholder="输入手机号"
-                class="input-with-select"
-              >
-                <el-select
-                  slot="prepend"
-                  v-model="selectedCountry"
-                  placeholder="请选择"
-                >
-                  <el-option value="disabled" disabled
-                    >选择国家和地区</el-option
-                  >
+              <el-input v-model="phoneForm.phone" placeholder="输入手机号" class="input-with-select">
+                <el-select slot="prepend" v-model="selectedCountry" placeholder="请选择">
+                  <el-option value="disabled" disabled>选择国家和地区</el-option>
                   <hr class="input-with-select__divider" />
                   <el-option
                     :value="`+${item.val}`"
                     v-for="item in mobileCode"
                     :key="item.id"
-                    >{{ item.country }} +{{ item.val }}</el-option
-                  >
+                  >{{ item.country }} +{{ item.val }}</el-option>
                 </el-select>
               </el-input>
             </el-form-item>
@@ -76,12 +60,7 @@
           </el-form>
         </li>
         <li class="login-form-content__email" v-else-if="loginMode==='email'">
-          <el-form
-            key="email"
-            :rules="emailFormRules"
-            :model="emailForm"
-            ref="emailForm"
-          >
+          <el-form key="email" :rules="emailFormRules" :model="emailForm" ref="emailForm">
             <el-form-item ref="emailFormItem" prop="email">
               <el-input
                 @blur="onEmailInputBlur"
@@ -114,7 +93,7 @@
         </li>
         <!-- <li class="login-form-content__wechat" v-else>
           <iframe src="https://job.bytedance.com/api/v1/user/wechat/login?channel=office&amp;platform=pc&amp;tracking=&amp;next_url=https%3A%2F%2Fjob.bytedance.com%2Fsociety%2F&amp;href=data%3Atext%2Fcss%3Bbase64%2CCi5ub3JtYWxQYW5lbCB7CiAgZGlzcGxheTogZmxleDsKICBmbGV4LWRpcmVjdGlvbjogY29sdW1uLXJldmVyc2U7Cn0KLnFyY29kZSB7CiAgd2lkdGg6IDEzNnB4ICFpbXBvcnRhbnQ7CiAgaGVpZ2h0OiAxMzZweDsKICBtYXJnaW4tdG9wOiAwIWltcG9ydGFudDsKICBib3JkZXI6IG5vbmUhaW1wb3J0YW50Owp9Ci50aXRsZSB7CiAgbWFyZ2luLXRvcDogLTRweDsKICBmb250LXNpemU6IDE0cHghaW1wb3J0YW50Owp9Ci5pbmZvIHsKICBkaXNwbGF5OiBub25lOwp9Ci5pbXBvd2VyQm94IHsKICBsaW5lLWhlaWdodDogdW5zZXQ7Cn0K"></iframe>
-        </li>  -->
+        </li>-->
       </ul>
       <div class="login__button">
         <bytedance-button
@@ -124,8 +103,7 @@
           type="primary"
           size="large"
           tabindex="0"
-          >登录</bytedance-button
-        >
+        >登录</bytedance-button>
       </div>
     </div>
   </div>
@@ -134,7 +112,7 @@
 import {
   fetchLoginByEmail,
   fetchCommonSettings,
-  fetchEmailRegisterStatus,
+  fetchEmailRegisterStatus
 } from "@/helper/requestWithToken.js";
 import store from "@/store/index.js";
 
@@ -150,7 +128,7 @@ export default {
       if (triggerType === "submit") return;
       try {
         var result = await fetchEmailRegisterStatus({
-          email: self.emailForm.email,
+          email: self.emailForm.email
         });
       } catch (error) {
         throw error;
@@ -164,44 +142,44 @@ export default {
       {
         required: true,
         trigger: "blur",
-        message: "邮箱不能为空",
+        message: "邮箱不能为空"
       },
       {
         type: "email",
         trigger: "blur",
-        message: "邮箱格式不正确",
+        message: "邮箱格式不正确"
       },
       {
         validator,
-        trigger: "blur",
-      },
+        trigger: "blur"
+      }
     ];
     return {
       emailFormRules: {
         email: mutipleEmailRules,
         password: {
           required: true,
-          message: "密码不能为空",
-        },
+          message: "密码不能为空"
+        }
       },
       loginMode: "email",
       mobileCode: [],
       phoneForm: {
         verifyCode: "",
-        phone: "",
+        phone: ""
       },
       emailForm: {
         email: "",
-        password: "",
+        password: ""
       },
       passwordInputType: "password",
       selectedCountry: "",
-      loading: false,
+      loading: false
     };
   },
 
   created() {
-    fetchCommonSettings().then((response) => {
+    fetchCommonSettings().then(response => {
       this.mobileCode = response.data.mobile_code;
     });
   },
@@ -254,8 +232,8 @@ export default {
     togglePasswordInputType() {
       this.passwordInputType =
         this.passwordInputType === "password" ? "text" : "password";
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less">
@@ -284,10 +262,14 @@ export default {
 }
 </style>
 <style scoped lang="less">
+.user {
+  height: calc(100vh - 380px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .login {
   width: 500px;
-  margin: 0 auto;
-  margin-top: 100px;
   &-tabbar {
     display: flex;
 

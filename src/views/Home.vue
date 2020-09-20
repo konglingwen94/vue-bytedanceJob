@@ -20,10 +20,7 @@
         <div class="subTitle">JOIN BYTEDANCE</div>
       </h1>
       <div class="search">
-        <input-search
-          @search="searchJobs"
-          placeholder="输入城市或职位进行搜索"
-        ></input-search>
+        <input-search @search="searchJobs" placeholder="输入城市或职位进行搜索"></input-search>
       </div>
       <div class="bottom-tips">
         <span class="arrow-down" @click="scrollDown">
@@ -37,9 +34,7 @@
 
     <div ref="product" class="product content-item-block">
       <h1 class="title">Inspire creativity, enrich life</h1>
-      <div class="desc">
-        截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种
-      </div>
+      <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
       <ul class="product-list">
         <li
           class="product-item"
@@ -63,14 +58,8 @@
     <div class="job-category content-item-block">
       <h2 class="job-category-title title">探索你感兴趣的职位</h2>
       <ul class="job-category-list clearfix">
-        <li
-          v-for="item in jobCategories"
-          :key="item.id"
-          class="job-category-item"
-        >
-          <router-link
-            :to="{ name: 'jobs', params: { job_category_id: item.id } }"
-          >
+        <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
+          <router-link :to="{ name: 'jobs', params: { job_category_id: item.id } }">
             <div class="image" :style="`backgroundImage:url(${item.image})`">
               <span class="overlay" v-if="!item.id">{{ item.zh_name }}</span>
             </div>
@@ -83,9 +72,7 @@
     <!-- 字节范 -->
     <div class="byteStandard content-item-block">
       <h1 class="title">字节范</h1>
-      <div class="desc">
-        字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则
-      </div>
+      <div class="desc">字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则</div>
       <div class="content">
         <div class="image">
           <span
@@ -103,11 +90,7 @@
         </div>
         <div class="indicator">
           <ul>
-            <li
-              class="indicator-item"
-              v-for="(item, index) in byteStandards"
-              :key="index"
-            >
+            <li class="indicator-item" v-for="(item, index) in byteStandards" :key="index">
               <h3
                 :class="{ active: byteStandardActiveIndex === index }"
                 @click="
@@ -116,13 +99,8 @@
                     productLayerVisible = true;
                   }
                 "
-              >
-                {{ item.title }}
-              </h3>
-              <p
-                v-html="item.content"
-                v-show="byteStandardActiveIndex === index"
-              ></p>
+              >{{ item.title }}</h3>
+              <p v-html="item.content" v-show="byteStandardActiveIndex === index"></p>
             </li>
           </ul>
         </div>
@@ -138,29 +116,20 @@
           <div class="content">
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
           </div>
         </div>
         <div class="block-item-column block-item-column-image">
-          <img
-            src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png"
-            alt
-          />
+          <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
         </div>
       </div>
 
@@ -170,29 +139,20 @@
           <div class="content">
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
             <div class="content-item">
               <h2 class="content-item-title">务实扁平的工作氛围</h2>
-              <p class="content-item-desc">
-                不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识
-              </p>
+              <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
             </div>
           </div>
         </div>
         <div class="block-item-column block-item-column-image">
-          <img
-            src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png"
-            alt
-          />
+          <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
         </div>
       </div>
     </div>
@@ -213,9 +173,7 @@
           </div>
           <div class="text">
             <h2 class="title">{{ item.title }}</h2>
-            <div class="desc">
-              {{ item.name }}&nbsp;|&nbsp;{{ item.department }}
-            </div>
+            <div class="desc">{{ item.name }}&nbsp;|&nbsp;{{ item.department }}</div>
             <p class="remark">{{ item.remark }}</p>
           </div>
           <div class="circular-button">→</div>
@@ -239,25 +197,25 @@ export default {
       jobCategories: [],
       byteStandards: [],
       byteStandardActiveIndex: 0,
-      staffStories: [],
+      staffStories: []
     };
   },
   created() {
     const fetchProducts = this.request
       .get("/products")
-      .then((response) => {
+      .then(response => {
         this.products = response;
       })
       .catch();
     const fetchJobCategories = this.request
       .get("/job-categories")
-      .then((response) => {
+      .then(response => {
         this.jobCategories = response;
       });
-    this.request.get("/byte-standards").then((response) => {
+    this.request.get("/byte-standards").then(response => {
       this.byteStandards = response;
     });
-    this.request.get("/staff-stories").then((response) => {
+    this.request.get("/staff-stories").then(response => {
       this.staffStories = response;
     });
   },
@@ -268,7 +226,7 @@ export default {
     scrollDown() {
       this.$refs.product.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "start"
       });
     },
     searchJobs(keyword) {
@@ -276,10 +234,9 @@ export default {
     },
     jumpToDetail(item) {
       this.$router.push({ name: "products", params: item });
-    },
+    }
   },
   mounted() {
-    
     const rootVm = this.$root;
     rootVm.$emit(
       "home-scrolling",
@@ -287,13 +244,12 @@ export default {
       { x: document.body.scrollLeft, y: document.body.scrollTop }
     );
     this.unwatch = watchScrollDirection(window, function(...args) {
-       
       rootVm.$emit("home-scrolling", ...args);
     });
   },
   destroyed() {
     this.unwatch();
-  },
+  }
 };
 </script>
 
@@ -347,12 +303,13 @@ export default {
     overflow: hidden;
     .video {
       object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
   }
   &-title {
     color: #fff;
     font-size: 60px;
-    margin-top: 150px;
     text-align: center;
     .subTitle {
       &::after,
@@ -388,19 +345,18 @@ export default {
     margin-bottom: 40px;
   }
   .bottom-tips {
-    margin-top: auto;
+    position: absolute;
+    bottom: 30px;
     width: 50px;
+    height: 50px;
     flex-shrink: 0;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
+     
+    text-align: center;
     .arrow-down {
+      display: block;
       margin-bottom: 4px;
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       border: 1px solid #fff;
       text-align: center;
@@ -418,8 +374,8 @@ export default {
     .vertical-dashed {
       border-left: 1px dashed #fff;
       height: 30px;
-      margin-top: auto;
-      display: block;
+
+      display: inline-block;
     }
   }
 }
