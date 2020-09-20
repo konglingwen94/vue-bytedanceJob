@@ -194,7 +194,7 @@ export default {
   color: #fff;
 
   background-image: url("//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/joblistbanner2x.jpg");
-  background-size: 186%;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   text-align: center;

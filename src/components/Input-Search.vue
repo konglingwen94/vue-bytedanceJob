@@ -38,6 +38,7 @@ export default {
 <style lang="less" scoped>
 .input-search {
   height: 50px;
+  min-width: 400px;
   position: relative;
   border-radius: 30px;
   overflow: hidden;

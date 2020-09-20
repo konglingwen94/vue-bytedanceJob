@@ -26,7 +26,7 @@ export default {
     return {
       homeScrollY: 0,
       pageTransitionName: "",
-      animationName: "",
+      animationName: ""
     };
   },
 
@@ -37,7 +37,7 @@ export default {
         : this.homeScrollY < Math.max(400, window.innerHeight)
         ? "is-transparent"
         : "main-color";
-    },
+    }
   },
   created() {
     this.$root.$on("home-scrolling", (direction, pos) => {
@@ -62,15 +62,15 @@ export default {
       this.pageTransitionName = ["products", "home"].includes(newRoute.name)
         ? ""
         : "jumpPage";
-    },
+    }
   },
   methods: {
     onAnimationStart(e) {
       if (e.animationName === "slideInDown") {
         e.target.style.top = 0;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less">
@@ -108,7 +108,9 @@ export default {
 .jumpPage-enter-active {
   transition: all 0.3s;
 }
-
+#app {
+  min-width: 1200px;
+}
 footer {
   margin-top: 100px;
 }
