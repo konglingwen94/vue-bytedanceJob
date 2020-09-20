@@ -42,6 +42,7 @@ export default {
 .staff-story {
   .banner {
     height: 550px;
+    min-width: @main-width;
     background-repeat: no-repeat;
     background-size: 160%;
     padding: 120px;

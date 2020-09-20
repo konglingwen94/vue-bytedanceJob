@@ -54,6 +54,7 @@ export default {
 <style lang="less" scoped>
 .job-detail {
   width: 800px;
+  
   margin: auto;
   margin-top: 100px;
   line-height: 2em;
