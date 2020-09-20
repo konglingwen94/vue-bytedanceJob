@@ -234,4 +234,18 @@ vue-bytedanceJob
 
 由于服务端部分接口尚未获取到，有部分功能待实现。如果您对本项目感兴趣的话，也欢迎您能参与项目共建！
 
-> 查看本项目技术分析文章请点击我的个人博客[https://juejin.im/post/6868884040029011975](https://juejin.im/post/6868884040029011975)查看，欢迎点赞和留言！
+欢迎收藏和关注，谢谢!
+
+## 项目文章总结
+
+1. <https://github.com/konglingwen94/vue-bytedanceJob/issues/7>
+
+2. <https://github.com/konglingwen94/vue-bytedanceJob/issues/6>
+
+## 个人博客总结
+
+
+1. [https://juejin.im/post/6868884040029011975](https://juejin.im/post/6868884040029011975)
+
+2. [https://juejin.im/post/6844904199289831432](https://juejin.im/post/6844904199289831432)
+
