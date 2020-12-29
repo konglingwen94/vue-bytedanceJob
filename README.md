@@ -228,13 +228,6 @@ vue-bytedanceJob
 ![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/staffStory.gif)
 ![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/popup-progress&message-success.gif)
 
-## 支持
-
-如果看完此项目对您学习`Vue`有帮助的话，请您动手点一下`star`，有了您的支持，我会有更大的动力开源更多有趣的项目出来，谢谢！
-
-由于服务端部分接口尚未获取到，有部分功能待实现。如果您对本项目感兴趣的话，也欢迎您能参与项目共建！
-
-欢迎收藏和关注，谢谢!
 
 ## 项目文章总结
 
@@ -249,3 +242,10 @@ vue-bytedanceJob
 
 2. [https://juejin.im/post/6844904199289831432](https://juejin.im/post/6844904199289831432)
 
+## 支持
+
+如果看完此项目对您学习`Vue`有帮助的话，请您动手点一下`star`，有了您的支持，我会有更大的动力开源更多有趣的项目出来，谢谢！
+
+由于服务端部分接口尚未获取到，有部分功能待实现。如果您对本项目感兴趣的话，也欢迎您能参与项目共建！
+
+欢迎收藏和关注，谢谢!
