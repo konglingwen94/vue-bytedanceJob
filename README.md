@@ -8,7 +8,7 @@
 
 ## 线上预览
 
-[http://123.56.124.33:3000](http://123.56.124.33:3000)
+[http://123.57.204.48:3000](http://123.57.204.48:3000)
 
 ## Clone project
 
@@ -218,16 +218,15 @@ vue-bytedanceJob
 
 ## 项目截图
 
-![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/navbar.gif)<br>
+![vue-bytedanceJob](http://123.57.204.48:8080/vue-bytedanceJob/navbar.gif)<br>
 ![home](https://user-images.githubusercontent.com/46000016/92583485-f2d86080-f2c4-11ea-8c2e-9a87e234fbf0.gif)
 ![job](https://user-images.githubusercontent.com/46000016/92588487-a3e1f980-f2cb-11ea-998f-fe35a0646cee.gif)
 
-![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/jobDetail.gif)<br>
-![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/resume.gif)
-![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/product.gif)<br>
-![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/staffStory.gif)
-![vue-bytedanceJob](http://123.56.124.33:8080/vue-bytedanceJob/popup-progress&message-success.gif)
-
+![vue-bytedanceJob](http://123.57.204.48:8080/vue-bytedanceJob/jobDetail.gif)<br>
+![vue-bytedanceJob](http://123.57.204.48:8080/vue-bytedanceJob/resume.gif)
+![vue-bytedanceJob](http://123.57.204.48:8080/vue-bytedanceJob/product.gif)<br>
+![vue-bytedanceJob](http://123.57.204.48:8080/vue-bytedanceJob/staffStory.gif)
+![vue-bytedanceJob](http://123.57.204.48:8080/vue-bytedanceJob/popup-progress&message-success.gif)
 
 ## 项目文章总结
 
@@ -236,7 +235,6 @@ vue-bytedanceJob
 2. <https://github.com/konglingwen94/vue-bytedanceJob/issues/6>
 
 ## 个人博客总结
-
 
 1. [https://juejin.im/post/6868884040029011975](https://juejin.im/post/6868884040029011975)
 
